@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e788d36623f5aa3b9b254a19bb9a8a9",
+    "content-hash": "9d7d8a7e147d100418d8d1fb32acdaf8",
     "packages": [
         {
             "name": "brick/math",
@@ -6083,6 +6083,54 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2024-03-20T20:09:31+00:00"
+        },
+        {
+            "name": "laraveldaily/larastarters",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelDaily/Larastarters.git",
+                "reference": "59bda66b997ce1aa499aeac4d7236ba7806345f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelDaily/Larastarters/zipball/59bda66b997ce1aa499aeac4d7236ba7806345f1",
+                "reference": "59bda66b997ce1aa499aeac4d7236ba7806345f1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^11.0",
+                "php": "^8.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelDaily\\Larastarters\\LarastartersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelDaily\\Larastarters\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Povilas Korop",
+                    "email": "povilas@laraveldaily.com"
+                }
+            ],
+            "description": "Laravel Starter Kits with extra functions",
+            "support": {
+                "issues": "https://github.com/LaravelDaily/Larastarters/issues",
+                "source": "https://github.com/LaravelDaily/Larastarters/tree/3.0.0"
+            },
+            "time": "2024-03-18T05:36:46+00:00"
         },
         {
             "name": "mockery/mockery",
