@@ -3,40 +3,25 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <title>{{ $title ?? 'Page Title' }} - Kalibrasi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/brands.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css')}}">
+
+    <!-- Styles -->
+    @vite('resources/sass/app.scss')
 </head>
 
 <body>
-
-    <div class="flex items-center justify-center max-w-full min-h-screen bg-gray-200">
-        {{ $slot }}
-    </div>
-
-    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <main>
+        <section class="mt-5 vh-lg-100 mt-lg-0 bg-soft d-flex align-items-center">
+            {{ $slot }}
+        </section>
+    </main>
 </body>
-
-</html>
-
-{{-- <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Windmill Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-</head>
-
-<body>
-    <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
-        <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
-
-        </div>
-    </div>
-</body> --}}
 
 </html>
