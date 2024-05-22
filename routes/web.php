@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Livewire\DashboardIndex;
+use App\Livewire\Auth\LoginIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
