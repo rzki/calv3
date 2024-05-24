@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/brands.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
     <!-- Styles -->
     @vite('resources/sass/app.scss')
     <!-- Scripts -->
@@ -23,6 +24,7 @@
         @include('layouts.topbar')
         {{ $slot }}
     </main>
+    <script src="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </body>
 
 </html>

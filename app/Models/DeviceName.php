@@ -9,6 +9,10 @@ class DeviceName extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%");
+    }
     public function devices()
     {
         return $this->hasMany(Device::class);

@@ -1,9 +1,7 @@
 <ul class="pt-3 nav flex-column pt-md-0">
     <li class="nav-item">
-        <a href="{{ route('dashboard') }}" class="justify-content-center nav-link d-flex align-items-center">
-            {{-- <span class="sidebar-icon me-3">
-                <img src="{{ asset('images/brand/light.svg') }}" height="20" width="20" alt="Volt Logo">
-            </span> --}}
+        <a href="{{ route('dashboard') }}" class="justify-content-center nav-link d-flex align-items-center" wire:navigate>
+
             <h4 class="mt-1 ms-1 text-uppercase">
                 Kalibrasi
             </h4>
@@ -18,7 +16,7 @@
             <span class="sidebar-text">{{ __('Dashboard') }}</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#inventory-dropdown">
             <span>
@@ -33,11 +31,8 @@
         </span>
         <div class="multi-level collapse" role="list" id="inventory-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class="nav-link">
-                        {{-- <span class="sidebar-icon me-3">
-                        <i class="fas fa-circle"></i>
-                    </span> --}}
+                <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}">
+                    <a href="{{ route('inventory.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
                     </a>
                 </li>
@@ -45,7 +40,7 @@
         </div>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('device_name.index')  ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#device-dropdown">
             <span>
@@ -60,12 +55,14 @@
         </span>
         <div class="multi-level collapse" role="list" id="device-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class="nav-link">
-                        {{-- <span class="sidebar-icon me-3">
-                            <i class="fas fa-circle"></i>
-                        </span> --}}
+                <li class="nav-item {{ request()->routeIs('devices.index') ? 'active' : '' }}">
+                    <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('Semua Alat') }}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->routeIs('device_name.index') ? 'active' : '' }}">
+                    <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
+                        <span class="sidebar-text">{{ __('Semua Nama Alat') }}</span>
                     </a>
                 </li>
             </ul>
