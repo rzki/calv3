@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/brands.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css')}}">
-    
+
     <!-- Styles -->
     @vite('resources/sass/app.scss')
 </head>

@@ -1,6 +1,6 @@
 <ul class="pt-3 nav flex-column pt-md-0">
     <li class="nav-item">
-        <a href="{{ route('home') }}" class="justify-content-center nav-link d-flex align-items-center">
+        <a href="{{ route('dashboard') }}" class="justify-content-center nav-link d-flex align-items-center">
             {{-- <span class="sidebar-icon me-3">
                 <img src="{{ asset('images/brand/light.svg') }}" height="20" width="20" alt="Volt Logo">
             </span> --}}
@@ -10,8 +10,8 @@
         </a>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-        <a href="{{ route('home') }}" class="nav-link">
+    <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <a href="{{ route('dashboard') }}" class="nav-link">
             <span class="sidebar-icon me-3">
                 <i class="fa fa-home" aria-hidden="true"></i>
             </span>
@@ -72,8 +72,8 @@
         </div>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-        <a href="{{ route('home') }}" class="nav-link">
+    <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <a href="{{ route('dashboard') }}" class="nav-link">
             <span class="sidebar-icon me-3">
                 <i class="fas fa-hospital" aria-hidden="true"></i>
             </span>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title ?? 'Page Title' }} - Kalibrasi</title>
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/brands.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css')}}">
@@ -18,7 +18,7 @@
 
 <body>
     <main>
-        <section class="mt-5 vh-lg-100 mt-lg-0 bg-soft d-flex align-items-center">
+        <section class="mt-5 vh-lg-100 mt-lg-0 bg-soft d-flex justify-content-center align-items-center">
             {{ $slot }}
         </section>
     </main>
