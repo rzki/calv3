@@ -27,4 +27,10 @@ class Device extends Model
     {
         return $this->belongsTo(Hospital::class, 'hospital_id');
     }
+    public function scopeSearch($query, $value)
+    {
+        $query->WhereHas('names', function ($query) use ($value) {
+            $query->where('name', 'like', "%{$value}%");
+        });
+    }
 }
