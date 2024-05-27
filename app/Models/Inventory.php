@@ -26,11 +26,12 @@ class Inventory extends Model
     {
         $query->whereHas('devnames', function ($query) use ($value) {
             $query->where('device_name', 'like', "%{$value}%")
-                ->orWhereNull('device_name', 'like', "%{$value}%")
-            ->orWhere('brand', 'like', "%{$value}%")
-            ->orWhere('type', 'like', "%{$value}%")
-            ->orWhere('sn', 'like', "%{$value}%");
+                ->orWhereNull('device_name', 'like', "%{$value}%");
+
         })
+        ->orWhere('brand', 'like', "%{$value}%")
+        ->orWhere('type', 'like', "%{$value}%")
+        ->orWhere('sn', 'like', "%{$value}%")
         ;
     }
 }

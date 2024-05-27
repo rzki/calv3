@@ -54,7 +54,6 @@
                                             <select class="form-control" wire:model='status'>
                                                 <option value="">Pilih salah satu...</option>
                                                 <option value="Tidak Tersedia" {{ old('status', $qr->status) === 'Tidak Tersedia' ? 'selected' : '' }}>{{ __('Tidak Tersedia') }}</option>
-                                                <option value="Dipinjamkan" {{ old('status', $qr->status) === 'Dipinjamkan' ? 'selected' : '' }}>{{ __('Dipinjamkan') }}</option>
                                                 <option value="Tersedia" {{ old('status', $qr->status) === 'Tersedia' ? 'selected' : '' }}>{{ __('Tersedia') }}</option>
                                             </select>
                                         </div>

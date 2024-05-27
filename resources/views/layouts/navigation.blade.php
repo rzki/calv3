@@ -31,8 +31,8 @@
         </span>
         <div class="multi-level collapse" role="list" id="inventory-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}">
-                    <a href="{{ route('inventory.index') }}" class="nav-link" wire:navigate>
+                <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
+                    <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
                     </a>
                 </li>

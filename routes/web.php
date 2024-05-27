@@ -7,8 +7,11 @@ use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
 use App\Livewire\Devices\DeviceGenerate;
-use App\Livewire\Inventory\InventoryIndex;
+use App\Livewire\Inventories\InventoryEdit;
+use App\Livewire\Inventories\InventoryIndex;
 use App\Livewire\Devices\Name\DeviceNameEdit;
+use App\Livewire\Inventories\InventoryCreate;
+use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
 use App\Livewire\Devices\Name\DeviceNameCreate;
 
@@ -25,7 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('inventory', InventoryIndex::class)->name('inventory.index');
+    Route::get('inventory', InventoryIndex::class)->name('inventories.index');
+    Route::get('inventory/create', InventoryCreate::class)->name('inventories.create');
+    Route::get('inventory/edit/{inventoryId}', InventoryEdit::class)->name('inventories.edit');
+    Route::get('inventory/detail/{inventoryId}', InventoryDetail::class)->name('inventories.detail');
     Route::get('devices', DeviceIndex::class)->name('devices.index');
     Route::get('devices/generate', DeviceGenerate::class)->name('devices.generate');
     Route::get('devices/edit/{deviceId}', DeviceEdit::class)->name('devices.edit');

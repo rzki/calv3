@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Livewire\Inventories;
+
+use Carbon\Carbon;
+use Livewire\Component;
+use App\Models\Inventory;
+use App\Models\DeviceName;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Title;
+
+class InventoryCreate extends Component
+{
+    public $nama, $merk, $tipe, $sn, $tahun, $no_inv='MJG.INV-', $kalibrasi_terakhir, $pic, $lokasi, $status;
+    public function create()
+    {
+        Inventory::create([
+            'inventoryId' => Str::orderedUuid(),
+            'device_name' => $this->nama,
+            'brand' => $this->merk,
+            'type' => $this->tipe,
+            'sn' => $this->sn,
+            'procurement_year' => $this->tahun,
+            'inv_number' => $this->no_inv,
+            'last_calibrated_date' => $this->kalibrasi_terakhir,
+            'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+            'pic' => $this->pic,
+            'location' => $this->lokasi,
+            'status' => $this->status
+        ]);
+        session()->flash('alert', [
+            'type' => 'success',
+            'title' => 'Inventaris berhasil ditambahkan!',
+            'toast'=> true,
+            'position'=> 'top-end',
+            'timer'=> 3000,
+            'progbar' => true,
+            'showConfirmButton'=> false
+        ]);
+        return $this->redirectRoute('inventories.index', navigate:true);
+
+    }
+    #[Title('Tambah Inventaris')]
+    public function render()
+    {
+        return view('livewire.inventories.inventory-create', [
+            'namaAlat' => DeviceName::all()
+        ]);
+    }
+}
