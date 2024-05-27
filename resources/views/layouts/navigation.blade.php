@@ -57,12 +57,12 @@
             <ul class="flex-column nav">
                 <li class="nav-item {{ request()->routeIs('devices.index') ? 'active' : '' }}">
                     <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('Semua Alat') }}</span>
+                        <span class="sidebar-text">{{ __('QR Alat') }}</span>
                     </a>
                 </li>
                 <li class="nav-item {{ request()->routeIs('device_name.index') ? 'active' : '' }}">
                     <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('Semua Nama Alat') }}</span>
+                        <span class="sidebar-text">{{ __('Nama Alat') }}</span>
                     </a>
                 </li>
             </ul>
