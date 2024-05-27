@@ -8,7 +8,8 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Alat') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('devices.generate') }}" wire:navigate class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                    <a href="{{ route('devices.generate') }}" wire:navigate
+                                        class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                         Tambah Alat</a>
                                 </div>
                             </div>
@@ -16,8 +17,6 @@
                                 <div class="col-lg-6">
                                     <input wire:model.live.debounce.250ms='search' type="text" name="search"
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
-                                </div>
-                                <div class="col-lg-6">
                                 </div>
                             </div>
                             <div class="row">
@@ -27,7 +26,6 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>QR</th>
                                                     <th>Nama</th>
                                                     <th>Serial Number</th>
                                                     <th>Cal. Date</th>
@@ -37,24 +35,38 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if ($devices->isEmpty())
+                                                {{-- {{ dd($devices) }} --}}
+                                                @if ($alats->isEmpty())
                                                     <tr>
                                                         <td colspan='8' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
                                                 @else
-                                                    @foreach ($devices as $device)
+                                                    @foreach ($alats as $device)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $name->name }}</td>
+                                                            <td>{{ $device->names->name ?? '' }}</td>
+                                                            <td>{{ $device->serial_number ?? '' }}</td>
+                                                            @if ($device->calibration_date == null)
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('j F Y', strtotime($device->calibration_date)) ?? '' }}
+                                                                </td>
+                                                            @endif
+
+                                                            <td>{{ $device->status ?? '' }}</td>
+                                                            <td>{{ $device->users->name ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('device_name.edit', $name->id) }}"
-                                                                    class="btn btn-info"><i
-                                                                        class="fas fa-pen-to-square"></i> Edit</a>
+                                                                <a href="{{ route('devices.detail', $device->deviceId) }}"
+                                                                    class="btn btn-info" target="_blank"><i
+                                                                        class="fas fa-eye"></i></a>
+                                                                <a href="{{ route('devices.edit', $device->deviceId) }}"
+                                                                    class="btn btn-primary"><i
+                                                                        class="fas fa-pen-to-square"></i></a>
                                                                 <button class="btn btn-danger"
-                                                                    wire:click.prevent="deleteConfirm('{{ $name->id }}')"><i
-                                                                        class="fas fa-trash"></i> Hapus</button>
+                                                                    wire:click.prevent="deleteConfirm('{{ $device->deviceId }}')"><i
+                                                                        class="fas fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -74,8 +86,8 @@
                                                     <option value="100">100</option>
                                                 </select>
                                             </div>
-                                            @if (!$devices->isEmpty())
-                                                {{ $devices->links() }}
+                                            @if (!empty($alats))
+                                                {{ $alats->links() }}
                                             @endif
                                         </div>
                                     </div>
@@ -89,8 +101,8 @@
     </div>
 </div>
 @script
-<script>
-    window.addEventListener('delete-confirmation', event => {
+    <script>
+        window.addEventListener('delete-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
                 text: "Alat akan terhapus secara permanen!",
@@ -105,13 +117,13 @@
                 }
             });
         })
-</script>
+    </script>
 @endscript
 
 @if (session()->has('alert'))
-@script
-<script>
-    const alerts = @json(session()->get('alert'));
+    @script
+        <script>
+            const alerts = @json(session()->get('alert'));
             const title = alerts.title;
             const icon = alerts.type;
             const toast = alerts.toast;
@@ -129,6 +141,6 @@
                 timerProgressBar: progbar,
                 showConfirmButton: confirm
             });
-</script>
-@endscript
+        </script>
+    @endscript
 @endif

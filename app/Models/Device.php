@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Device extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
+    protected $table = 'devices';
     public function getRouteKeyName()
     {
         return 'deviceId';
@@ -29,8 +29,10 @@ class Device extends Model
     }
     public function scopeSearch($query, $value)
     {
-        $query->WhereHas('names', function ($query) use ($value) {
-            $query->where('name', 'like', "%{$value}%");
-        });
+        $query->whereHas('users', function ($query) use ($value) {
+            $query->where('serial_number', 'like', "%{$value}%")
+                ->orWhereNull('serial_number', 'like', "%{$value}%");
+        })
+        ;
     }
 }

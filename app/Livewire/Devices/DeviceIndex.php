@@ -5,13 +5,14 @@ namespace App\Livewire\Devices;
 use App\Models\Device;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class DeviceIndex extends Component
 {
-    public $deviceId;
+    use WithPagination;
+    public $devices, $deviceId;
     public $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
-
     public function sort($sortByField)
     {
         if($this->sortBy === $sortByField){
@@ -27,8 +28,8 @@ class DeviceIndex extends Component
     }
     public function delete()
     {
-        $devices = Device::where('deviceId', $this->deviceId)->first();
-        $devices->delete();
+        $this->devices = Device::where('deviceId', $this->deviceId)->first();
+        $this->devices->delete();
 
         session()->flash('alert', [
             'type' => 'success',
@@ -44,9 +45,9 @@ class DeviceIndex extends Component
     #[Title('Semua Alat')]
     public function render()
     {
-        return view('livewire.devices.device-index',[
-            'devices' => Device::search($this->search)
-            ->orderBy($this->sortBy,$this->sortDir)
+        return view('livewire.devices.device-index', [
+            'alats' => Device::search($this->search)
+            ->where('user_id', auth()->user()->id)
             ->paginate($this->perPage)
         ]);
     }
