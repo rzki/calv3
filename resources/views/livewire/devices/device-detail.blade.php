@@ -56,6 +56,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3">
+                    <div class="status">
+                        <h4 class="fw-bold">Status</h4>
+                        <p class="fs-5">{{ $qr->status ?? '' }}</p>
+                    </div>
+            </div>
             <div class="row">
                 @if (Auth::guest())
                     <a href="{{ route('devices.edit', $qr->deviceId) }}" class="btn btn-danger btn-block w-100">Login to Update Data</a>
