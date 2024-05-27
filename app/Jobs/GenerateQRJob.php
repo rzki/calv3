@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
+use App\Models\Device;
 use Milon\Barcode\DNS2D;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +42,10 @@ class GenerateQRJob implements ShouldQueue
             $devices[] = [
                 'deviceId' => $device['deviceId'],
                 'barcode' => $path,
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
+                'status' => 'Tersedia',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
         }
         DB::table('devices')->insert($devices);
