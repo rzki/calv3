@@ -13,17 +13,6 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    {{-- <form action="{{ route('devices.generate') }}" method="POST">
-                                        @csrf
-                                        <div class="form-group mb-3">
-                                            <label for="number" class="form-label">{{ __('Jumlah QR yang ingin digenerate') }}</label>
-                                            <input type="number" name="number" id="number" class="form-control" max="1000" min="1">
-                                            <span class="form-text">{{ __('(Max. 1000)') }}</span>
-                                        </div>
-                                        <div class="d-grid">
-                                            <button type="submit" class="btn btn-success text-white">Submit</button>
-                                        </div>
-                                    </form> --}}
                                     <form wire:submit='generate'>
                                         <div class="form-group mb-3">
                                             <label for="number" class="form-label">{{ __('Jumlah QR yang ingin digenerate') }}</label>
