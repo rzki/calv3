@@ -21,4 +21,16 @@ class Inventory extends Model
     {
         return $this->belongsTo(DeviceName::class, 'device_name');
     }
+
+    public function scopeSearch($query, $value)
+    {
+        $query->whereHas('devnames', function ($query) use ($value) {
+            $query->where('device_name', 'like', "%{$value}%")
+                ->orWhereNull('device_name', 'like', "%{$value}%")
+            ->orWhere('brand', 'like', "%{$value}%")
+            ->orWhere('type', 'like', "%{$value}%")
+            ->orWhere('sn', 'like', "%{$value}%");
+        })
+        ;
+    }
 }
