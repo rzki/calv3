@@ -36,6 +36,11 @@
                         <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
+                    <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
+                        <span class="sidebar-text">{{ __('Log Book') }}</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </li>
