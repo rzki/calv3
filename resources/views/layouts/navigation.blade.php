@@ -7,7 +7,6 @@
             </h4>
         </a>
     </li>
-
     <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
         <a href="{{ route('dashboard') }}" class="nav-link">
             <span class="sidebar-icon me-3">
@@ -36,15 +35,17 @@
                         <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
-                    <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('Log Book') }}</span>
-                    </a>
-                </li>
             </ul>
         </div>
     </li>
-
+    <li class="nav-item {{ request()->routeIs('logbooks.index') ? 'active' : '' }}">
+        <a href="{{ route('logbooks.index') }}" class="nav-link">
+            <span class="sidebar-icon me-3">
+                <i class="fas fa-book" aria-hidden="true"></i>
+            </span>
+            <span class="sidebar-text">{{ __('Log Book') }}</span>
+        </a>
+    </li>
     <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('device_name.index')  ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#device-dropdown">
