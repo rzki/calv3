@@ -65,6 +65,11 @@
                                         }}">
                                         </div>
                                         <div class="form-group mb-3">
+                                            <label for="pic"
+                                                class="form-label text-uppercase">{{ __('pic') }}</label>
+                                            <input type="text" class="form-control" wire:model='pic'>
+                                        </div>
+                                        <div class="form-group mb-3">
                                             <label for="status"
                                                 class="form-label text-capitalize">{{ __('status') }}</label>
                                             <select class="form-control" wire:model='status'>

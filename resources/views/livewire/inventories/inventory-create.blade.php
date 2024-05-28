@@ -65,6 +65,12 @@
                                             {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
                                         </div>
                                         <div class="form-group mb-3">
+                                            <label for="pic"
+                                                class="form-label text-capitalize">{{ __('PIC') }}</label>
+                                            <input type="text" class="form-control" wire:model='pic'>
+                                            {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
+                                        </div>
+                                        <div class="form-group mb-3">
                                             <label for="status"
                                                 class="form-label text-capitalize">{{ __('status') }}</label>
                                             <select class="form-control" wire:model='status'>

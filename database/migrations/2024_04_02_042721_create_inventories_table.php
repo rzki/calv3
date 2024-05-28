@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('sn');
             $table->year('procurement_year');
-            $table->string('inv_number')->nullable();
+            $table->string('inv_number')->nullable()->unique();
             $table->date('last_calibrated_date')->nullable();
             $table->date('next_calibrated_date')->nullable();
             $table->string('pic')->nullable();
