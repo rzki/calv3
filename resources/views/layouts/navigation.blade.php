@@ -75,8 +75,8 @@
         </div>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-        <a href="{{ route('dashboard') }}" class="nav-link">
+    <li class="nav-item {{ request()->routeIs('hospitals.index') ? 'active' : '' }}">
+        <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
                 <i class="fas fa-hospital" aria-hidden="true"></i>
             </span>
