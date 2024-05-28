@@ -38,41 +38,41 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @if ($inventoryIndex->isEmpty())
+                                                @if ($logInv->isEmpty())
                                                     <tr>
                                                         <td colspan='11' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
                                                 @else
-                                                    @foreach ($inventoryIndex as $inv)
+                                                    @foreach ($logInv as $log)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $inv->devnames->name ?? '' }}</td>
-                                                            <td>{{ $inv->brand ?? '' }}</td>
-                                                            <td>{{ $inv->type ?? '' }}</td>
-                                                            <td>{{ $inv->sn ?? '' }}</td>
-                                                            <td>{{ $inv->procurement_year ?? '' }}</td>
-                                                            <td>{{ $inv->inv_number ?? '' }}</td>
-                                                            <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}</td>
-                                                            <td>{{ $inv->pic ?? '' }}</td>
-                                                            <td>{{ $inv->location ?? '' }}</td>
-                                                            <td>{{ $inv->status ?? '' }}</td>
+                                                            <td>{{ $log->inventories->devnames->name ?? '' }}</td>
+                                                            <td>{{ $log->inventories->brand ?? '' }}</td>
+                                                            <td>{{ $log->inventories->type ?? '' }}</td>
+                                                            <td>{{ $log->inventories->sn ?? '' }}</td>
+                                                            <td>{{ $log->inventories->inv_number ?? '' }}</td>
+                                                            @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) || empty($log->tanggal_mulai_pinjam) || empty($log->tanggal_selesai_pinjam))
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('j F Y', strtotime($log->tanggal_mulai_pinjam)) }} - {{ date('j F Y', strtotime($log->tanggal_selesai_pinjam)) }}</td>
+                                                            @endif
+                                                            <td>{{ $log->lokasi_pinjam ?? '' }}</td>
+                                                            <td>{{ $log->pic ?? '' }}</td>
+                                                            <td>{{ $log->status ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
-                                                                    class="btn btn-info" target="_blank"><i
-                                                                        class="fas fa-eye"></i></a>
-                                                                <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
+                                                                <a href="{{ route('logbooks.edit', $log->logId) }}"
                                                                     class="btn btn-primary"><i
                                                                         class="fas fa-pen-to-square"></i></a>
                                                                 <button class="btn btn-danger"
-                                                                    wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
+                                                                    wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
                                                                         class="fas fa-trash"></i></button>
 
                                                             </td>
                                                         </tr>
                                                     @endforeach
-                                                @endif --}}
+                                                @endif
                                             </tbody>
                                         </table>
                                         <div class="paginate mt-4">
@@ -88,9 +88,9 @@
                                                     <option value="100">100</option>
                                                 </select>
                                             </div>
-                                            {{-- @if (!empty($inventory))
-                                                {{ $inventory->links() }}
-                                            @endif --}}
+                                            @if (!empty($logInv))
+                                                {{ $logInv->links() }}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -102,3 +102,47 @@
         </div>
     </div>
 </div>
+@script
+<script>
+    window.addEventListener('delete-confirmation', event => {
+            Swal.fire({
+                title: "Apakah anda yakin?",
+                text: "Log akan terhapus secara permanen!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.dispatch('deleteConfirmed');
+                }
+            });
+        })
+</script>
+@endscript
+
+@if (session()->has('alert'))
+@script
+<script>
+    const alerts = @json(session()->get('alert'));
+            const title = alerts.title;
+            const icon = alerts.type;
+            const toast = alerts.toast;
+            const position = alerts.position;
+            const timer = alerts.timer;
+            const progbar = alerts.progbar;
+            const confirm = alerts.showConfirmButton;
+
+            Swal.fire({
+                title: title,
+                icon: icon,
+                toast: toast,
+                position: position,
+                timer: timer,
+                timerProgressBar: progbar,
+                showConfirmButton: confirm
+            });
+</script>
+@endscript
+@endif

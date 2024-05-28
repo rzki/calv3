@@ -2,6 +2,7 @@
 
 use App\Livewire\Dashboard;
 use App\Livewire\Devices\DeviceEdit;
+use App\Livewire\Logbooks\LogbookEdit;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
 use App\Livewire\Devices\Name\DeviceNameCreate;
+use App\Livewire\Logbooks\LogbookCreate;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,6 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::get('device_name/edit/{nameId}', DeviceNameEdit::class)->name('device_name.edit');
     // Logbooks
     Route::get('logbooks', LogbookIndex::class)->name('logbooks.index');
-    Route::get('logbooks/create', LogbookIndex::class)->name('logbooks.create');
-    Route::get('logbooks/edit/{logbookId}', LogbookIndex::class)->name('logbooks.edit');
+    Route::get('logbooks/create', LogbookCreate::class)->name('logbooks.create');
+    Route::get('logbooks/edit/{logId}', LogbookEdit::class)->name('logbooks.edit');
 });

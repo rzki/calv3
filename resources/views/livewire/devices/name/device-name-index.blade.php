@@ -45,8 +45,8 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $name->name }}</td>
                                                         <td>
-                                                            <a href="{{ route('device_name.edit', $name->id) }}" class="btn btn-info"><i class="fas fa-pen-to-square"></i> Edit</a>
-                                                            <button class="btn btn-danger" wire:click.prevent="deleteConfirm('{{ $name->id }}')"><i class="fas fa-trash"></i> Hapus</button>
+                                                            <a href="{{ route('device_name.edit', $name->id) }}" class="btn btn-info"><i class="fas fa-pen-to-square"></i> </a>
+                                                            <button class="btn btn-danger" wire:click.prevent="deleteConfirm('{{ $name->id }}')"><i class="fas fa-trash"></i> </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach

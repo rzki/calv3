@@ -18,4 +18,19 @@ class LogBook extends Model
     {
         return $this->belongsTo(Inventory::class, 'inventory_id');
     }
+    public function scopeSearch($query, $value)
+    {
+        $query->whereHas('inventories', function ($query) use ($value) {
+            $query->whereHas('devnames', function ($query) use ($value) {
+                $query->where('device_name', 'like', "%{$value}%")
+                    ->orWhereNull('device_name', 'like', "%{$value}%");
+            });
+            $query->where('brand', 'like', "%{$value}%")
+                ->orWhereNull('brand', 'like', "%{$value}%")
+                ->orWhere('type', 'like', "%{$value}%")
+                ->orWhereNull('type', 'like', "%{$value}%")
+                ->orWhere('sn', 'like', "%{$value}%")
+                ->orWhereNull('sn', 'like', "%{$value}%");
+        });
+    }
 }

@@ -61,10 +61,10 @@
                                                             <td>{{ $inv->status ?? '' }}</td>
                                                             <td>
                                                                 <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
-                                                                    class="btn btn-info" target="_blank"><i
+                                                                    class="btn btn-primary" target="_blank"><i
                                                                         class="fas fa-eye"></i></a>
                                                                 <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
-                                                                    class="btn btn-primary"><i
+                                                                    class="btn btn-info"><i
                                                                         class="fas fa-pen-to-square"></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
