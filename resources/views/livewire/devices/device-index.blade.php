@@ -10,7 +10,7 @@
                                 <div class="col d-flex justify-content-end">
                                     <a href="{{ route('devices.generate') }}" wire:navigate
                                         class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                        Tambah Alat</a>
+                                        {{ __('Tambah Alat') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -26,11 +26,11 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>Nama</th>
-                                                    <th>Serial Number</th>
-                                                    <th>Cal. Date</th>
-                                                    <th>Status</th>
-                                                    <th>Dibuat oleh</th>
+                                                    <th>{{ __('Nama') }}</th>
+                                                    <th>{{ __('Serial Number') }}</th>
+                                                    <th>{{ __('Tanggal Kalibrasi') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th>{{ __('Dibuat oleh') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>

@@ -10,7 +10,7 @@
                                 <div class="col">
                                     <a href="{{ route('logbooks.index') }}" wire:navigate
                                         class="btn btn-primary text-white"><i class="fas fa-arrow-left"></i>
-                                        Kembali</a>
+                                        {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -20,7 +20,7 @@
                                             <label for="no_inv"
                                                 class="form-label text-capitalize">{{ __('no. inventaris alat') }}</label>
                                             <select name="no_inv" id="no_inv" class="form-control" wire:model='no_inv'>
-                                                <option value="">Pilih salah satu...</option>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($invId as $name)
                                                     <option value="{{ $name->id }}" {{ old('inventory_id', $logs->inventory_id) == $name->id ? 'selected' : ''  }}>{{ $name->inv_number }} ({{ $name->devnames->name }}, {{ $name->brand }}, {{ $name->type }}, {{ $name->sn }}, {{ $name->procurement_year }})</option>
                                                 @endforeach

@@ -9,7 +9,7 @@
                             <div class="row mb-5">
                                 <div class="col">
                                     <a href="{{ route('device_name.index') }}" wire:navigate class="btn btn-primary text-white"><i class="fas fa-arrow-left"></i>
-                                        Kembali</a>
+                                        {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">

@@ -13,9 +13,13 @@ class Hospital extends Model
     {
         return 'hospitalId';
     }
-
     public function devices()
     {
         return $this->hasMany(Device::class);
+    }
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%")
+        ->orWhere('address', 'like', "%{$value}%");
     }
 }

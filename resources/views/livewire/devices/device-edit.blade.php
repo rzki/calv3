@@ -10,7 +10,7 @@
                                 <div class="col">
                                     <a href="{{ route('devices.index') }}" wire:navigate class="btn btn-primary text-white"><i
                                             class="fas fa-arrow-left"></i>
-                                        Kembali</a>
+                                        {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -19,7 +19,7 @@
                                         <div class="form-group mb-3">
                                             <label for="nama" class="form-label text-capitalize">{{ __('nama') }}</label>
                                             <select type="text" class="form-control" wire:model='nama'>
-                                                <option value="">Pilih salah satu...</option>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($name as $nama)
                                                     <option value="{{ $nama->id }}" {{ old('name_id', $qr->name_id) == $nama->id ? 'selected' : '' }}>{{ $nama->name }}</option>
                                                 @endforeach
@@ -52,7 +52,7 @@
                                         <div class="form-group mb-3">
                                             <label for="status" class="form-label text-capitalize">{{ __('status') }}</label>
                                             <select class="form-control" wire:model='status'>
-                                                <option value="">Pilih salah satu...</option>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 <option value="Tidak Tersedia" {{ old('status', $qr->status) === 'Tidak Tersedia' ? 'selected' : '' }}>{{ __('Tidak Tersedia') }}</option>
                                                 <option value="Tersedia" {{ old('status', $qr->status) === 'Tersedia' ? 'selected' : '' }}>{{ __('Tersedia') }}</option>
                                             </select>

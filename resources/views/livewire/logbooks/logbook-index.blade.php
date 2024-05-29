@@ -25,15 +25,15 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>Nama</th>
-                                                    <th>Merk</th>
-                                                    <th>Tipe</th>
-                                                    <th>S/N</th>
-                                                    <th>No. Inventaris</th>
-                                                    <th>Tanggal Pinjam</th>
-                                                    <th>Lokasi</th>
-                                                    <th>PIC</th>
-                                                    <th>Status</th>
+                                                    <th>{{ __('Nama') }}</th>
+                                                    <th>{{ __('Merk') }}</th>
+                                                    <th>{{ __('Tipe') }}</th>
+                                                    <th>{{ __('S/N') }}</th>
+                                                    <th>{{ __('No. Inventaris') }}</th>
+                                                    <th>{{ __('Tanggal Pinjam') }}</th>
+                                                    <th>{{ __('Lokasi') }}</th>
+                                                    <th>{{ __('PIC') }}</th>
+                                                    <th>{{ __('Status') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>

@@ -1,2 +1,143 @@
 <div>
+    <div class="py-4 main">
+        <div class="back-button mb-4">
+            <a href="{{ route('inventories.index') }}" class="btn btn-info text-white"><i class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-3">
+                <div class="px-0 col-12">
+                    <div class="border-0 shadow card">
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <h2 class="mb-1 fs-4 fw-bold mb-3 text-center">{{ __('Detail Inventaris') }}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 text-start">
+                                    <h6 class="mb-3">{{ __('Nama') }}</h6>
+                                    <h6 class="mb-3">{{ __('Merk') }}</h6>
+                                    <h6 class="mb-3">{{ __('Tipe') }}</h6>
+                                    <h6 class="mb-3">{{ __('S/N') }}</h6>
+                                    <h6 class="mb-3">{{ __('Tahun') }}</h6>
+                                    <h6 class="mb-3">{{ __('No. Inventory') }}</h6>
+                                    <h6 class="mb-3">{{ __('Kalibrasi Terakhir') }}</h6>
+                                    <h6 class="mb-3">{{ __('Kalibrasi Selanjutnya') }}</h6>
+                                    <h6 class="mb-3">{{ __('PIC') }}</h6>
+                                    <h6 class="mb-3">{{ __('Lokasi') }}</h6>
+                                    <h6 class="mb-3">{{ __('Status') }}</h6>
+                                </div>
+                                <div class="col-lg-6 text-end">
+                                    <h6 class="mb-3">{{ $invDetail->devnames->name }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->brand }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->type }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->sn }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->procurement_year }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->inv_number }}</h6>
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}</h6>
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->pic }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->location }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->status }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="px-0 col-12">
+                    <div class="border-0 shadow card">
+                        <div class="card-body">
+                            <h2 class="mb-1 fs-5 fw-bold mb-3 text-center">{{ __('Log Book') }}</h2>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input wire:model.live.debounce.250ms='search' type="text" name="search"
+                                        id="search" class="form-control mb-3 w-25" placeholder="Search...">
+                                </div>
+                                <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"><i
+                                            class="fas fa-plus"></i>
+                                        {{ __('Tambah Log') }}</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="table-wrapper">
+                                        <table class="table table-responsive striped-table text-black text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 2em;">No</th>
+                                                    <th>{{ __('Nama') }}</th>
+                                                    <th>{{ __('Merk') }}</th>
+                                                    <th>{{ __('Tipe') }}</th>
+                                                    <th>{{ __('S/N') }}</th>
+                                                    <th>{{ __('Tahun Pengadaan') }}</th>
+                                                    <th>{{ __('No. Inventaris') }}</th>
+                                                    <th>{{ __('Kalibrasi Terakhir') }}</th>
+                                                    <th>{{ __('PIC') }}</th>
+                                                    <th>{{ __('Lokasi') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- @if ($rs->isEmpty())
+                                                    <tr>
+                                                        <td colspan='11' class="text-center">
+                                                            {{ __('Data tidak ditemukan') }}
+                                                        </td>
+                                                    </tr>
+                                                    @else
+                                                    @foreach ($rs as $rs)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $rs->name ?? '' }}</td>
+                                                        <td>{{ $rs->phone_number ?? '' }}</td>
+                                                        <td>{{ $rs->address ?? '' }}</td>
+                                                        <td>
+                                                            <a href="{{ route('hospitals.detail', $rs->hospitalId) }}" class="btn btn-primary"
+                                                                wire:navigate><i class="fas fa-eye"></i></a>
+                                                            <a href="{{ route('hospitals.edit', $rs->hospitalId) }}" class="btn btn-info"
+                                                                wire:navigate><i class="fas fa-pen-to-square"></i></a>
+                                                            <button class="btn btn-danger"
+                                                                wire:click.prevent="deleteConfirm('{{ $rs->hospitalId }}')"><i
+                                                                    class="fas fa-trash"></i></button>
+
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif --}}
+                                            </tbody>
+                                        </table>
+                                        <div class="paginate mt-4">
+                                            <div class="d-flex align-items-center data-row">
+                                                <label class="text-black font-bold form-label me-3 mb-0">Per
+                                                    Page</label>
+                                                <select wire:model.live='perPage'
+                                                    class="form-control text-black per-page" style="width: 5%">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                            @if (!empty($inventory))
+                                                {{ $inventory->links() }}
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Table --}}
+        <div class="row">
+        </div>
+    </div>
 </div>

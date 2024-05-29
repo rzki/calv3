@@ -10,7 +10,7 @@
                                 <div class="col">
                                     <a href="" class="btn btn-primary text-white"><i
                                             class="fas fa-arrow-left"></i>
-                                        Kembali</a>
+                                        {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">

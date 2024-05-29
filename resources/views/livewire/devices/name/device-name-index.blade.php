@@ -10,7 +10,7 @@
                                 <div class="col d-flex justify-content-end">
                                     <a href="{{ route('device_name.create') }}" wire:navigate
                                         class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                        Tambah Nama Alat</a>
+                                        {{ __('Tambah Nama Alat') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -28,7 +28,7 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>Nama</th>
+                                                    <th>{{ __('Nama') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>

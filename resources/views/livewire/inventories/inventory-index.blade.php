@@ -9,7 +9,7 @@
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
                                     <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                        Tambah Inventaris</a>
+                                        {{ __('Tambah Inventaris') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -25,16 +25,16 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>Nama</th>
-                                                    <th>Merk</th>
-                                                    <th>Tipe</th>
-                                                    <th>S/N</th>
-                                                    <th>Tahun Pengadaan</th>
-                                                    <th>No. Inventaris</th>
-                                                    <th>Kalibrasi Terakhir</th>
-                                                    <th>PIC</th>
-                                                    <th>Lokasi</th>
-                                                    <th>Status</th>
+                                                    <th>{{ __('Nama') }}</th>
+                                                    <th>{{ __('Merk') }}</th>
+                                                    <th>{{ __('Tipe') }}</th>
+                                                    <th>{{ __('S/N') }}</th>
+                                                    <th>{{ __('Tahun Pengadaan') }}</th>
+                                                    <th>{{ __('No. Inventaris') }}</th>
+                                                    <th>{{ __('Kalibrasi Terakhir') }}</th>
+                                                    <th>{{ __('PIC') }}</th>
+                                                    <th>{{ __('Lokasi') }}</th>
+                                                    <th>{{ __('Status') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -61,11 +61,11 @@
                                                             <td>{{ $inv->status ?? '' }}</td>
                                                             <td>
                                                                 <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
-                                                                    class="btn btn-primary" target="_blank"><i
+                                                                    class="btn btn-primary" wire:navigate><i
                                                                         class="fas fa-eye"></i></a>
                                                                 <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
                                                                     class="btn btn-info"><i
-                                                                        class="fas fa-pen-to-square"></i></a>
+                                                                        class="fas fa-pen-to-square" wire:navigate></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
                                                                         class="fas fa-trash"></i></button>

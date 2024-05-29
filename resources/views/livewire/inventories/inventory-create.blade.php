@@ -10,7 +10,7 @@
                                 <div class="col">
                                     <a href="{{ route('inventories.index') }}" wire:navigate
                                         class="btn btn-primary text-white"><i class="fas fa-arrow-left"></i>
-                                        Kembali</a>
+                                        {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -20,7 +20,7 @@
                                             <label for="nama"
                                                 class="form-label text-capitalize">{{ __('nama alat') }}</label>
                                             <select type="text" class="form-control" wire:model='nama'>
-                                                <option value="">Pilih salah satu...</option>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($namaAlat as $nama)
                                                     <option value="{{ $nama->id }}">{{ $nama->name }}</option>
                                                 @endforeach
