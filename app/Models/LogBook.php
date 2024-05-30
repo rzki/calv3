@@ -23,14 +23,22 @@ class LogBook extends Model
         $query->whereHas('inventories', function ($query) use ($value) {
             $query->whereHas('devnames', function ($query) use ($value) {
                 $query->where('device_name', 'like', "%{$value}%")
-                    ->orWhereNull('device_name', 'like', "%{$value}%");
+                    ->orWhereNull('device_name', 'like', "%{$value}%")
+                    ->orWhere('brand', 'like', "%{$value}%")
+                    ->orWhereNull('brand', 'like', "%{$value}%")
+                    ->orWhere('type', 'like', "%{$value}%")
+                    ->orWhereNull('type', 'like', "%{$value}%")
+                    ->orWhere('sn', 'like', "%{$value}%")
+                    ->orWhereNull('sn', 'like', "%{$value}%");
             });
-            $query->where('brand', 'like', "%{$value}%")
-                ->orWhereNull('brand', 'like', "%{$value}%")
-                ->orWhere('type', 'like', "%{$value}%")
-                ->orWhereNull('type', 'like', "%{$value}%")
-                ->orWhere('sn', 'like', "%{$value}%")
-                ->orWhereNull('sn', 'like', "%{$value}%");
         });
     }
+    public function scopeSearchLogByInventoryId($query, $value)
+    {
+        $query->whereHas('inventories', function ($query) use ($value) {
+            $query->where('pic_pinjam', 'like', "%{$value}%")
+                ->orWhere('lokasi_pinjam', 'like', "%{$value}%");
+        });
+    }
+
 }

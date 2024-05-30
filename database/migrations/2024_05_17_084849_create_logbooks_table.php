@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal_mulai_pinjam');
             $table->date('tanggal_selesai_pinjam');
             $table->string('lokasi_pinjam');
-            $table->string('pic');
+            $table->string('pic_pinjam');
             $table->string('status');
             $table->timestamps();
         });

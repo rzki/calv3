@@ -1,7 +1,8 @@
 <div>
     <div class="py-4 main">
         <div class="back-button mb-4">
-            <a href="{{ route('inventories.index') }}" class="btn btn-info text-white"><i class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
+            <a href="{{ route('inventories.index') }}" class="btn btn-info text-white" wire:navigate><i class="fas fa-arrow-left"></i>
+                {{ __('Kembali') }}</a>
         </div>
         <div class="row mb-4">
             <div class="col-lg-3">
@@ -34,8 +35,10 @@
                                     <h6 class="mb-3">{{ $invDetail->sn }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->procurement_year }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->inv_number }}</h6>
-                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}</h6>
-                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}</h6>
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}
+                                    </h6>
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}
+                                    </h6>
                                     <h6 class="mb-3">{{ $invDetail->pic }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->location }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->status }}</h6>
@@ -52,12 +55,12 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3 text-center">{{ __('Log Book') }}</h2>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input wire:model.live.debounce.250ms='search' type="text" name="search"
+                                    <input wire:model.live.debounce.250ms='searchByInventoryId' type="text" name="search"
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"><i
-                                            class="fas fa-plus"></i>
+                                    <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                        class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
                                         {{ __('Tambah Log') }}</a>
                                 </div>
                             </div>
@@ -68,13 +71,8 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>{{ __('Nama') }}</th>
-                                                    <th>{{ __('Merk') }}</th>
-                                                    <th>{{ __('Tipe') }}</th>
-                                                    <th>{{ __('S/N') }}</th>
-                                                    <th>{{ __('Tahun Pengadaan') }}</th>
                                                     <th>{{ __('No. Inventaris') }}</th>
-                                                    <th>{{ __('Kalibrasi Terakhir') }}</th>
+                                                    <th>{{ __('Tanggal Pinjam') }}</th>
                                                     <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
                                                     <th>{{ __('Status') }}</th>
@@ -82,32 +80,37 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @if ($rs->isEmpty())
+                                                @if ($logDetail->isEmpty())
                                                     <tr>
                                                         <td colspan='11' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
-                                                    @else
-                                                    @foreach ($rs as $rs)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $rs->name ?? '' }}</td>
-                                                        <td>{{ $rs->phone_number ?? '' }}</td>
-                                                        <td>{{ $rs->address ?? '' }}</td>
-                                                        <td>
-                                                            <a href="{{ route('hospitals.detail', $rs->hospitalId) }}" class="btn btn-primary"
-                                                                wire:navigate><i class="fas fa-eye"></i></a>
-                                                            <a href="{{ route('hospitals.edit', $rs->hospitalId) }}" class="btn btn-info"
-                                                                wire:navigate><i class="fas fa-pen-to-square"></i></a>
-                                                            <button class="btn btn-danger"
-                                                                wire:click.prevent="deleteConfirm('{{ $rs->hospitalId }}')"><i
-                                                                    class="fas fa-trash"></i></button>
-
-                                                        </td>
-                                                    </tr>
+                                                @else
+                                                    @foreach ($logDetail as $log)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td width="3em">{{ $log->inventories->inv_number ?? '' }}</td>
+                                                            {{-- <td>{{ date('j F Y', strtotime($log->inventories->last_caibrated_date) ?? '') }}</td> --}}
+                                                            @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) ||
+                                                                    empty($log->tanggal_mulai_pinjam) ||
+                                                                    empty($log->tanggal_selesai_pinjam))
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }} s/d {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}
+                                                                </td>
+                                                            @endif
+                                                            <td >{{ $log->pic_pinjam ?? '' }}</td>
+                                                            <td >{{ $log->lokasi_pinjam ?? '' }}</td>
+                                                            <td >{{ $log->status ?? '' }}</td>
+                                                            <td>
+                                                                <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->inventoryId, 'logId' => $log->logId]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                                <button class="btn btn-danger" wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
+                                                                        class="fas fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
-                                                    @endif --}}
+                                                @endif
                                             </tbody>
                                         </table>
                                         <div class="paginate mt-4">
@@ -141,3 +144,47 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        window.addEventListener('delete-confirmation', event => {
+            Swal.fire({
+                title: "Apakah anda yakin?",
+                text: "Log untuk Nomor Inventaris ini akan terhapus secara permanen!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.dispatch('deleteConfirmed');
+                }
+            });
+        })
+    </script>
+@endscript
+
+@if (session()->has('alert'))
+    @script
+        <script>
+            const alerts = @json(session()->get('alert'));
+            const title = alerts.title;
+            const icon = alerts.type;
+            const toast = alerts.toast;
+            const position = alerts.position;
+            const timer = alerts.timer;
+            const progbar = alerts.progbar;
+            const confirm = alerts.showConfirmButton;
+
+            Swal.fire({
+                title: title,
+                icon: icon,
+                toast: toast,
+                position: position,
+                timer: timer,
+                timerProgressBar: progbar,
+                showConfirmButton: confirm
+            });
+        </script>
+    @endscript
+@endif

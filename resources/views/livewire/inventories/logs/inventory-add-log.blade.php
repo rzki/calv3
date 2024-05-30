@@ -8,35 +8,39 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Log Pinjam') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
-                                    <a href="{{ route('logbooks.index') }}" wire:navigate
+                                    <a href="{{ route('inventories.detail', $invAddLog->inventoryId) }}" wire:navigate
                                         class="btn btn-primary text-white"><i class="fas fa-arrow-left"></i>
                                         {{ __('Kembali') }}</a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <form wire:submit='create' method="post">
+                                    <form wire:submit='addLog' method="post">
                                         <div class="form-group mb-3">
                                             <label for="no_inv"
                                                 class="form-label text-capitalize">{{ __('no. inventaris alat') }}</label>
-                                            <select name="no_inv" id="no_inv" class="form-control" wire:model='no_inv'>
-                                                <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                @foreach ($inventoryName as $name)
-                                                    <option value="{{ $name->id }}">{{ $name->inv_number }} ({{ $name->devnames->name }}, {{ $name->brand }}, {{ $name->type }}, {{ $name->sn }}, {{ $name->procurement_year }})</option>
-                                                @endforeach
+                                            <select type="text" name="no_inv" id="no_inv" class="form-control"
+                                                wire:model='no_inv' disabled>
+                                                <option value="{{ $invAddLog->id }}">{{ $invAddLog->inv_number }} ({{ $invAddLog->devnames->name }}, {{ $invAddLog->brand }}, {{ $invAddLog->type }}, {{ $invAddLog->sn }}, {{ $invAddLog->procurement_year }})</option>
                                             </select>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group mb-3">
-                                                    <label for="tanggal_mulai_pinjam" class="form-label text-capitalize">{{ __('mulai pinjam') }}</label>
-                                                    <input type="date" name="tanggal_mulai_pinjam" id="tanggal_mulai_pinjam" class="form-control" wire:model='mulai_pinjam'>
+                                                    <label for="tanggal_mulai_pinjam"
+                                                        class="form-label text-capitalize">{{ __('mulai pinjam') }}</label>
+                                                    <input type="date" name="tanggal_mulai_pinjam"
+                                                        id="tanggal_mulai_pinjam" class="form-control"
+                                                        wire:model='mulai_pinjam'>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group mb-3">
-                                                    <label for="tanggal_selesai_pinjam" class="form-label text-capitalize">{{ __('selesai pinjam') }}</label>
-                                                    <input type="date" name="tanggal_selesai_pinjam" id="tanggal_selesai_pinjam" class="form-control" wire:model='selesai_pinjam'>
+                                                    <label for="tanggal_selesai_pinjam"
+                                                        class="form-label text-capitalize">{{ __('selesai pinjam') }}</label>
+                                                    <input type="date" name="tanggal_selesai_pinjam"
+                                                        id="tanggal_selesai_pinjam" class="form-control"
+                                                        wire:model='selesai_pinjam'>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,7 +53,8 @@
                                             <label for="pic"
                                                 class="form-label text-capitalize">{{ __('PIC') }}</label>
                                             <input type="text" class="form-control" wire:model='pic'>
-                                            {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
+                                            {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y')
+                                        }}" --}}
                                         </div>
                                         <div class="d-grid">
                                             <button type="submit"

@@ -56,7 +56,7 @@
                                                             <td>{{ $inv->procurement_year ?? '' }}</td>
                                                             <td>{{ $inv->inv_number ?? '' }}</td>
                                                             <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}</td>
-                                                            <td>{{ $inv->pic ?? '' }}</td>
+                                                            <td>{{ $inv->pic_pinjam ?? '' }}</td>
                                                             <td>{{ $inv->location ?? '' }}</td>
                                                             <td>{{ $inv->status ?? '' }}</td>
                                                             <td>

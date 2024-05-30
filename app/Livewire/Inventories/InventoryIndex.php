@@ -21,7 +21,6 @@ class InventoryIndex extends Component
         }
         $this->sortBy = $sortByField;
     }
-
     public function deleteConfirm($inventoryId){
         $this->inventoryId = $inventoryId;
         $this->dispatch('delete-confirmation');

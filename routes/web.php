@@ -20,11 +20,12 @@ use App\Livewire\Inventories\InventoryEdit;
 use App\Livewire\Inventories\InventoryIndex;
 use App\Livewire\Devices\Name\DeviceNameEdit;
 use App\Livewire\Hospitals\HospitalAddDevice;
-use App\Livewire\Inventories\InventoryAddLog;
 use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
 use App\Livewire\Devices\Name\DeviceNameCreate;
+use App\Livewire\Inventories\Logs\InventoryAddLog;
+use App\Livewire\Inventories\Logs\InventoryEditLog;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('inventories/edit/{inventoryId}', InventoryEdit::class)->name('inventories.edit');
     Route::get('inventories/detail/{inventoryId}', InventoryDetail::class)->name('inventories.detail');
     Route::get('inventories/detail/{inventoryId}/add-log', InventoryAddLog::class)->name('inventories.add_log');
+    Route::get('inventories/detail/{inventoryId}/edit-log/{logId}', InventoryEditLog::class)->name('inventories.edit_log');
     // Devices
     Route::get('devices', DeviceIndex::class)->name('devices.index');
     Route::get('devices/generate', DeviceGenerate::class)->name('devices.generate');
