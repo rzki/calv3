@@ -18,5 +18,9 @@ class Role extends Model
     {
         return $this->hasOne(User::class,'user_id');
     }
-
+    public function scopeSearch($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%")
+        ->orWhere('code', 'like', "%{$value}%");
+    }
 }
