@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\Roles\RoleIndex;
 use App\Livewire\Devices\DeviceEdit;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
@@ -23,10 +24,10 @@ use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
 use App\Livewire\Devices\Name\DeviceNameCreate;
-use App\Livewire\Hospitals\Devices\HospitalAddDevice;
-use App\Livewire\Hospitals\Devices\HospitalEditDevice;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
+use App\Livewire\Hospitals\Devices\HospitalAddDevice;
+use App\Livewire\Hospitals\Devices\HospitalEditDevice;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('roles', RoleIndex::class)->name('roles.index');
     // Inventories
     Route::get('inventories', InventoryIndex::class)->name('inventories.index');
     Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');

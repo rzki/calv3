@@ -83,4 +83,12 @@
             <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
         </a>
     </li>
+    <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+        <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
+            <span class="sidebar-icon me-3">
+                <i class="fas fa-user-gear" aria-hidden="true"></i>
+            </span>
+            <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
+        </a>
+    </li>
 </ul>
