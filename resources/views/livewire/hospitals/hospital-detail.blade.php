@@ -1,7 +1,8 @@
 <div>
     <div class="py-4 main">
         <div class="back-button mb-4">
-            <a href="{{ route('hospitals.index') }}" class="btn btn-info text-white"><i class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
+            <a href="{{ route('hospitals.index') }}" class="btn btn-info text-white"><i class="fas fa-arrow-left"></i>
+                {{ __('Kembali') }}</a>
         </div>
         <div class="row mb-4">
             <div class="col-lg-3">
@@ -53,38 +54,44 @@
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
                                                     <th>{{ __('Nama') }}</th>
-                                                    <th>{{ __('No Telpon') }}</th>
-                                                    <th>{{ __('Alamat') }}</th>
+                                                    <th>{{ __('Serial Number') }}</th>
+                                                    <th>{{ __('Kalibrasi Selanjutnya') }}</th>
+                                                    <th>{{ __('Status') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @if ($rs->isEmpty())
+                                                @if ($alat->isEmpty())
                                                     <tr>
                                                         <td colspan='11' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
-                                                    @else
-                                                    @foreach ($rs as $rs)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $rs->name ?? '' }}</td>
-                                                        <td>{{ $rs->phone_number ?? '' }}</td>
-                                                        <td>{{ $rs->address ?? '' }}</td>
-                                                        <td>
-                                                            <a href="{{ route('hospitals.detail', $rs->hospitalId) }}" class="btn btn-primary"
-                                                                wire:navigate><i class="fas fa-eye"></i></a>
-                                                            <a href="{{ route('hospitals.edit', $rs->hospitalId) }}" class="btn btn-info"
-                                                                wire:navigate><i class="fas fa-pen-to-square"></i></a>
-                                                            <button class="btn btn-danger"
-                                                                wire:click.prevent="deleteConfirm('{{ $rs->hospitalId }}')"><i
-                                                                    class="fas fa-trash"></i></button>
+                                                @else
+                                                    @foreach ($alat as $alat)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $alat->names->name ?? '' }}</td>
+                                                            <td>{{ $alat->serial_number ?? '' }}</td>
+                                                            @if (empty($alat->calibration_date))
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('j M Y', strtotime($alat->calibration_date)) ?? '' }}
+                                                                </td>
+                                                            @endif
+                                                            <td>{{ $alat->status ?? '' }}</td>
+                                                            <td>
+                                                                <a href="{{ route('hospitals.edit_device', ['hospitalId' => $detailRS->hospitalId, 'deviceId' => $alat->deviceId]) }}"
+                                                                    class="btn btn-info" wire:navigate><i
+                                                                        class="fas fa-pen-to-square"></i></a>
+                                                                <button class="btn btn-danger"
+                                                                    wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i
+                                                                        class="fas fa-trash"></i></button>
 
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
-                                                    @endif --}}
+                                                @endif
                                             </tbody>
                                         </table>
                                         <div class="paginate mt-4">
@@ -118,3 +125,62 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        // window.addEventListener('delete-confirmation', event => {
+        //     Swal.fire({
+        //         title: "Apakah anda yakin?",
+        //         text: "Alat ini akan terhapus secara permanen!",
+        //         icon: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#3085d6",
+        //         cancelButtonColor: "#d33",
+        //         confirmButtonText: "Yes"
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             $wire.dispatch('deleteConfirmed');
+        //         }
+        //     });
+        // });
+        window.addEventListener('unlink-confirmationconfirmation', event => {
+            Swal.fire({
+                title: "Apakah anda yakin?",
+                text: "Alat ini akan terhapus dari rumah sakit ini!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $wire.dispatch('unlinkConfirmed');
+                }
+            });
+        });
+    </script>
+@endscript
+
+@if (session()->has('alert'))
+    @script
+        <script>
+            const alerts = @json(session()->get('alert'));
+            const title = alerts.title;
+            const icon = alerts.type;
+            const toast = alerts.toast;
+            const position = alerts.position;
+            const timer = alerts.timer;
+            const progbar = alerts.progbar;
+            const confirm = alerts.showConfirmButton;
+
+            Swal.fire({
+                title: title,
+                icon: icon,
+                toast: toast,
+                position: position,
+                timer: timer,
+                timerProgressBar: progbar,
+                showConfirmButton: confirm
+            });
+        </script>
+    @endscript
+@endif
