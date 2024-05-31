@@ -43,20 +43,25 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="rumah_sakit" class="form-label text-capitalize">{{ __('rumah sakit') }}</label>
-                                            <input type="text" class="form-control" wire:model='rumah_sakit'>
+                                            <select class="form-control" wire:model='rumah_sakit_id'>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
+                                                @foreach ($rs as $rs)
+                                                    <option value="{{ $rs->id }}">{{ $rs->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="kalibrasi_terakhir" class="form-label text-capitalize">{{ __('kalibrasi terakhir') }}</label>
                                             <input type="date" class="form-control" wire:model='kalibrasi_terakhir' value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}">
                                         </div>
-                                        <div class="form-group mb-3">
+                                        {{-- <div class="form-group mb-3">
                                             <label for="status" class="form-label text-capitalize">{{ __('status') }}</label>
                                             <select class="form-control" wire:model='status'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 <option value="Tidak Tersedia" {{ old('status', $qr->status) === 'Tidak Tersedia' ? 'selected' : '' }}>{{ __('Tidak Tersedia') }}</option>
                                                 <option value="Tersedia" {{ old('status', $qr->status) === 'Tersedia' ? 'selected' : '' }}>{{ __('Tersedia') }}</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-success text-white">{{ __('Submit') }}</button>
                                         </div>
