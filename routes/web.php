@@ -19,11 +19,12 @@ use App\Http\Controllers\ProfileController;
 use App\Livewire\Inventories\InventoryEdit;
 use App\Livewire\Inventories\InventoryIndex;
 use App\Livewire\Devices\Name\DeviceNameEdit;
-use App\Livewire\Hospitals\HospitalAddDevice;
 use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
 use App\Livewire\Devices\Name\DeviceNameCreate;
+use App\Livewire\Hospitals\Devices\HospitalAddDevice;
+use App\Livewire\Hospitals\Devices\HospitalEditDevice;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 
@@ -65,4 +66,5 @@ Route::middleware('auth')->group(function () {
     Route::get('hospitals/edit/{hospitalId}', HospitalEdit::class)->name('hospitals.edit');
     Route::get('hospitals/detail/{hospitalId}', HospitalDetail::class)->name('hospitals.detail');
     Route::get('hospitals/detail/{hospitalId}/add-device', HospitalAddDevice::class)->name('hospitals.add_device');
+    Route::get('hospitals/detail/{hospitalId}/edit-device/{deviceId}', HospitalEditDevice::class)->name('hospitals.edit_device');
 });
