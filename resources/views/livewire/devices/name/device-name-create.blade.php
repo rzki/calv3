@@ -8,7 +8,7 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Nama Alat') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
-                                    <a href="" class="btn btn-primary text-white"><i
+                                    <a href="{{ route('device_name.index') }}" class="btn btn-primary text-white" wire:navigate><i
                                             class="fas fa-arrow-left"></i>
                                         {{ __('Kembali') }}</a>
                                 </div>
