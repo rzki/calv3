@@ -21,7 +21,6 @@ class HospitalIndex extends Component
         }
         $this->sortBy = $sortByField;
     }
-
     public function deleteConfirm($hospitalId){
         $this->hospitalId = $hospitalId;
         $this->dispatch('delete-confirmation');

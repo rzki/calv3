@@ -2,6 +2,7 @@
 
 use App\Livewire\Dashboard;
 use App\Livewire\Roles\RoleIndex;
+use App\Livewire\Roles\RoleCreate;
 use App\Livewire\Devices\DeviceEdit;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('roles', RoleIndex::class)->name('roles.index');
+    Route::get('roles/create', RoleCreate::class)->name('roles.create');
     // Inventories
     Route::get('inventories', InventoryIndex::class)->name('inventories.index');
     Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');
