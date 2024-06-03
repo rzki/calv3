@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
                                                 @if (!$logInv->isEmpty())
-                                                {{ $logInv->links() }}
+                                                    {{ $logInv->links() }}
                                                 @endif
                                             </div>
                                         </div>
