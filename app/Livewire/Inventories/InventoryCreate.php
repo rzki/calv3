@@ -26,7 +26,7 @@ class InventoryCreate extends Component
             'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
             'pic' => $this->pic,
             'location' => $this->lokasi,
-            'status' => $this->status
+            'status' => 'Tersedia'
         ]);
         session()->flash('alert', [
             'type' => 'success',
