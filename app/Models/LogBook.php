@@ -31,6 +31,7 @@ class LogBook extends Model
                     ->orWhere('sn', 'like', "%{$value}%")
                     ->orWhereNull('sn', 'like', "%{$value}%");
             });
+            $query->orWhere('inv_number', 'like', "%{$value}%");
         });
     }
     public function scopeSearchLogByInventoryId($query, $value)
