@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
 use App\Livewire\Logbooks\LogbookEdit;
 use App\Livewire\Logbooks\LogbookIndex;
-use App\Http\Controllers\UserController;
 use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
 use App\Livewire\Logbooks\LogbookCreate;
@@ -33,11 +32,11 @@ use App\Livewire\Hospitals\Devices\HospitalAddDevice;
 use App\Livewire\Hospitals\Devices\HospitalEditDevice;
 use App\Livewire\Roles\RoleEdit;
 use App\Livewire\Users\UserEdit;
+use App\Livewire\Users\UserImport;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Auth::routes();
 
@@ -46,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('users', UserIndex::class)->name('users.index');
     Route::get('users/create', UserCreate::class)->name('users.create');
     Route::get('users/edit/{userId}', UserEdit::class)->name('users.edit');
+    Route::get('users/import', UserImport::class)->name('users.import');
     Route::get('roles', RoleIndex::class)->name('roles.index');
     Route::get('roles/create', RoleCreate::class)->name('roles.create');
     Route::get('roles/edit/{roleId}', RoleEdit::class)->name('roles.edit');
