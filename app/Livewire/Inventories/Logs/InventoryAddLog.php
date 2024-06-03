@@ -24,7 +24,7 @@ class InventoryAddLog extends Component
             'tanggal_mulai_pinjam' => $this->mulai_pinjam,
             'tanggal_selesai_pinjam' => $this->selesai_pinjam,
             'lokasi_pinjam' => $this->lokasi_pinjam,
-            'pic' => $this->pic,
+            'pic_pinjam' => $this->pic,
             'status' => 'Dipinjamkan',
         ]);
         session()->flash('alert', [

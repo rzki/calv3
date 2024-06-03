@@ -17,7 +17,7 @@ class InventoryEditLog extends Component
         $this->mulai_pinjam = $this->logBook->tanggal_mulai_pinjam;
         $this->selesai_pinjam = $this->logBook->tanggal_selesai_pinjam;
         $this->lokasi_pinjam = $this->logBook->lokasi_pinjam;
-        $this->pic = $this->logBook->pic;
+        $this->pic = $this->logBook->pic_pinjam;
     }
     public function updateLog()
     {
@@ -25,7 +25,7 @@ class InventoryEditLog extends Component
             'tanggal_mulai_pinjam' => $this->mulai_pinjam,
             'tanggal_selesai_pinjam' => $this->selesai_pinjam,
             'lokasi_pinjam' => $this->lokasi_pinjam,
-            'pic' => $this->pic,
+            'pic_pinjam' => $this->pic,
             'status' => 'Dipinjamkan',
         ]);
         session()->flash('alert', [
