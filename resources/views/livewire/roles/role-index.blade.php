@@ -44,10 +44,10 @@
                                                 @foreach ($role as $r)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $r->name }}</td>
+                                                    <td>{{ $r->role_name }}</td>
                                                     <td>{{ $r->code }}</td>
                                                     <td>
-                                                        <a href="{{ route('device_name.edit', $r->roleId) }}"
+                                                        <a href="{{ route('roles.edit', $r->roleId) }}"
                                                             class="btn btn-info"><i class="fas fa-pen-to-square"></i>
                                                         </a>
                                                         <button class="btn btn-danger"

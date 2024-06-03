@@ -8,8 +8,8 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Role') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
-                                    <a href="{{ route('roles.index') }}" class="btn btn-primary text-white" wire:navigate><i
-                                            class="fas fa-arrow-left"></i>
+                                    <a href="{{ route('roles.index') }}" class="btn btn-primary text-white"
+                                        wire:navigate><i class="fas fa-arrow-left"></i>
                                         {{ __('Kembali') }}</a>
                                 </div>
                             </div>
@@ -21,8 +21,8 @@
                                             <input type="text" class="form-control" wire:model='name'>
                                         </div>
                                         <div class="d-grid">
-                                            <button type="submit"
-                                                class="btn btn-success text-white">{{ __('Submit') }}</button>
+                                            <button type="submit" class="btn btn-success text-white">{{ __('Submit')
+                                                }}</button>
                                         </div>
                                     </form>
                                 </div>
