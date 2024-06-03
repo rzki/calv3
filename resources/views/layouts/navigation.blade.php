@@ -16,28 +16,13 @@
             <span class="sidebar-text">{{ __('Dashboard') }}</span>
         </a>
     </li>
-    <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}">
-        <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-            data-bs-target="#inventory-dropdown">
-            <span>
-                <span class="sidebar-icon me-3">
-                    <i class="fas fa-boxes"></i>
-                </span>
-                <span class="sidebar-text">{{ __('Inventaris') }}</span>
+    <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
+        <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
+            <span class="sidebar-icon me-3">
+                <i class="fas fa-boxes" aria-hidden="true"></i>
             </span>
-            <span class="link-arrow">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </span>
-        </span>
-        <div class="multi-level collapse" role="list" id="inventory-dropdown" aria-expanded="false">
-            <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
-                    <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <span class="sidebar-text">{{ __('Inventaris') }}</span>
+        </a>
     </li>
     <li class="nav-item {{ request()->routeIs('logbooks.index') ? 'active' : '' }}">
         <a href="{{ route('logbooks.index') }}" class="nav-link" wire:navigate>
@@ -77,6 +62,7 @@
         </div>
     </li>
 
+    @can('superadmin-access', 'admin-access')
     <li class="nav-item {{ request()->routeIs('hospitals.index') ? 'active' : '' }}">
         <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -85,13 +71,12 @@
             <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
         </a>
     </li>
-    @can('superadmin-access', 'admin-access')
-        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
-                <span class="sidebar-icon me-2">
-                    <i class="fas fa-users" aria-hidden="true"></i>
-                </span>
-                <span class="sidebar-text">{{ __('Users') }}</span>
+    <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+        <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
+            <span class="sidebar-icon me-2">
+                <i class="fas fa-users" aria-hidden="true"></i>
+            </span>
+            <span class="sidebar-text">{{ __('Users') }}</span>
             </a>
         </li>
     @endcan
