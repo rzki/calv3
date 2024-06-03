@@ -1,7 +1,8 @@
 <div>
     <div class="py-4 main">
         <div class="back-button mb-4">
-            <a href="{{ route('inventories.index') }}" class="btn btn-info text-white" wire:navigate><i class="fas fa-arrow-left"></i>
+            <a href="{{ route('inventories.index') }}" class="btn btn-info text-white" wire:navigate><i
+                    class="fas fa-arrow-left"></i>
                 {{ __('Kembali') }}</a>
         </div>
         <div class="row mb-4">
@@ -55,13 +56,17 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3 text-center">{{ __('Log Book') }}</h2>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input wire:model.live.debounce.250ms='searchByInventoryId' type="text" name="search"
-                                        id="search" class="form-control mb-3 w-25" placeholder="Search...">
+                                    <input wire:model.live.debounce.250ms='searchByInventoryId' type="text"
+                                        name="search" id="search" class="form-control mb-3 w-25"
+                                        placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
-                                        class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
-                                        {{ __('Tambah Log') }}</a>
+                                    @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
+                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                            class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>  {{ __('Tambah Log') }}</a>
+                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
+                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}" class="btn btn-success text-white disabled" wire:navigate disabled><i class="fas fa-plus"></i>  {{ __('Tambah Log') }}</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -90,33 +95,40 @@
                                                     @foreach ($logDetail as $log)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td width="3em">{{ $log->inventories->inv_number ?? '' }}</td>
+                                                            <td width="3em">
+                                                                {{ $log->inventories->inv_number ?? '' }}</td>
                                                             {{-- <td>{{ date('j F Y', strtotime($log->inventories->last_caibrated_date) ?? '') }}</td> --}}
                                                             @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) ||
                                                                     empty($log->tanggal_mulai_pinjam) ||
                                                                     empty($log->tanggal_selesai_pinjam))
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }} s/d {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}
+                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }}
+                                                                    s/d
+                                                                    {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}
                                                                 </td>
                                                             @endif
-                                                            <td >{{ $log->pic_pinjam ?? '' }}</td>
-                                                            <td >{{ $log->lokasi_pinjam ?? '' }}</td>
-                                                            <td >{{ $log->status ?? '' }}</td>
+                                                            <td>{{ $log->pic_pinjam ?? '' }}</td>
+                                                            <td>{{ $log->lokasi_pinjam ?? '' }}</td>
+                                                            <td>{{ $log->status ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->inventoryId, 'logId' => $log->logId]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                                                <button class="btn btn-danger" wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
+                                                                <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->inventoryId, 'logId' => $log->logId]) }}"
+                                                                    class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                                <button class="btn btn-danger"
+                                                                    wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
                                                                         class="fas fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
                                             </tbody>
-                                        </table><div class="row mt-4">
+                                        </table>
+                                        <div class="row mt-4">
                                             <div class="col d-flex align-items-center justify-content-start">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
-                                                <select wire:model.live='perPage' class="form-control text-black per-page" style="width: 7%">
+                                                <select wire:model.live='perPage'
+                                                    class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
@@ -125,8 +137,8 @@
                                                 </select>
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
-                                                @if (!$inventory->isEmpty())
-                                                {{ $inventory->links() }}
+                                                @if (!$logDetail->isEmpty())
+                                                    {{ $logDetail->links() }}
                                                 @endif
                                             </div>
                                         </div>
