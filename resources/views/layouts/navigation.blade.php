@@ -1,6 +1,7 @@
 <ul class="pt-3 nav flex-column pt-md-0">
     <li class="nav-item">
-        <a href="{{ route('dashboard') }}" class="justify-content-center nav-link d-flex align-items-center" wire:navigate>
+        <a href="{{ route('dashboard') }}" class="justify-content-center nav-link d-flex align-items-center"
+            wire:navigate>
 
             <h4 class="mt-1 ms-1 text-uppercase">
                 Kalibrasi
@@ -46,7 +47,8 @@
             <span class="sidebar-text">{{ __('Log Book') }}</span>
         </a>
     </li>
-    <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('device_name.index')  ? 'active' : '' }}">
+    <li
+        class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('device_name.index') ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#device-dropdown">
             <span>
@@ -83,12 +85,25 @@
             <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
         </a>
     </li>
-    <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
-        <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
-            <span class="sidebar-icon me-2">
-                <i class="fas fa-user-gear" aria-hidden="true"></i>
-            </span>
-            <span class="sidebar-text">{{ __('Roles') }}</span>
-        </a>
-    </li>
+    @can('superadmin-access', 'admin-access')
+        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+            <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
+                <span class="sidebar-icon me-2">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                </span>
+                <span class="sidebar-text">{{ __('Users') }}</span>
+            </a>
+        </li>
+    @endcan
+    @can('superadmin-access')
+        <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+            <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
+                <span class="sidebar-icon me-2">
+                    <i class="fas fa-user-gear" aria-hidden="true"></i>
+                </span>
+                <span class="sidebar-text">{{ __('Roles') }}</span>
+            </a>
+        </li>
+    @endcan
+
 </ul>
