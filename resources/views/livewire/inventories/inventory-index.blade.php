@@ -56,7 +56,7 @@
                                                             <td>{{ $inv->procurement_year ?? '' }}</td>
                                                             <td>{{ $inv->inv_number ?? '' }}</td>
                                                             <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}</td>
-                                                            <td>{{ $inv->pic_pinjam ?? '' }}</td>
+                                                            <td>{{ $inv->pic ?? '' }}</td>
                                                             <td>{{ $inv->location ?? '' }}</td>
                                                             <td>{{ $inv->status ?? '' }}</td>
                                                             <td>
@@ -88,8 +88,8 @@
                                                 </select>
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
-                                                @if (!$inventory->isEmpty())
-                                                {{ $inventory->links() }}
+                                                @if (!$inventoryIndex->isEmpty())
+                                                {{ $inventoryIndex->links() }}
                                                 @endif
                                             </div>
                                         </div>
