@@ -52,8 +52,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Device::class);
     }
-    public function adminlte_profile_url()
+    public function scopeSearch($query, $value)
     {
-        return 'profile';
+        $query->where('name', 'like', "%{$value}%")
+        ->orWhere('email', 'like', "%{$value}%")
+        ->orWhereHas('roles', function($query) use ($value){
+            $query->where('role_name', 'like', "%{$value}%");
+        });
     }
 }
