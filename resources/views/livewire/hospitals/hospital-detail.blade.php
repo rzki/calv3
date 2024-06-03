@@ -94,12 +94,12 @@
                                                 @endif
                                             </tbody>
                                         </table>
-                                        <div class="paginate mt-4">
-                                            <div class="d-flex align-items-center data-row">
+                                        <div class="row mt-4">
+                                            <div class="col d-flex align-items-center justify-content-start">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
                                                 <select wire:model.live='perPage'
-                                                    class="form-control text-black per-page" style="width: 5%">
+                                                    class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
@@ -107,9 +107,11 @@
                                                     <option value="100">100</option>
                                                 </select>
                                             </div>
-                                            @if (!empty($inventory))
-                                                {{ $inventory->links() }}
-                                            @endif
+                                            <div class="col d-flex align-items-center justify-content-end">
+                                                @if (!$alat->isEmpty())
+                                                    {{ $alat->links() }}
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
