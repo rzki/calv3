@@ -17,12 +17,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 text-start">
+                                    <h6 class="mb-3">{{ __('No. Inventory') }}</h6>
                                     <h6 class="mb-3">{{ __('Nama') }}</h6>
                                     <h6 class="mb-3">{{ __('Merk') }}</h6>
                                     <h6 class="mb-3">{{ __('Tipe') }}</h6>
                                     <h6 class="mb-3">{{ __('S/N') }}</h6>
                                     <h6 class="mb-3">{{ __('Tahun') }}</h6>
-                                    <h6 class="mb-3">{{ __('No. Inventory') }}</h6>
                                     <h6 class="mb-3">{{ __('Kalibrasi Terakhir') }}</h6>
                                     <h6 class="mb-3">{{ __('Kalibrasi Selanjutnya') }}</h6>
                                     <h6 class="mb-3">{{ __('PIC') }}</h6>
@@ -30,12 +30,12 @@
                                     <h6 class="mb-3">{{ __('Status') }}</h6>
                                 </div>
                                 <div class="col-lg-6 text-end">
+                                    <h6 class="mb-3">{{ $invDetail->inv_number }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->devnames->name }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->brand }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->type }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->sn }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->procurement_year }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->inv_number }}</h6>
                                     <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}
                                     </h6>
                                     <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}
@@ -43,9 +43,9 @@
                                     <h6 class="mb-3">{{ $invDetail->pic }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->location }}</h6>
                                     @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
-                                        <h6 class="mb-3">{{ __('Tersedia') }}</h6>
-                                    @elseif(Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
                                         <h6 class="mb-3">{{ __('Dipinjamkan') }}</h6>
+                                    @elseif(Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
+                                        <h6 class="mb-3">{{ __('Tersedia') }}</h6>
                                     @endif
                                 </div>
                             </div>
@@ -67,12 +67,12 @@
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
                                     @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
                                         <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
-                                            class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
-                                            {{ __('Tambah Log') }}</a>
-                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
-                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
                                             class="btn btn-success text-white disabled" wire:navigate disabled><i
                                                 class="fas fa-plus"></i> {{ __('Tambah Log') }}</a>
+                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
+                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                            class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
+                                            {{ __('Tambah Log') }}</a>
                                     @endif
                                 </div>
                             </div>
@@ -83,7 +83,6 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>{{ __('No. Inventaris') }}</th>
                                                     <th>{{ __('Tanggal Pinjam') }}</th>
                                                     <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
@@ -102,9 +101,6 @@
                                                     @foreach ($logDetail as $log)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td width="3em">
-                                                                {{ $log->inventories->inv_number ?? '' }}</td>
-                                                            {{-- <td>{{ date('j F Y', strtotime($log->inventories->last_caibrated_date) ?? '') }}</td> --}}
                                                             @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) ||
                                                                     empty($log->tanggal_mulai_pinjam) ||
                                                                     empty($log->tanggal_selesai_pinjam))

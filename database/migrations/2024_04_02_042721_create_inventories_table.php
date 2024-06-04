@@ -24,7 +24,6 @@ return new class extends Migration
             $table->date('next_calibrated_date')->nullable();
             $table->string('pic')->nullable();
             $table->string('location')->nullable();
-            $table->string('status');
             $table->timestamps();
         });
     }
