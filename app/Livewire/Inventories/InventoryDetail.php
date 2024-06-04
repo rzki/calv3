@@ -51,8 +51,6 @@ class InventoryDetail extends Component
     #[Title('Detail Inventaris')]
     public function render()
     {
-        // $d = LogBook::orderByDesc('created_at')->first();
-        // dd($d);
         return view('livewire.inventories.inventory-detail',[
             'latest' => $this->latestLog,
             'invDetail' => $this->inventories,

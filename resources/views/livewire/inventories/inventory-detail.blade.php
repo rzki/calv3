@@ -42,10 +42,10 @@
                                     </h6>
                                     <h6 class="mb-3">{{ $invDetail->pic }}</h6>
                                     <h6 class="mb-3">{{ $invDetail->location }}</h6>
-                                    @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
-                                        <h6 class="mb-3">{{ __('Dipinjamkan') }}</h6>
-                                    @elseif(Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
+                                    @if(empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
                                         <h6 class="mb-3">{{ __('Tersedia') }}</h6>
+                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
+                                        <h6 class="mb-3">{{ __('Dipinjamkan') }}</h6>
                                     @endif
                                 </div>
                             </div>
@@ -65,14 +65,14 @@
                                         placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                    @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
-                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
-                                            class="btn btn-success text-white disabled" wire:navigate disabled><i
-                                                class="fas fa-plus"></i> {{ __('Tambah Log') }}</a>
-                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
+                                    @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
                                         <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
                                             class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
                                             {{ __('Tambah Log') }}</a>
+                                    @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
+                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                            class="btn btn-success text-white disabled" wire:navigate disabled><i
+                                                class="fas fa-plus"></i> {{ __('Tambah Log') }}</a>
                                     @endif
                                 </div>
                             </div>
