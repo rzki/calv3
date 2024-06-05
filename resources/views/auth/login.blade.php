@@ -12,14 +12,14 @@
                         @csrf
                         <!-- Form -->
                         <div class="mb-4 text-center form-group">
-                            <label for="email">{{ __('Email / Username') }}</label>
+                            <label for="username">{{ __('Email / Username') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="fas fa-envelope"></i>
                                 </span>
                                 <input name="username" type="username" class="form-control" placeholder="{{ __('Email / Username') }}" id="username" value="{{ old('username') }}" required autofocus>
                             </div>
-                            @error('email')
+                            @error('username')
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                         </div>
