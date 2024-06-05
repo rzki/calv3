@@ -34,8 +34,10 @@ use App\Livewire\Roles\RoleEdit;
 use App\Livewire\Users\UserEdit;
 use App\Livewire\Users\UserImport;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function(){
+    Route::get('/', function () {
+    return view('auth.login');
+});
 });
 
 Auth::routes();
