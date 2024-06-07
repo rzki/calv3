@@ -5,9 +5,11 @@ namespace App\Livewire\Users;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
+    use WithPagination;
     public $user, $userId;
     public $search, $perPage = 5;
     public $listeners = ['deleteConfirmed' => 'delete'];
