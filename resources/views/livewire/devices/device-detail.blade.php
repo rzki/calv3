@@ -26,7 +26,7 @@
                     </div>
                     <div class="last-calibration">
                         <h4 class="fw-bold">{{ __('Kalibrasi Terakhir') }}</h4>
-                        @if($qr->calibration_date == null)
+                        @if ($qr->calibration_date == null)
                             <p class="fs-5">{{ '' }}</p>
                         @else
                             <p class="fs-5">{{ date('j F Y', strtotime($qr->calibration_date)) }}</p>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="next-calibration">
                         <h4 class="fw-bold">{{ __('Kalibrasi Selanjutnya') }}</h4>
-                        @if($qr->next_calibration_date == null)
+                        @if ($qr->next_calibration_date == null)
                             <p class="fs-5">{{ '' }}</p>
                         @else
                             <p class="fs-5">{{ date('j F Y', strtotime($qr->next_calibration_date)) }}</p>
@@ -57,20 +57,23 @@
                 </div>
             </div>
             <div class="row mb-3">
-                    <div class="status">
-                        <h4 class="fw-bold">{{ __('Status') }}</h4>
-                        <p class="fs-5">{{ $qr->status ?? '' }}</p>
-                    </div>
+                <div class="status">
+                    <h4 class="fw-bold">{{ __('Status') }}</h4>
+                    <p class="fs-5">{{ $qr->status ?? '' }}</p>
+                </div>
             </div>
             <div class="row">
                 @if (Auth::guest())
-                    <a href="{{ route('devices.edit', $qr->deviceId) }}" class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
+                    <a href="{{ route('devices.edit', $qr->deviceId) }}"
+                        class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
                     <script>
-                        sessionStorage.setItem('intended_url', route('devices.detail', $qr->deviceId));
+                        sessionStorage.setItem('intended_url', route('devices.detail', $qr - > deviceId));
                     </script>
                 @elseif(Auth::check())
-                    <a href="{{ route('devices.edit', $qr->deviceId) }}" class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
+                    <a href="{{ route('devices.edit', $qr->deviceId) }}"
+                        class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
                 @endif
             </div>
         </div>
     </div>
+</div>
