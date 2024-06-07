@@ -1,16 +1,20 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\Roles\RoleEdit;
+use App\Livewire\Users\UserEdit;
 use App\Livewire\Roles\RoleIndex;
 use App\Livewire\Users\UserIndex;
 use App\Livewire\Roles\RoleCreate;
 use App\Livewire\Users\UserCreate;
+use App\Livewire\Users\UserImport;
 use App\Livewire\Devices\DeviceEdit;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
 use App\Livewire\Logbooks\LogbookEdit;
+use App\Livewire\Devices\DevicePrintQR;
 use App\Livewire\Logbooks\LogbookIndex;
 use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
@@ -18,6 +22,7 @@ use App\Livewire\Logbooks\LogbookCreate;
 use App\Livewire\Hospitals\HospitalIndex;
 use App\Livewire\Hospitals\HospitalCreate;
 use App\Livewire\Hospitals\HospitalDetail;
+use App\Http\Controllers\PrintQRController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Inventories\InventoryEdit;
 use App\Livewire\Inventories\InventoryIndex;
@@ -25,14 +30,12 @@ use App\Livewire\Devices\Name\DeviceNameEdit;
 use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
+use App\Http\Controllers\DevicePrintController;
 use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
 use App\Livewire\Hospitals\Devices\HospitalEditDevice;
-use App\Livewire\Roles\RoleEdit;
-use App\Livewire\Users\UserEdit;
-use App\Livewire\Users\UserImport;
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {
@@ -66,6 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('devices/generate', DeviceGenerate::class)->name('devices.generate');
     Route::get('devices/edit/{deviceId}', DeviceEdit::class)->name('devices.edit');
     Route::get('devices/detail/{deviceId}', DeviceDetail::class)->name('devices.detail');
+    Route::get('devices/print/{deviceId}', DeviceIndex::class)->name('devices.print');
+    Route::get('devices/print-all', [PrintQRController::class, 'printAll'])->name('devices.printAll');
     // Device Name
     Route::get('device_name', DeviceNameIndex::class)->name('device_name.index');
     Route::get('device_name/create', DeviceNameCreate::class)->name('device_name.create');
