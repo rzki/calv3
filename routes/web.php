@@ -47,14 +47,16 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
+    // Users
     Route::get('users', UserIndex::class)->name('users.index');
     Route::get('users/create', UserCreate::class)->name('users.create');
     Route::get('users/edit/{userId}', UserEdit::class)->name('users.edit');
     Route::get('users/import', UserImport::class)->name('users.import');
+    // Roles
     Route::get('roles', RoleIndex::class)->name('roles.index');
     Route::get('roles/create', RoleCreate::class)->name('roles.create');
     Route::get('roles/edit/{roleId}', RoleEdit::class)->name('roles.edit');
-
+    // Profile
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     // Inventories
@@ -85,5 +87,4 @@ Route::middleware('auth')->group(function () {
     Route::get('hospitals/edit/{hospitalId}', HospitalEdit::class)->name('hospitals.edit');
     Route::get('hospitals/detail/{hospitalId}', HospitalDetail::class)->name('hospitals.detail');
     Route::get('hospitals/detail/{hospitalId}/add-device', HospitalAddDevice::class)->name('hospitals.add_device');
-    Route::get('hospitals/detail/{hospitalId}/edit-device/{deviceId}', HospitalEditDevice::class)->name('hospitals.edit_device');
 });
