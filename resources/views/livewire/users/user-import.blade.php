@@ -18,7 +18,7 @@
                                     <form wire:submit='import' method="post" enctype="multipart/form-data">
                                         <div class="form-group mb-3">
                                             <label for="users" class="form-label">{{ __('Pilih File') }}</label>
-                                            <input type="file" class="form-control" wire:model='users'>
+                                            <input type="file" class="form-control" wire:model='users' name="users" id="users">
                                             <p class="form-text">{{ __('Hanya mendukung file excel') }}</p>
                                         </div>
                                         <div class="d-grid">

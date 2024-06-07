@@ -4,6 +4,7 @@ namespace App\Livewire\Users;
 
 use Livewire\Component;
 use App\Imports\UsersImport;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
@@ -11,10 +12,11 @@ use Maatwebsite\Excel\Facades\Excel;
 class UserImport extends Component
 {
     use WithFileUploads;
-    #[Validate('file|required|mimes:csv,xls,xlsx')]
+    // #[Validate('file|required|mimes:csv,xls,xlsx')]
     public $users;
     public function import()
     {
+        dd($this->users);
         Excel::import(new UsersImport, $this->users);
 
         session()->flash('alert', [
