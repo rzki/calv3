@@ -36,7 +36,7 @@ class UserCreate extends Component
     #[Title('Tambah User')]
     public function render()
     {
-        if ($this->authorize('viewUsers')) {
+        if ($this->authorize('accessUsers')) {
             return view('livewire.users.user-create', [
                 'role' => Role::where('id', '!=', 1)->get(),
             ]);

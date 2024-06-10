@@ -36,7 +36,7 @@ class RoleIndex extends Component
     #[Title('Semua Role')]
     public function render()
     {
-        if ($this->authorize('viewRoles')) {
+        if ($this->authorize('accessRoles')) {
             return view('livewire.roles.role-index', [
                 'role' => Role::search($this->search)
                     ->where('name', '!=', 'Superadmin')

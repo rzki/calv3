@@ -34,7 +34,7 @@ class UserImport extends Component
     #[Title('Import User')]
     public function render()
     {
-        if ($this->authorize('viewUsers')) {
+        if ($this->authorize('accessUsers')) {
             return view('livewire.users.user-import');
         } else {
             return view('livewire.dashboard');

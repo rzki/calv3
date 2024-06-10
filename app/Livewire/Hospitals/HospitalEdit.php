@@ -37,7 +37,7 @@ class HospitalEdit extends Component
     #[Title('Update Rumah Sakit')]
     public function render()
     {
-        if ($this->authorize('viewHospitals')) {
+        if ($this->authorize('accessHospitals')) {
             return view('livewire.hospitals.hospital-edit', [
                 'hospitals' => $this->hospitals,
             ]);

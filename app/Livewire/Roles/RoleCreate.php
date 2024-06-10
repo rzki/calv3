@@ -29,7 +29,7 @@ class RoleCreate extends Component
     #[Title('Tambah Role')]
     public function render()
     {
-        if($this->authorize('viewRoles')){
+        if($this->authorize('accessRoles')){
             return view('livewire.roles.role-create');
         }else{
             return view('livewire.dashboard');

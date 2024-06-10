@@ -42,7 +42,7 @@ class UserEdit extends Component
     #[Title('Update User')]
     public function render()
     {
-        if ($this->authorize('viewUsers')) {
+        if ($this->authorize('accessUsers')) {
             return view('livewire.users.user-edit', [
                 'role' => Role::where('id', '!=', 1)->get(),
             ]);

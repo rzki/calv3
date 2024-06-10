@@ -9,16 +9,16 @@ class AccessPolicy
     /**
      * Create a new policy instance.
      */
-    public function viewHospitals(User $user)
+    public function accessHospitals(User $user)
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin');
     }
 
-    public function viewUsers(User $user)
+    public function accessUsers(User $user)
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin');
     }
-    public function viewRoles(User $user)
+    public function accessRoles(User $user)
     {
         return $user->hasRole('Superadmin');
     }
