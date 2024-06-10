@@ -2,21 +2,23 @@
 
 namespace App\Livewire\Roles;
 
+use App\Models\Role;
 use Livewire\Component;
+use App\Models\Permission;
 use Livewire\Attributes\Title;
-use Spatie\Permission\Models\Role;
 
 class RoleEdit extends Component
 {
-    public $roles, $id, $name, $code;
-    public function mount($id)
+    public $roles, $roleId, $permissions, $name, $permission_list;
+    public $perPage = 5;
+    public function mount($roleId)
     {
-        $this->roles = Role::where('id', $id)->first();
-        $this->name = $this->roles->role_name;
+        $this->roles = Role::where('id', $roleId)->first();
+        $this->name = $this->roles->name;
     }
     public function update()
     {
-        Role::where('id', $this->id)->update([
+        Role::where('id', $this->roleId)->update([
             'name' => $this->name
         ]);
         session()->flash('alert', [
@@ -33,6 +35,8 @@ class RoleEdit extends Component
     #[Title('Update Role')]
     public function render()
     {
-        return view('livewire.roles.role-edit');
+        return view('livewire.roles.role-edit', [
+            'allPermissions' => Permission::all()
+        ]);
     }
 }

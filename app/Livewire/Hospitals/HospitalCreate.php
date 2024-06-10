@@ -32,6 +32,11 @@ class HospitalCreate extends Component
     #[Title('Tambah Rumah Sakit')]
     public function render()
     {
-        return view('livewire.hospitals.hospital-create');
+
+        if($this->authorize('viewHospitals')){
+            return view('livewire.hospitals.hospital-create');
+        }else{
+            return view('livewire.dashboard');
+        }
     }
 }

@@ -52,8 +52,6 @@ class User extends Authenticatable
     {
         $query->where('name', 'like', "%{$value}%")
         ->orWhere('email', 'like', "%{$value}%")
-        ->orWhereHas('roles', function($query) use ($value){
-            $query->where('role_name', 'like', "%{$value}%");
-        });
+        ->orWhere('username', 'like', "%{$value}%");
     }
 }

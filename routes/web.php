@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('device_name/edit/{nameId}', DeviceNameEdit::class)->name('device_name.edit');
     // Logbooks
     Route::get('logbooks', LogbookIndex::class)->name('logbooks.index');
+    // Hospitals
     Route::get('hospitals', HospitalIndex::class)->name('hospitals.index');
     Route::get('hospitals/create', HospitalCreate::class)->name('hospitals.create');
     Route::get('hospitals/edit/{hospitalId}', HospitalEdit::class)->name('hospitals.edit');

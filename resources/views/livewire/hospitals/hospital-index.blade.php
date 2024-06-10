@@ -7,16 +7,18 @@
                         <div class="card-body">
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Rumah Sakit') }}</h2>
                             <div class="row mb-4">
-                                <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white" wire:navigate><i
-                                            class="fas fa-plus"></i>
-                                        {{ __('Tambah Rumah Sakit') }}</a>
-                                </div>
+                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                    <div class="col d-flex justify-content-end">
+                                        <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"
+                                            wire:navigate><i class="fas fa-plus"></i>
+                                            {{ __('Tambah Rumah Sakit') }}</a>
+                                    </div>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input wire:model.live.debounce.250ms='search' type="text" name="search" id="search"
-                                        class="form-control mb-3 w-25" placeholder="Search...">
+                                    <input wire:model.live.debounce.250ms='search' type="text" name="search"
+                                        id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                             </div>
                             <div class="row">
@@ -34,32 +36,33 @@
                                             </thead>
                                             <tbody>
                                                 @if ($rs->isEmpty())
-                                                <tr>
-                                                    <td colspan='11' class="text-center">
-                                                        {{ __('Data tidak ditemukan') }}
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <td colspan='11' class="text-center">
+                                                            {{ __('Data tidak ditemukan') }}
+                                                        </td>
+                                                    </tr>
                                                 @else
-                                                @foreach ($rs as $rumahsakit)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $rumahsakit->name ?? '' }}</td>
-                                                    <td>{{ $rumahsakit->phone_number ?? '' }}</td>
-                                                    <td>{{ $rumahsakit->address ?? '' }}</td>
-                                                    <td>
-                                                        <a href="{{ route('hospitals.detail', $rumahsakit->hospitalId) }}"
-                                                            class="btn btn-primary" wire:navigate><i
-                                                                class="fas fa-eye"></i></a>
-                                                        <a href="{{ route('hospitals.edit', $rumahsakit->hospitalId) }}"
-                                                            class="btn btn-info" wire:navigate><i
-                                                                class="fas fa-pen-to-square"></i></a>
-                                                        <button class="btn btn-danger"
-                                                            wire:click.prevent="deleteConfirm('{{ $rumahsakit->hospitalId }}')"><i
-                                                                class="fas fa-trash"></i></button>
-
-                                                    </td>
-                                                </tr>
-                                                @endforeach
+                                                    @foreach ($rs as $rumahsakit)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $rumahsakit->name ?? '' }}</td>
+                                                            <td>{{ $rumahsakit->phone_number ?? '' }}</td>
+                                                            <td>{{ $rumahsakit->address ?? '' }}</td>
+                                                            <td>
+                                                                <a href="{{ route('hospitals.detail', $rumahsakit->hospitalId) }}"
+                                                                    class="btn btn-primary" wire:navigate><i
+                                                                        class="fas fa-eye"></i></a>
+                                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                                    <a href="{{ route('hospitals.edit', $rumahsakit->hospitalId) }}"
+                                                                        class="btn btn-info" wire:navigate><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $rumahsakit->hospitalId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 @endif
                                             </tbody>
                                         </table>
@@ -93,8 +96,8 @@
     </div>
 </div>
 @script
-<script>
-    window.addEventListener('delete-confirmation', event => {
+    <script>
+        window.addEventListener('delete-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
                 text: "Rumah Sakit akan terhapus secara permanen!",
@@ -109,13 +112,13 @@
                 }
             });
         })
-</script>
+    </script>
 @endscript
 
 @if (session()->has('alert'))
-@script
-<script>
-    const alerts = @json(session()->get('alert'));
+    @script
+        <script>
+            const alerts = @json(session()->get('alert'));
             const title = alerts.title;
             const icon = alerts.type;
             const toast = alerts.toast;
@@ -133,6 +136,6 @@
                 timerProgressBar: progbar,
                 showConfirmButton: confirm
             });
-</script>
-@endscript
+        </script>
+    @endscript
 @endif

@@ -14,30 +14,34 @@ class UserCreate extends Component
     public $nama, $email, $roles;
     public function create()
     {
-        User::create([
-            'userId'=> Str::orderedUuid(),
+        $user = User::create([
+            'userId' => Str::orderedUuid(),
             'name' => $this->nama,
             'username' => str_replace(' ', '_', $this->nama),
             'email' => $this->email,
-            'role_id' => $this->roles,
-            'password' => Hash::make('Calibration24!')
+            'password' => Hash::make('Calibration24!'),
         ]);
+        $user->assignRole($this->roles);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'User berhasil ditambahkan!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate:true);
+        return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Tambah User')]
     public function render()
     {
-        return view('livewire.users.user-create',[
-            'role' => Role::where('id', '!=', 1)->get()
-        ]);
+        if ($this->authorize('viewUsers')) {
+            return view('livewire.users.user-create', [
+                'role' => Role::where('id', '!=', 1)->get(),
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

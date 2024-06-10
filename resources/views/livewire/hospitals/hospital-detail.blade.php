@@ -57,7 +57,9 @@
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Kalibrasi Selanjutnya') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th style="width: 5em;"></th>
+                                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                        <th style="width: 5em;"></th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -80,11 +82,13 @@
                                                                 </td>
                                                             @endif
                                                             <td>{{ $alat->status ?? '' }}</td>
-                                                            <td>
-                                                                <button class="btn btn-danger"
-                                                                    wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i
-                                                                        class="fas fa-trash"></i></button>
-                                                            </td>
+                                                            @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                                <td>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 @endif

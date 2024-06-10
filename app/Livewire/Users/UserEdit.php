@@ -13,11 +13,11 @@ class UserEdit extends Component
     public $users, $userId, $nama, $username, $email, $roles;
     public function mount($userId)
     {
-        $this->users    = User::with('roles')->where('userId', $userId)->first();
-        $this->nama     = $this->users->name;
+        $this->users = User::with('roles')->where('userId', $userId)->first();
+        $this->nama = $this->users->name;
         $this->username = $this->users->username;
-        $this->email    = $this->users->email;
-        $this->roles    = $this->users->role_id;
+        $this->email = $this->users->email;
+        $this->roles = $this->users->role_id;
     }
     public function update()
     {
@@ -25,25 +25,29 @@ class UserEdit extends Component
             'name' => $this->nama,
             'username' => $this->username,
             'email' => $this->email,
-            'role_id' => $this->roles,
-            'password' => Hash::make('Calibration24!')
+            'password' => Hash::make('Calibration24!'),
         ]);
+        $this->users->assignRole($this->roles);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'User berhasil diperbarui!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate:true);
+        return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Update User')]
     public function render()
     {
-        return view('livewire.users.user-edit',[
-            'role' => Role::where('id', '!=', 1)->get()
-        ]);
+        if ($this->authorize('viewUsers')) {
+            return view('livewire.users.user-edit', [
+                'role' => Role::where('id', '!=', 1)->get(),
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

@@ -50,7 +50,7 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $user->name }}</td>
                                                             <td>{{ $user->email }}</td>
-                                                            <td>{{ $user->roles->role_name }}</td>
+                                                            <td>{{ $user->roles->first()->name }}</td>
                                                             <td>
                                                                 <a href="{{ route('users.edit', $user->userId) }}"
                                                                     class="btn btn-info" wire:navigate><i

@@ -18,22 +18,26 @@ class UserImport extends Component
     public function import()
     {
         // dd($this->users);
-        Excel::import(new UsersImport, $this->users);
+        Excel::import(new UsersImport(), $this->users);
 
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'User berhasil diimpor!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate:true);
+        return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Import User')]
     public function render()
     {
-        return view('livewire.users.user-import');
+        if ($this->authorize('viewUsers')) {
+            return view('livewire.users.user-import');
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

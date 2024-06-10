@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Roles;
 
+use App\Models\Role;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
-use Spatie\Permission\Models\Role;
 
 class RoleCreate extends Component
 {
@@ -29,6 +29,10 @@ class RoleCreate extends Component
     #[Title('Tambah Role')]
     public function render()
     {
-        return view('livewire.roles.role-create');
+        if($this->authorize('viewRoles')){
+            return view('livewire.roles.role-create');
+        }else{
+            return view('livewire.dashboard');
+        }
     }
 }
