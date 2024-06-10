@@ -17,7 +17,7 @@ class UserImport extends Component
     public $users;
     public function import()
     {
-        dd($this->users);
+        // dd($this->users);
         Excel::import(new UsersImport, $this->users);
 
         session()->flash('alert', [
