@@ -13,12 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
-use App\Livewire\Logbooks\LogbookEdit;
-use App\Livewire\Devices\DevicePrintQR;
 use App\Livewire\Logbooks\LogbookIndex;
 use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
-use App\Livewire\Logbooks\LogbookCreate;
 use App\Livewire\Hospitals\HospitalIndex;
 use App\Livewire\Hospitals\HospitalCreate;
 use App\Livewire\Hospitals\HospitalDetail;
@@ -30,12 +27,10 @@ use App\Livewire\Devices\Name\DeviceNameEdit;
 use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
-use App\Http\Controllers\DevicePrintController;
 use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
-use App\Livewire\Hospitals\Devices\HospitalEditDevice;
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {
@@ -79,9 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::get('device_name/edit/{nameId}', DeviceNameEdit::class)->name('device_name.edit');
     // Logbooks
     Route::get('logbooks', LogbookIndex::class)->name('logbooks.index');
-    Route::get('logbooks/create', LogbookCreate::class)->name('logbooks.create');
-    Route::get('logbooks/edit/{logId}', LogbookEdit::class)->name('logbooks.edit');
-    // Hospitals
     Route::get('hospitals', HospitalIndex::class)->name('hospitals.index');
     Route::get('hospitals/create', HospitalCreate::class)->name('hospitals.create');
     Route::get('hospitals/edit/{hospitalId}', HospitalEdit::class)->name('hospitals.edit');
