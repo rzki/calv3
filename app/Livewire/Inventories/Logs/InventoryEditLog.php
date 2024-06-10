@@ -40,7 +40,7 @@ class InventoryEditLog extends Component
         return $this->redirectRoute('inventories.detail', ['inventoryId' => $this->inventoryId], navigate: true);
     }
 
-    #[Title('Tambah Log Inventaris')]
+    #[Title('Update Log Inventaris')]
     public function render()
     {
         return view('livewire.inventories.logs.inventory-edit-log', [

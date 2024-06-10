@@ -5,6 +5,7 @@ namespace App\Livewire\Users;
 use Livewire\Component;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
@@ -30,6 +31,7 @@ class UserImport extends Component
         ]);
         return $this->redirectRoute('users.index', navigate:true);
     }
+    #[Title('Import User')]
     public function render()
     {
         return view('livewire.users.user-import');

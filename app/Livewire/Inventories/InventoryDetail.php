@@ -16,7 +16,6 @@ class InventoryDetail extends Component
     public function mount($inventoryId)
     {
         $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
-        $this->logbook = LogBook::where('inventory_id', $this->inventories->id)->with('inventories')->get();
         $this->latestLog = LogBook::where('inventory_id', $this->inventories->id)->with('inventories')->orderByDesc('created_at')->first();
     }
 

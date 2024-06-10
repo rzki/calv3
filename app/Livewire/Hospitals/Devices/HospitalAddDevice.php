@@ -5,6 +5,7 @@ namespace App\Livewire\Hospitals\Devices;
 use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
+use Livewire\Attributes\Title;
 
 class HospitalAddDevice extends Component
 {
@@ -30,6 +31,7 @@ class HospitalAddDevice extends Component
         ]);
         return $this->redirectRoute('hospitals.detail',['hospitalId' => $this->hospitalId], navigate:true);
     }
+    #[Title('Tambah Alat Rumah Sakit')]
     public function render()
     {
         return view('livewire.hospitals.devices.device-add', [

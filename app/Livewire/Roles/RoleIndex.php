@@ -31,7 +31,7 @@ class RoleIndex extends Component
         ]);
         return $this->redirectRoute('roles.index', navigate:true);
     }
-    #[Title('Roles')]
+    #[Title('Semua Role')]
     public function render()
     {
         return view('livewire.roles.role-index',[

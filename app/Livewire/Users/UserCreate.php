@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Hash;
 
 class UserCreate extends Component
@@ -32,6 +33,7 @@ class UserCreate extends Component
         ]);
         return $this->redirectRoute('users.index', navigate:true);
     }
+    #[Title('Tambah User')]
     public function render()
     {
         return view('livewire.users.user-create',[

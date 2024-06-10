@@ -4,6 +4,7 @@ namespace App\Livewire\Devices\Name;
 
 use Livewire\Component;
 use App\Models\DeviceName;
+use Livewire\Attributes\Title;
 
 class DeviceNameEdit extends Component
 {
@@ -29,6 +30,7 @@ class DeviceNameEdit extends Component
         ]);
         return $this->redirectRoute('device_name.index', navigate:true);
     }
+    #[Title('Update Nama Alat')]
     public function render()
     {
         return view('livewire.devices.name.device-name-edit');

@@ -41,7 +41,7 @@ class HospitalIndex extends Component
         ]);
         return $this->redirectRoute('hospitals.index', navigate:true);
     }
-    #[Title('Rumah Sakit')]
+    #[Title('Semua Rumah Sakit')]
     public function render()
     {
         return view('livewire.hospitals.hospital-index', [

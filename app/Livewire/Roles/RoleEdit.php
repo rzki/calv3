@@ -31,9 +31,9 @@ class RoleEdit extends Component
         ]);
         return $this->redirectRoute('roles.index', navigate:true);
     }
-    #[Title('Edit Role')]
+    #[Title('Update Role')]
     public function render()
     {
-        return view('livewire.roles.role-create');
+        return view('livewire.roles.role-edit');
     }
 }

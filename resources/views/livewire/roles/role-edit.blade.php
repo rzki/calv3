@@ -5,7 +5,7 @@
                 <div class="px-0 col-12">
                     <div class="border-0 shadow card">
                         <div class="card-body">
-                            <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Role') }}</h2>
+                            <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Update Role') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
                                     <a href="{{ route('roles.index') }}" class="btn btn-primary text-white"

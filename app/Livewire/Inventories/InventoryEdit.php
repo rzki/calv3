@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Inventory;
 use App\Models\DeviceName;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Title;
 
 class InventoryEdit extends Component
 {
@@ -54,6 +55,7 @@ class InventoryEdit extends Component
         return $this->redirectRoute('inventories.index', navigate:true);
 
     }
+    #[Title('Update Inventaris')]
     public function render()
     {
         return view('livewire.inventories.inventory-edit',[

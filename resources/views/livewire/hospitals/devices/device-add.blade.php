@@ -16,8 +16,7 @@
                                 <div class="col">
                                     <form wire:submit='addDevice'>
                                         <div class="form-group mb-3">
-                                            <label for="number" class="form-label">{{ __('Jumlah QR yang ingin
-                                                digenerate') }}</label>
+                                            <label for="number" class="form-label">{{ __('Pilih Alat') }}</label>
                                             <select name="device_id" id="device_id" class="form-control" wire:model='device_id'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($deviceAdd as $dev)

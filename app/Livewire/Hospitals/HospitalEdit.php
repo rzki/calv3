@@ -35,7 +35,7 @@ class HospitalEdit extends Component
         ]);
         return $this->redirectRoute('hospitals.index', navigate:true);
     }
-    #[Title('Edit Rumah Sakit')]
+    #[Title('Update Rumah Sakit')]
     public function render()
     {
         return view('livewire.hospitals.hospital-edit',[

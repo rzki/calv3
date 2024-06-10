@@ -8,7 +8,7 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Rumah Sakit') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"><i
+                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white" wire:navigate><i
                                             class="fas fa-plus"></i>
                                         {{ __('Tambah Rumah Sakit') }}</a>
                                 </div>
@@ -40,21 +40,21 @@
                                                     </td>
                                                 </tr>
                                                 @else
-                                                @foreach ($rs as $rs)
+                                                @foreach ($rs as $rumahsakit)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $rs->name ?? '' }}</td>
-                                                    <td>{{ $rs->phone_number ?? '' }}</td>
-                                                    <td>{{ $rs->address ?? '' }}</td>
+                                                    <td>{{ $rumahsakit->name ?? '' }}</td>
+                                                    <td>{{ $rumahsakit->phone_number ?? '' }}</td>
+                                                    <td>{{ $rumahsakit->address ?? '' }}</td>
                                                     <td>
-                                                        <a href="{{ route('hospitals.detail', $rs->hospitalId) }}"
+                                                        <a href="{{ route('hospitals.detail', $rumahsakit->hospitalId) }}"
                                                             class="btn btn-primary" wire:navigate><i
                                                                 class="fas fa-eye"></i></a>
-                                                        <a href="{{ route('hospitals.edit', $rs->hospitalId) }}"
+                                                        <a href="{{ route('hospitals.edit', $rumahsakit->hospitalId) }}"
                                                             class="btn btn-info" wire:navigate><i
                                                                 class="fas fa-pen-to-square"></i></a>
                                                         <button class="btn btn-danger"
-                                                            wire:click.prevent="deleteConfirm('{{ $rs->hospitalId }}')"><i
+                                                            wire:click.prevent="deleteConfirm('{{ $rumahsakit->hospitalId }}')"><i
                                                                 class="fas fa-trash"></i></button>
 
                                                     </td>

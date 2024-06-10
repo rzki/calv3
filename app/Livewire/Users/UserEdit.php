@@ -39,7 +39,7 @@ class UserEdit extends Component
         ]);
         return $this->redirectRoute('users.index', navigate:true);
     }
-    #[Title('Edit User')]
+    #[Title('Update User')]
     public function render()
     {
         return view('livewire.users.user-edit',[

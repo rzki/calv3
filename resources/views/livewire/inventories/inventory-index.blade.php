@@ -64,8 +64,8 @@
                                                                     class="btn btn-primary" wire:navigate><i
                                                                         class="fas fa-eye"></i></a>
                                                                 <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
-                                                                    class="btn btn-info"><i class="fas fa-pen-to-square"
-                                                                        wire:navigate></i></a>
+                                                                    class="btn btn-info" wire:navigate><i class="fas fa-pen-to-square"
+                                                                        ></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
                                                                         class="fas fa-trash"></i></button>

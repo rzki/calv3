@@ -116,7 +116,7 @@
                                                             <td>{{ $log->status ?? '' }}</td>
                                                             <td>
                                                                 <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->inventoryId, 'logId' => $log->logId]) }}"
-                                                                    class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                                    class="btn btn-info" wire:navigate><i class="fas fa-edit"></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
                                                                         class="fas fa-trash"></i></button>
