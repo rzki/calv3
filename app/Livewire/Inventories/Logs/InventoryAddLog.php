@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventories\Logs;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
 use App\Models\Inventory;
@@ -40,10 +41,14 @@ class InventoryAddLog extends Component
     }
 
     #[Title('Tambah Log Inventaris')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.inventories.logs.inventory-add-log',[
-            'invAddLog' => $this->inventories
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.inventories.logs.inventory-add-log', [
+                'invAddLog' => $this->inventories,
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

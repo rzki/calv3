@@ -1,5 +1,5 @@
 @extends('components.layouts.error')
-
+@section('title', __('404 Page Not Found'))
 @section('content')
     <div class="row vh-100">
         <div class="col d-flex flex-column align-items-center justify-content-center">

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Inventory;
 use Livewire\WithPagination;
@@ -42,11 +43,15 @@ class InventoryIndex extends Component
         return $this->redirectRoute('inventories.index', navigate:true);
     }
     #[Title('Semua Inventaris')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.inventories.inventory-index', [
-            'inventoryIndex' => Inventory::search($this->search)
-            ->paginate($this->perPage)
-        ]);
+        if($this->authorize('adminAccess', $user)){
+            return view('livewire.inventories.inventory-index', [
+                'inventoryIndex' => Inventory::search($this->search)
+                ->paginate($this->perPage)
+            ]);
+        }else{
+            return view('livewire.dashboard');
+        }
     }
 }

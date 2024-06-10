@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Hospitals;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Hospital;
 use Illuminate\Support\Str;
@@ -30,10 +31,9 @@ class HospitalCreate extends Component
         return $this->redirectRoute('hospitals.index', navigate:true);
     }
     #[Title('Tambah Rumah Sakit')]
-    public function render()
+    public function render(User $user)
     {
-
-        if($this->authorize('accessHospitals')){
+        if($this->authorize('adminAccess', $user)){
             return view('livewire.hospitals.hospital-create');
         }else{
             return view('livewire.dashboard');

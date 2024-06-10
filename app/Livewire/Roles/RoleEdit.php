@@ -3,6 +3,7 @@
 namespace App\Livewire\Roles;
 
 use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
 use Livewire\Attributes\Title;
@@ -19,24 +20,28 @@ class RoleEdit extends Component
     public function update()
     {
         Role::where('id', $this->roleId)->update([
-            'name' => $this->name
+            'name' => $this->name,
         ]);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Role berhasil diperbarui!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('roles.index', navigate:true);
+        return $this->redirectRoute('roles.index', navigate: true);
     }
     #[Title('Update Role')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.roles.role-edit', [
-            'allPermissions' => Permission::all()
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.roles.role-edit', [
+                'allPermissions' => Permission::all(),
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

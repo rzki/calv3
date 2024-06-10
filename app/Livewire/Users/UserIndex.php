@@ -38,7 +38,7 @@ class UserIndex extends Component
     #[Title('Semua User')]
     public function render(User $user)
     {
-        if ($this->authorize('accessUsers', $user)) {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.users.user-index', [
                 'users' => User::search($this->search)
                     ->with('roles')

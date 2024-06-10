@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventories;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Inventory;
 use App\Models\DeviceName;
@@ -11,7 +12,19 @@ use Livewire\Attributes\Title;
 
 class InventoryEdit extends Component
 {
-    public $inventories, $inventoryId, $invName, $nama, $merk, $tipe, $sn, $tahun, $no_inv='MJG.INV-', $kalibrasi_terakhir, $pic, $lokasi, $status;
+    public $inventories,
+        $inventoryId,
+        $invName,
+        $nama,
+        $merk,
+        $tipe,
+        $sn,
+        $tahun,
+        $no_inv = 'MJG.INV-',
+        $kalibrasi_terakhir,
+        $pic,
+        $lokasi,
+        $status;
     public function mount($inventoryId)
     {
         $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
@@ -41,26 +54,29 @@ class InventoryEdit extends Component
             'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
             'pic' => $this->pic,
             'location' => $this->lokasi,
-            'status' => $this->status
+            'status' => $this->status,
         ]);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Inventaris berhasil diperbarui!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 3000,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 3000,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('inventories.index', navigate:true);
-
+        return $this->redirectRoute('inventories.index', navigate: true);
     }
     #[Title('Update Inventaris')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.inventories.inventory-edit',[
-            'invEdit' => $this->inventories,
-            'namaAlat' => $this->invName
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.inventories.inventory-edit', [
+                'invEdit' => $this->inventories,
+                'namaAlat' => $this->invName,
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

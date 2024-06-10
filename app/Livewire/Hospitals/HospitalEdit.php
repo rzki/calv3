@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Hospitals;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
@@ -35,9 +36,9 @@ class HospitalEdit extends Component
         return $this->redirectRoute('hospitals.index', navigate: true);
     }
     #[Title('Update Rumah Sakit')]
-    public function render()
+    public function render(User $user)
     {
-        if ($this->authorize('accessHospitals')) {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.hospitals.hospital-edit', [
                 'hospitals' => $this->hospitals,
             ]);

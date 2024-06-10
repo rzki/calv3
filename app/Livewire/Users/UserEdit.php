@@ -40,9 +40,9 @@ class UserEdit extends Component
         return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Update User')]
-    public function render()
+    public function render(User $user)
     {
-        if ($this->authorize('accessUsers')) {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.users.user-edit', [
                 'role' => Role::where('id', '!=', 1)->get(),
             ]);

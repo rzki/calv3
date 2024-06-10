@@ -16,6 +16,8 @@
             <span class="sidebar-text">{{ __('Dashboard') }}</span>
         </a>
     </li>
+    @can('adminAccess')
+    {{-- Inventaris --}}
     <li class="nav-item {{ request()->routeIs('inventories.index') || request()->routeIs('inventories.create') || request()->routeIs('inventories.edit') || request()->routeIs('inventories.detail') || request()->routeIs('inventories.add_log') || request()->routeIs('inventories.edit_log') ? 'active' : '' }}">
         <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -24,6 +26,7 @@
             <span class="sidebar-text">{{ __('Inventaris') }}</span>
         </a>
     </li>
+    {{-- Log Book --}}
     <li class="nav-item {{ request()->routeIs('logbooks.index') ? 'active' : '' }}">
         <a href="{{ route('logbooks.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -32,8 +35,9 @@
             <span class="sidebar-text">{{ __('Log Book') }}</span>
         </a>
     </li>
-    <li
-        class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') || request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
+    @endcan
+    {{-- Alat --}}
+    <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') || request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#device-dropdown">
             <span>
@@ -62,7 +66,7 @@
         </div>
     </li>
 
-    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+    @can ('adminAccess')
         <li class="nav-item {{ request()->routeIs('hospitals.index') || request()->routeIs('hospitals.create') || request()->routeIs('hospitals.edit') || request()->routeIs('hospitals.detail') || request()->routeIs('hospitals.add_device') || request()->routeIs('hospitals.index')? 'active' : '' }}">
             <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
                 <span class="sidebar-icon me-3">
@@ -79,8 +83,8 @@
                 <span class="sidebar-text">{{ __('Users') }}</span>
                 </a>
             </li>
-    @endif
-    @if (auth()->user()->hasRole('Superadmin'))
+    @endcan
+    @can (auth()->user()->hasRole('Superadmin'))
         <li class="nav-item {{ request()->routeIs('roles.index') || request()->routeIs('roles.index') ? 'active' : '' }}">
             <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
                 <span class="sidebar-icon me-2">
@@ -97,6 +101,6 @@
                 <span class="sidebar-text">{{ __('Permissions') }}</span>
             </a>
         </li> --}}
-    @endif
+    @endcan
 
 </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories\Logs;
 
+use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
 use App\Models\Inventory;
@@ -41,11 +42,15 @@ class InventoryEditLog extends Component
     }
 
     #[Title('Update Log Inventaris')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.inventories.logs.inventory-edit-log', [
-            'invEditLog' => $this->inventories,
-            'logEdit' => $this->logBook
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.inventories.logs.inventory-edit-log', [
+                'invEditLog' => $this->inventories,
+                'logEdit' => $this->logBook,
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

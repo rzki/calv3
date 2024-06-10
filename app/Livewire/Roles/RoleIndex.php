@@ -3,6 +3,7 @@
 namespace App\Livewire\Roles;
 
 use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -34,9 +35,9 @@ class RoleIndex extends Component
         return $this->redirectRoute('roles.index', navigate: true);
     }
     #[Title('Semua Role')]
-    public function render()
+    public function render(User $user)
     {
-        if ($this->authorize('accessRoles')) {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.roles.role-index', [
                 'role' => Role::search($this->search)
                     ->where('name', '!=', 'Superadmin')

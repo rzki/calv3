@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Users;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
-use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserImport extends Component
@@ -32,9 +33,9 @@ class UserImport extends Component
         return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Import User')]
-    public function render()
+    public function render(User $user)
     {
-        if ($this->authorize('accessUsers')) {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.users.user-import');
         } else {
             return view('livewire.dashboard');

@@ -3,6 +3,7 @@
 namespace App\Livewire\Roles;
 
 use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
@@ -27,9 +28,9 @@ class RoleCreate extends Component
         return $this->redirectRoute('roles.index', navigate:true);
     }
     #[Title('Tambah Role')]
-    public function render()
+    public function render(User $user)
     {
-        if($this->authorize('accessRoles')){
+        if($this->authorize('adminAccess', $user)){
             return view('livewire.roles.role-create');
         }else{
             return view('livewire.dashboard');
