@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Hospital;
+use App\Policies\AccessPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
 use App\Policies\HospitalPolicy;
@@ -43,8 +44,9 @@ class AppServiceProvider extends ServiceProvider
         // Gate::define('technician-access', function (User $users){
         //     return $users->roles->code == 'teknisi';
         // });
-            Gate::before(function ($user, $ability) {
-        return $user->hasRole('Superadmin') ? true : null;
-    });
+        Gate::policy(User::class, AccessPolicy::class);
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Superadmin') ? true : null;
+        });
     }
 }

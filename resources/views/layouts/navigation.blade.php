@@ -89,6 +89,14 @@
                 <span class="sidebar-text">{{ __('Roles') }}</span>
             </a>
         </li>
+        {{-- <li class="nav-item {{ request()->routeIs('permissions.index') || request()->routeIs('permissions.index') ? 'active' : '' }}">
+            <a href="{{ route('permissions.index') }}" class="nav-link" wire:navigate>
+                <span class="sidebar-icon me-2">
+                    <i class="fas fa-lock-open" aria-hidden="true"></i>
+                </span>
+                <span class="sidebar-text">{{ __('Permissions') }}</span>
+            </a>
+        </li> --}}
     @endif
 
 </ul>
