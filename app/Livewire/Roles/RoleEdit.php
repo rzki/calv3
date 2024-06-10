@@ -2,23 +2,22 @@
 
 namespace App\Livewire\Roles;
 
-use App\Models\Role;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Spatie\Permission\Models\Role;
 
 class RoleEdit extends Component
 {
-    public $roles, $roleId, $name, $code;
-    public function mount($roleId)
+    public $roles, $id, $name, $code;
+    public function mount($id)
     {
-        $this->roles = Role::where('roleId', $roleId)->first();
+        $this->roles = Role::where('id', $id)->first();
         $this->name = $this->roles->role_name;
     }
     public function update()
     {
-        Role::where('roleId', $this->roleId)->update([
-            'role_name' => $this->name,
-            'code' => str_replace(' ', '_', strtolower($this->name))
+        Role::where('id', $this->id)->update([
+            'name' => $this->name
         ]);
         session()->flash('alert', [
             'type' => 'success',

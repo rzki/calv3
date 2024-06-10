@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -14,21 +13,15 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'roleId' => Str::orderedUuid(),
-            'role_name' => 'Superadmin',
-            'code' => 'superadmin',
+            'name' => 'Superadmin',
         ]);
 
         Role::create([
-            'roleId' => Str::orderedUuid(),
-            'role_name' => 'Admin',
-            'code' => 'admin',
+            'name' => 'Admin',
         ]);
 
         Role::create([
-            'roleId' => Str::orderedUuid(),
-            'role_name' => 'Teknisi',
-            'code' => 'teknisi',
+            'name' => 'Teknisi',
         ]);
     }
 }

@@ -29,7 +29,6 @@
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
                                                     <th>{{ __('Nama') }}</th>
-                                                    <th>{{ __('Kode') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -44,14 +43,13 @@
                                                 @foreach ($role as $r)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $r->role_name }}</td>
-                                                    <td>{{ $r->code }}</td>
+                                                    <td>{{ $r->name }}</td>
                                                     <td>
-                                                        <a href="{{ route('roles.edit', $r->roleId) }}"
+                                                        <a href="{{ route('roles.edit', $r->id) }}"
                                                             class="btn btn-info"><i class="fas fa-pen-to-square"></i>
                                                         </a>
                                                         <button class="btn btn-danger"
-                                                            wire:click.prevent="deleteConfirm('{{ $r->roleId }}')"><i
+                                                            wire:click.prevent="deleteConfirm('{{ $r->id }}')"><i
                                                                 class="fas fa-trash"></i> </button>
                                                     </td>
                                                 </tr>

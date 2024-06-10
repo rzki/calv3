@@ -2,20 +2,18 @@
 
 namespace App\Livewire\Roles;
 
-use App\Models\Role;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
+use Spatie\Permission\Models\Role;
 
 class RoleCreate extends Component
 {
-    public $name, $code;
+    public $name;
     public function create()
     {
         Role::create([
-            'roleId' => Str::orderedUuid(),
-            'role_name' => $this->name,
-            'code' => str_replace(' ', '_', strtolower($this->name))
+            'name' => $this->name
         ]);
         session()->flash('alert', [
             'type' => 'success',

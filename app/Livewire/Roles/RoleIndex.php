@@ -36,7 +36,7 @@ class RoleIndex extends Component
     {
         return view('livewire.roles.role-index',[
             'role' => Role::search($this->search)
-            ->where('code', '!=', 'superadmin')
+            ->where('name', '!=', 'Superadmin')
             ->paginate($this->perPage)
         ]);
     }
