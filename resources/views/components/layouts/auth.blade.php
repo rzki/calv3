@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Page Title' }} - Kalibrasi</title>
+    <title>@yield('title') - Kalibrasi</title>
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/brands.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css')}}">
