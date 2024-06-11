@@ -11,16 +11,14 @@ class HospitalDetail extends Component
 {
     public $detailRS, $hospitalId, $alat, $deviceId;
     public $search,
-        $sortBy = 'created_at',
-        $sortDir = 'ASC',
-        $perPage = 5;
+            $sortBy = 'created_at',
+            $sortDir = 'ASC',
+            $perPage = 5;
     protected $listeners = ['unlinkConfirmed' => 'unlink'];
     public function mount($hospitalId)
     {
         $this->detailRS = Hospital::where('hospitalId', $hospitalId)->first();
-        $this->alat = Device::with('hospitals')
-            ->where('hospital_id', $this->detailRS->id)
-            ->get();
+        // $this->alat = ;
     }
     public function deleteConfirm($deviceId)
     {
@@ -30,7 +28,7 @@ class HospitalDetail extends Component
     public function unlinkConfirm($deviceId)
     {
         $this->deviceId = $deviceId;
-        $this->dispatch('unlink-confirmationconfirmation');
+        $this->dispatch('unlink-confirmation');
     }
     public function unlink()
     {
@@ -65,9 +63,15 @@ class HospitalDetail extends Component
     #[Title('Detail Rumah Sakit')]
     public function render()
     {
+        // $alat = Device::with('hospitals')->searchDeviceByHospitalId($this->search)->where('hospital_id', $this->detailRS->id)
+        //             ->orderByDesc('updated_at')->paginate($this->perPage);
+        // dd($alat);
         return view('livewire.hospitals.hospital-detail', [
             'detailRS' => $this->detailRS,
-            'alat' => $this->alat,
+            'alatRS'   => Device::with('hospitals')->searchDeviceByHospitalId($this->search)
+            ->where('hospital_id', $this->detailRS->id)
+            ->orderByDesc('updated_at')
+            ->paginate($this->perPage),
         ]);
     }
 }

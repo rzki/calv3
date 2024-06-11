@@ -15,7 +15,7 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <form wire:submit='update' method="post">
+                                    <form wire:submit='create' method="post">
                                         <div class="form-group mb-3">
                                             <label for="name" class="form-label">{{ __('Nama') }}</label>
                                             <input type="text" class="form-control" wire:model='name'>

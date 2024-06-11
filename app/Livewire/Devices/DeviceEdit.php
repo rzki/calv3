@@ -7,6 +7,7 @@ use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
 use App\Models\DeviceName;
+use Livewire\Attributes\Title;
 
 class DeviceEdit extends Component
 {
@@ -51,8 +52,8 @@ class DeviceEdit extends Component
             'showConfirmButton'=> false
         ]);
         return $this->redirectRoute('devices.index', navigate:true);
-
     }
+    #[Title('Update QR Alat')]
     public function render()
     {
         return view('livewire.devices.device-edit', [

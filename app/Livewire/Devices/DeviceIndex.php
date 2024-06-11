@@ -2,15 +2,18 @@
 
 namespace App\Livewire\Devices;
 
+use Carbon\Carbon;
 use App\Models\Device;
 use Livewire\Component;
-use Livewire\Attributes\Title;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class DeviceIndex extends Component
 {
     use WithPagination;
-    public $devices, $deviceId;
+    public $devices, $device, $deviceId;
     public $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
     public function sort($sortByField)
@@ -42,13 +45,26 @@ class DeviceIndex extends Component
         ]);
         return $this->redirectRoute('devices.index', navigate:true);
     }
+    public function print(Device $device)
+    {
+        $qr = Device::where('deviceId', $device->deviceId)->first();
+        // dd($qr);
+        $customSize = [0, 0, 226.77, 170.08];
+        $pdf = PDF::loadView('printQR', ['qr' => $qr])->setPaper($customSize);
+        // return $pdf->stream('QR_'.Carbon::now().'.pdf')->header('Content-Type','application/pdf');
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'QR_Cal'.$device->deviceId.'.pdf', ['Content-Type'=>'application/pdf']);
+    }
     #[Title('Semua Alat')]
     public function render()
     {
         return view('livewire.devices.device-index', [
             'alats' => Device::search($this->search)
             ->where('user_id', auth()->user()->id)
-            ->paginate($this->perPage)
+            ->paginate($this->perPage),
+            'qr' => $this->device
         ]);
     }
 }

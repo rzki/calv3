@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Hospitals\Devices;
 
+use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
+use Livewire\Attributes\Title;
 
 class HospitalAddDevice extends Component
 {
@@ -17,24 +19,29 @@ class HospitalAddDevice extends Component
     public function addDevice()
     {
         Device::where('id', $this->device_id)->update([
-            'hospital_id' => $this->hospitals->id
+            'hospital_id' => $this->hospitals->id,
         ]);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Alat berhasil ditambahkan!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 3000,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 3000,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('hospitals.detail',['hospitalId' => $this->hospitalId], navigate:true);
+        return $this->redirectRoute('hospitals.detail', ['hospitalId' => $this->hospitalId], navigate: true);
     }
-    public function render()
+    #[Title('Tambah Alat Rumah Sakit')]
+    public function render(User $user)
     {
-        return view('livewire.hospitals.devices.device-add', [
-            'hospitals' => $this->hospitals,
-            'deviceAdd' => Device::get()
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.hospitals.devices.device-add', [
+                'hospitals' => $this->hospitals,
+                'deviceAdd' => Device::get(),
+            ]);
+        }else{
+            return view('livewire.dashboard');
+        }
     }
 }

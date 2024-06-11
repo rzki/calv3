@@ -70,7 +70,7 @@
                                             <input type="text" class="form-control" wire:model='pic'>
                                             {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
                                         </div>
-                                        <div class="form-group mb-3">
+                                        {{-- <div class="form-group mb-3">
                                             <label for="status"
                                                 class="form-label text-capitalize">{{ __('status') }}</label>
                                             <select class="form-control" wire:model='status'>
@@ -79,7 +79,7 @@
                                                 <option value="Dipinjamkan">{{ __('Dipinjamkan') }}</option>
                                                 <option value="Tersedia">{{ __('Tersedia') }}</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-grid">
                                             <button type="submit"
                                                 class="btn btn-success text-white">{{ __('Submit') }}</button>

@@ -41,8 +41,8 @@
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"><i
-                                            class="fas fa-plus"></i>
+                                    <a href="{{ route('hospitals.add_device', $detailRS->hospitalId) }}"
+                                        class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                         {{ __('Tambah Alat') }}</a>
                                 </div>
                             </div>
@@ -57,18 +57,20 @@
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Kalibrasi Selanjutnya') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th style="width: 5em;"></th>
+                                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                        <th style="width: 5em;"></th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if ($alat->isEmpty())
+                                                @if ($alatRS->isEmpty())
                                                     <tr>
                                                         <td colspan='11' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
                                                 @else
-                                                    @foreach ($alat as $alat)
+                                                    @foreach ($alatRS as $alat)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $alat->names->name ?? '' }}</td>
@@ -80,15 +82,13 @@
                                                                 </td>
                                                             @endif
                                                             <td>{{ $alat->status ?? '' }}</td>
-                                                            <td>
-                                                                <a href="{{ route('hospitals.edit_device', ['hospitalId' => $detailRS->hospitalId, 'deviceId' => $alat->deviceId]) }}"
-                                                                    class="btn btn-info" wire:navigate><i
-                                                                        class="fas fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger"
-                                                                    wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i
-                                                                        class="fas fa-trash"></i></button>
-
-                                                            </td>
+                                                            @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                                <td>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -108,8 +108,8 @@
                                                 </select>
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
-                                                @if (!$alat->isEmpty())
-                                                    {{ $alat->links() }}
+                                                @if (!$alatRS->isEmpty())
+                                                    {{ $alatRS->links() }}
                                                 @endif
                                             </div>
                                         </div>
@@ -129,22 +129,7 @@
 </div>
 @script
     <script>
-        // window.addEventListener('delete-confirmation', event => {
-        //     Swal.fire({
-        //         title: "Apakah anda yakin?",
-        //         text: "Alat ini akan terhapus secara permanen!",
-        //         icon: "warning",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#3085d6",
-        //         cancelButtonColor: "#d33",
-        //         confirmButtonText: "Yes"
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             $wire.dispatch('deleteConfirmed');
-        //         }
-        //     });
-        // });
-        window.addEventListener('unlink-confirmationconfirmation', event => {
+        window.addEventListener('unlink-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
                 text: "Alat ini akan terhapus dari rumah sakit ini!",

@@ -14,40 +14,41 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $superadmin = User::create([
             'userId' => Str::orderedUuid(),
             'name' => 'Superadmin',
-            'email' => 'superadmin@cal.medquest.co.id',
-            'username' => 'superadmin',
-            'password' => Hash::make('Calibration24!'),
-            'role_id' => 1
+            'email' => 'superadmin@medquest.co.id',
+            'username' => strtolower(str_replace(' ', '_', 'Superadmin')),
+            'password' => Hash::make('Calibration24!')
         ]);
+        $superadmin->assignRole('Superadmin');
 
-        User::create([
+        $admin = User::create([
             'userId' => Str::orderedUuid(),
             'name' => 'Muh Ardyansyah',
             'email' => 'muh.ardyansyah@medquest.co.id',
             'username' => 'muh.ardyansyah',
-            'password' => Hash::make('Calibration24!'),
-            'role_id' => 2
+            'password' => Hash::make('Calibration24!')
         ]);
+        $admin->assignRole('Admin');
 
-        User::create([
+        $admin2 = User::create([
             'userId' => Str::orderedUuid(),
             'name' => 'Galuh Kurniawan',
             'email' => 'galuh.kurniawan@medquest.co.id',
             'username' => 'galuh.kurniawan',
-            'password' => Hash::make('Calibration24!'),
-            'role_id' => 2
+            'password' => Hash::make('Calibration24!')
         ]);
+        $admin2->assignRole('Admin');
 
-        User::create([
+        $admin3 = User::create([
             'userId' => Str::orderedUuid(),
             'name' => 'Admin',
             'email' => 'admin@medquest.co.id',
             'username' => 'admin',
-            'password' => Hash::make('Calibration24!'),
-            'role_id' => 2
+            'password' => Hash::make('Calibration24!')
         ]);
+        $admin3->assignRole('Admin');
+
     }
 }

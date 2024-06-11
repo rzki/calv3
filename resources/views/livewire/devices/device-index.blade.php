@@ -18,6 +18,9 @@
                                     <input wire:model.live.debounce.250ms='search' type="text" name="search"
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
+                                <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                                    <a class="btn btn-info" href="{{ route('devices.printAll') }}" target="_blank"><i class="fas fa-print"></i> {{ __('Print Semua QR Kosong') }}</a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col">
@@ -61,6 +64,7 @@
                                                                 <a href="{{ route('devices.detail', $device->deviceId) }}"
                                                                     class="btn btn-primary" target="_blank"><i
                                                                         class="fas fa-eye"></i></a>
+                                                                <a class="btn btn-secondary" target="_blank" wire:click="print('{{ $device->deviceId }}')"><i class="fas fa-print"></i></a>
                                                                 <a href="{{ route('devices.edit', $device->deviceId) }}"
                                                                     class="btn btn-info"><i
                                                                         class="fas fa-pen-to-square"></i></a>
@@ -118,6 +122,11 @@
                     $wire.dispatch('deleteConfirmed');
                 }
             });
+        })
+    </script>
+    <script>
+        window.addEventListener('print-qr', event => {
+            $wire.dispatch('printThisQR');
         })
     </script>
 @endscript

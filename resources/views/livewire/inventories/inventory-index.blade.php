@@ -8,7 +8,8 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Inventaris') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                    <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i
+                                            class="fas fa-plus"></i>
                                         {{ __('Tambah Inventaris') }}</a>
                                 </div>
                             </div>
@@ -34,7 +35,6 @@
                                                     <th>{{ __('Kalibrasi Terakhir') }}</th>
                                                     <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
-                                                    <th>{{ __('Status') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -55,17 +55,17 @@
                                                             <td>{{ $inv->sn ?? '' }}</td>
                                                             <td>{{ $inv->procurement_year ?? '' }}</td>
                                                             <td>{{ $inv->inv_number ?? '' }}</td>
-                                                            <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}</td>
-                                                            <td>{{ $inv->pic_pinjam ?? '' }}</td>
+                                                            <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}
+                                                            </td>
+                                                            <td>{{ $inv->pic ?? '' }}</td>
                                                             <td>{{ $inv->location ?? '' }}</td>
-                                                            <td>{{ $inv->status ?? '' }}</td>
                                                             <td>
                                                                 <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
                                                                     class="btn btn-primary" wire:navigate><i
                                                                         class="fas fa-eye"></i></a>
                                                                 <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
-                                                                    class="btn btn-info"><i
-                                                                        class="fas fa-pen-to-square" wire:navigate></i></a>
+                                                                    class="btn btn-info" wire:navigate><i class="fas fa-pen-to-square"
+                                                                        ></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
                                                                         class="fas fa-trash"></i></button>
@@ -75,11 +75,13 @@
                                                     @endforeach
                                                 @endif
                                             </tbody>
-                                        </table><div class="row mt-4">
+                                        </table>
+                                        <div class="row mt-4">
                                             <div class="col d-flex align-items-center justify-content-start">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
-                                                <select wire:model.live='perPage' class="form-control text-black per-page" style="width: 7%">
+                                                <select wire:model.live='perPage'
+                                                    class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
@@ -88,8 +90,8 @@
                                                 </select>
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
-                                                @if (!$inventory->isEmpty())
-                                                {{ $inventory->links() }}
+                                                @if (!$inventoryIndex->isEmpty())
+                                                    {{ $inventoryIndex->links() }}
                                                 @endif
                                             </div>
                                         </div>
@@ -147,4 +149,3 @@
         </script>
     @endscript
 @endif
-

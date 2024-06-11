@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventories;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Inventory;
 use App\Models\DeviceName;
@@ -26,7 +27,7 @@ class InventoryCreate extends Component
             'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
             'pic' => $this->pic,
             'location' => $this->lokasi,
-            'status' => $this->status
+            'status' => 'Tersedia'
         ]);
         session()->flash('alert', [
             'type' => 'success',
@@ -41,10 +42,15 @@ class InventoryCreate extends Component
 
     }
     #[Title('Tambah Inventaris')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.inventories.inventory-create', [
-            'namaAlat' => DeviceName::all()
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+                    return view('livewire.inventories.inventory-create', [
+                        'namaAlat' => DeviceName::all()
+                    ]);
+        } else {
+            return view('livewire.dashboard');
+        }
+
     }
 }

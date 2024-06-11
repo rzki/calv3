@@ -3,37 +3,45 @@
 namespace App\Livewire\Roles;
 
 use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\Permission;
 use Livewire\Attributes\Title;
 
 class RoleEdit extends Component
 {
-    public $roles, $roleId, $name, $code;
+    public $roles, $roleId, $permissions, $name, $permission_list;
+    public $perPage = 5;
     public function mount($roleId)
     {
-        $this->roles = Role::where('roleId', $roleId)->first();
-        $this->name = $this->roles->role_name;
+        $this->roles = Role::where('id', $roleId)->first();
+        $this->name = $this->roles->name;
     }
     public function update()
     {
-        Role::where('roleId', $this->roleId)->update([
-            'role_name' => $this->name,
-            'code' => str_replace(' ', '_', strtolower($this->name))
+        Role::where('id', $this->roleId)->update([
+            'name' => $this->name,
         ]);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Role berhasil diperbarui!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('roles.index', navigate:true);
+        return $this->redirectRoute('roles.index', navigate: true);
     }
-    #[Title('Edit Role')]
-    public function render()
+    #[Title('Update Role')]
+    public function render(User $user)
     {
-        return view('livewire.roles.role-create');
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.roles.role-edit', [
+                'allPermissions' => Permission::all(),
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

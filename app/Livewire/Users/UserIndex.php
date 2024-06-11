@@ -5,13 +5,17 @@ namespace App\Livewire\Users;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
+    use WithPagination;
     public $user, $userId;
-    public $search, $perPage = 5;
+    public $search,
+        $perPage = 5;
     public $listeners = ['deleteConfirmed' => 'delete'];
-    public function deleteConfirm($userId){
+    public function deleteConfirm($userId)
+    {
         $this->userId = $userId;
         $this->dispatch('delete-confirmation');
     }
@@ -23,22 +27,27 @@ class UserIndex extends Component
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'User berhasil dihapus!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate:true);
+        return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Semua User')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.users.user-index', [
-            'users' => User::with('roles')
-            ->search($this->search)
-            ->where('role_id', '!=', 1)
-            ->paginate($this->perPage)
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.users.user-index', [
+                'users' => User::search($this->search)
+                    ->with('roles')
+                    ->where('name', '!=', 'Superadmin')
+                    ->orderByDesc('created_at')
+                    ->paginate($this->perPage),
+            ]);
+        }else{
+            return view('livewire.dashboard');
+        }
     }
 }

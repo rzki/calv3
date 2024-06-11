@@ -7,10 +7,10 @@
                         <div class="card-body">
                             <h2 class="mb-1 fs-5 fw-bold">{{ __('Log Book') }}</h2>
                             <div class="row mb-4">
-                                <div class="col d-flex justify-content-end">
+                                {{-- <div class="col d-flex justify-content-end">
                                     <a href="{{ route('logbooks.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                         Tambah Log</a>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -52,17 +52,17 @@
                                                             <td>{{ $log->inventories->brand ?? '' }}</td>
                                                             <td>{{ $log->inventories->type ?? '' }}</td>
                                                             <td>{{ $log->inventories->sn ?? '' }}</td>
-                                                            <td>{{ $log->inventories->inv_number ?? '' }}</td>
+                                                            <td><a href="{{ route('inventories.detail', $log->inventories->inventoryId) }}" class="text-info">{{ $log->inventories->inv_number ?? '' }}</a></td>
                                                             @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) || empty($log->tanggal_mulai_pinjam) || empty($log->tanggal_selesai_pinjam))
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j F Y', strtotime($log->tanggal_mulai_pinjam)) }} - {{ date('j F Y', strtotime($log->tanggal_selesai_pinjam)) }}</td>
+                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }} - {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}</td>
                                                             @endif
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
-                                                            <td>{{ $log->pic ?? '' }}</td>
+                                                            <td>{{ $log->pic_pinjam ?? '' }}</td>
                                                             <td>{{ $log->status ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('logbooks.edit', $log->logId) }}"
+                                                                <a href="{{ route('inventories.edit_log', [$log->inventories->inventoryId, $log->logId]) }}"
                                                                     class="btn btn-primary"><i
                                                                         class="fas fa-pen-to-square"></i></a>
                                                                 <button class="btn btn-danger"

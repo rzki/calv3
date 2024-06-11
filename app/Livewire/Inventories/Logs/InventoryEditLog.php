@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories\Logs;
 
+use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
 use App\Models\Inventory;
@@ -17,7 +18,7 @@ class InventoryEditLog extends Component
         $this->mulai_pinjam = $this->logBook->tanggal_mulai_pinjam;
         $this->selesai_pinjam = $this->logBook->tanggal_selesai_pinjam;
         $this->lokasi_pinjam = $this->logBook->lokasi_pinjam;
-        $this->pic = $this->logBook->pic;
+        $this->pic = $this->logBook->pic_pinjam;
     }
     public function updateLog()
     {
@@ -25,7 +26,7 @@ class InventoryEditLog extends Component
             'tanggal_mulai_pinjam' => $this->mulai_pinjam,
             'tanggal_selesai_pinjam' => $this->selesai_pinjam,
             'lokasi_pinjam' => $this->lokasi_pinjam,
-            'pic' => $this->pic,
+            'pic_pinjam' => $this->pic,
             'status' => 'Dipinjamkan',
         ]);
         session()->flash('alert', [
@@ -40,12 +41,16 @@ class InventoryEditLog extends Component
         return $this->redirectRoute('inventories.detail', ['inventoryId' => $this->inventoryId], navigate: true);
     }
 
-    #[Title('Tambah Log Inventaris')]
-    public function render()
+    #[Title('Update Log Inventaris')]
+    public function render(User $user)
     {
-        return view('livewire.inventories.logs.inventory-edit-log', [
-            'invEditLog' => $this->inventories,
-            'logEdit' => $this->logBook
-        ]);
+        if ($this->authorize('adminAccess', $user)) {
+            return view('livewire.inventories.logs.inventory-edit-log', [
+                'invEditLog' => $this->inventories,
+                'logEdit' => $this->logBook,
+            ]);
+        } else {
+            return view('livewire.dashboard');
+        }
     }
 }

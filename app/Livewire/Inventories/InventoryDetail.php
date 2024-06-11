@@ -9,14 +9,14 @@ use Livewire\Attributes\Title;
 
 class InventoryDetail extends Component
 {
-    public $inventories, $inventoryId, $logbook, $logId;
+    public $inventories, $inventoryId, $latestLog, $logbook, $logId;
     public $searchByInventoryId, $sortBy='created_at', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
 
     public function mount($inventoryId)
     {
         $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
-        $this->logbook = LogBook::where('inventory_id', $this->inventories->id)->with('inventories')->get();
+        $this->latestLog = LogBook::where('inventory_id', $this->inventories->id)->with('inventories')->orderByDesc('created_at')->first();
     }
 
     public function sort($sortByField)
@@ -51,6 +51,7 @@ class InventoryDetail extends Component
     public function render()
     {
         return view('livewire.inventories.inventory-detail',[
+            'latest' => $this->latestLog,
             'invDetail' => $this->inventories,
             'logDetail' => LogBook::searchLogByInventoryId($this->searchByInventoryId)
             ->where('inventory_id', $this->inventories->id)

@@ -16,29 +16,17 @@
             <span class="sidebar-text">{{ __('Dashboard') }}</span>
         </a>
     </li>
-    <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : '' }}">
-        <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-            data-bs-target="#inventory-dropdown">
-            <span>
-                <span class="sidebar-icon me-3">
-                    <i class="fas fa-boxes"></i>
-                </span>
-                <span class="sidebar-text">{{ __('Inventaris') }}</span>
+    @can('adminAccess')
+    {{-- Inventaris --}}
+    <li class="nav-item {{ request()->routeIs('inventories.index') || request()->routeIs('inventories.create') || request()->routeIs('inventories.edit') || request()->routeIs('inventories.detail') || request()->routeIs('inventories.add_log') || request()->routeIs('inventories.edit_log') ? 'active' : '' }}">
+        <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
+            <span class="sidebar-icon me-3">
+                <i class="fas fa-boxes" aria-hidden="true"></i>
             </span>
-            <span class="link-arrow">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </span>
-        </span>
-        <div class="multi-level collapse" role="list" id="inventory-dropdown" aria-expanded="false">
-            <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('inventories.index') ? 'active' : '' }}">
-                    <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('Semua Inventaris') }}</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <span class="sidebar-text">{{ __('Inventaris') }}</span>
+        </a>
     </li>
+    {{-- Log Book --}}
     <li class="nav-item {{ request()->routeIs('logbooks.index') ? 'active' : '' }}">
         <a href="{{ route('logbooks.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -47,8 +35,9 @@
             <span class="sidebar-text">{{ __('Log Book') }}</span>
         </a>
     </li>
-    <li
-        class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('device_name.index') ? 'active' : '' }}">
+    @endcan
+    {{-- Alat --}}
+    <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') || request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
             data-bs-target="#device-dropdown">
             <span>
@@ -63,12 +52,12 @@
         </span>
         <div class="multi-level collapse" role="list" id="device-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
-                <li class="nav-item {{ request()->routeIs('devices.index') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
                     <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('QR Alat') }}</span>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('device_name.index') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
                     <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('Nama Alat') }}</span>
                     </a>
@@ -77,26 +66,26 @@
         </div>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('hospitals.index') ? 'active' : '' }}">
-        <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
-            <span class="sidebar-icon me-3">
-                <i class="fas fa-hospital" aria-hidden="true"></i>
-            </span>
-            <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
-        </a>
-    </li>
-    @can('superadmin-access', 'admin-access')
-        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+    @can ('adminAccess')
+        <li class="nav-item {{ request()->routeIs('hospitals.index') || request()->routeIs('hospitals.create') || request()->routeIs('hospitals.edit') || request()->routeIs('hospitals.detail') || request()->routeIs('hospitals.add_device') || request()->routeIs('hospitals.index')? 'active' : '' }}">
+            <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
+                <span class="sidebar-icon me-3">
+                    <i class="fas fa-hospital" aria-hidden="true"></i>
+                </span>
+                <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
+            </a>
+        </li>
+        <li class="nav-item {{ request()->routeIs('users.index') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.import') ? 'active' : '' }}">
             <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
                 <span class="sidebar-icon me-2">
                     <i class="fas fa-users" aria-hidden="true"></i>
                 </span>
                 <span class="sidebar-text">{{ __('Users') }}</span>
-            </a>
-        </li>
+                </a>
+            </li>
     @endcan
-    @can('superadmin-access')
-        <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+    @can (auth()->user()->hasRole('Superadmin'))
+        <li class="nav-item {{ request()->routeIs('roles.index') || request()->routeIs('roles.index') ? 'active' : '' }}">
             <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
                 <span class="sidebar-icon me-2">
                     <i class="fas fa-user-gear" aria-hidden="true"></i>
@@ -104,6 +93,14 @@
                 <span class="sidebar-text">{{ __('Roles') }}</span>
             </a>
         </li>
+        {{-- <li class="nav-item {{ request()->routeIs('permissions.index') || request()->routeIs('permissions.index') ? 'active' : '' }}">
+            <a href="{{ route('permissions.index') }}" class="nav-link" wire:navigate>
+                <span class="sidebar-icon me-2">
+                    <i class="fas fa-lock-open" aria-hidden="true"></i>
+                </span>
+                <span class="sidebar-text">{{ __('Permissions') }}</span>
+            </a>
+        </li> --}}
     @endcan
 
 </ul>
