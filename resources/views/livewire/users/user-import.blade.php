@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="col">
                                     <form wire:submit='import' method="post" enctype="multipart/form-data">
-                                        <div x-data="{uploading: false, progress: 0}" x-on:livewire-upload-start="uploading:true" x-on:livewire-upload-finish="uploading:false" x-on:livewire-upload-cancel="uploading:false" x-on:livewire-upload-error="uploading:false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                        <div x-data="{uploading: false, progress: 0}" x-on:livewire-upload-start="{uploading: true}" x-on:livewire-upload-finish="{uploading: false}" x-on:livewire-upload-cancel="{uploading: false}" x-on:livewire-upload-error="{uploading: false}" x-on:livewire-upload-progress="progress = $event.detail.progress">
                                             <div class="form-group mb-3">
                                                 <label for="users" class="form-label">{{ __('Pilih File') }}</label>
                                                 <input type="file" class="form-control" wire:model='users' name="users" id="users">
