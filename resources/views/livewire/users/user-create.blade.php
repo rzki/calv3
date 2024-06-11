@@ -29,7 +29,7 @@
                                             <select class="form-control" wire:model='roles'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($role as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
