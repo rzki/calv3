@@ -1,0 +1,11 @@
+
+RewriteEngine on
+
+RewriteOptions inherit
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} ^cal\.medquest\.co\.id$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.cal\.medquest\.co\.id$
+RewriteRule ^/?$ "https\:\/\/cal\.medquest\.co\.id\/" [R=301,L]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L,QSA]
