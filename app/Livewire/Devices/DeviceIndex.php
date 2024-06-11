@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DeviceIndex extends Component
 {
@@ -33,7 +34,7 @@ class DeviceIndex extends Component
     {
         $this->devices = Device::where('deviceId', $this->deviceId)->first();
         $this->devices->delete();
-
+        Storage::disk('public')->delete($this->devices->barcode);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Alat berhasil dihapus!',
