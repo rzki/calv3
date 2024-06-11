@@ -26,7 +26,7 @@
                                             <input type="password" name="password" id="password" class="form-control" wire:model='password'>
                                         </div>
                                         <div class="form-group mb-3">
-                                            <label for="password_confirmation" class="form-label">{{ __('Password Confirmation') }}</label>
+                                            <label for="password_confirmation" class="form-label">{{ __('Konfirmasi Password') }}</label>
                                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
                                         </div>
                                         <div class="d-grid">
@@ -42,3 +42,27 @@
         </div>
     </div>
 </div>
+@if (session()->has('alert'))
+@script
+<script>
+    const alerts = @json(session()->get('alert'));
+            const title = alerts.title;
+            const icon = alerts.type;
+            const toast = alerts.toast;
+            const position = alerts.position;
+            const timer = alerts.timer;
+            const progbar = alerts.progbar;
+            const confirm = alerts.showConfirmButton;
+
+            Swal.fire({
+                title: title,
+                icon: icon,
+                toast: toast,
+                position: position,
+                timer: timer,
+                timerProgressBar: progbar,
+                showConfirmButton: confirm
+            });
+</script>
+@endscript
+@endif

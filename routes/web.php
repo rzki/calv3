@@ -31,6 +31,7 @@ use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
+use App\Livewire\MyProfile;
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {
@@ -52,8 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::get('roles/create', RoleCreate::class)->name('roles.create');
     Route::get('roles/edit/{roleId}', RoleEdit::class)->name('roles.edit');
     // Profile
-    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
+    // Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('my-profile', MyProfile::class)->name('profiles.show');
     // Inventories
     Route::get('inventories', InventoryIndex::class)->name('inventories.index');
     Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');
