@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class UserImport extends Component
 {
@@ -18,8 +19,13 @@ class UserImport extends Component
     public $users;
     public function import()
     {
-        // dd($this->users);
-        Excel::import(new UsersImport(), $this->users);
+        // Store file to temp folder
+        $originalPath = $this->users->store('file-temp');
+        $newPath = storage_path('app').'/'.$originalPath;
+        // Execute stored temp file
+        Excel::import(new UsersImport(), $newPath);
+        // delete temp file
+        Storage::disk('local')->delete($newPath);
 
         session()->flash('alert', [
             'type' => 'success',

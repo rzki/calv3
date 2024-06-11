@@ -43,6 +43,7 @@ class UserIndex extends Component
                 'users' => User::search($this->search)
                     ->with('roles')
                     ->where('name', '!=', 'Superadmin')
+                    ->orderByDesc('created_at')
                     ->paginate($this->perPage),
             ]);
         }else{
