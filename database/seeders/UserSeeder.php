@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Superadmin',
             'email' => 'superadmin@medquest.co.id',
             'username' => strtolower(str_replace(' ', '_', 'Superadmin')),
-            'password' => Hash::make('Calibration24!')
+            'password' => Hash::make('SuperadminITD')
         ]);
         $superadmin->assignRole('Superadmin');
 
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'username' => 'galuh.kurniawan',
             'password' => Hash::make('Calibration24!')
         ]);
-        $admin2->assignRole('Admin');
+        $admin2->assignRole('Manager');
 
         $admin3 = User::create([
             'userId' => Str::orderedUuid(),

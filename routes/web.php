@@ -38,7 +38,6 @@ Route::middleware('guest')->group(function(){
     Route::get('/', function () {
         return view('auth.login');
     });
-    Route::get('/reset-superadmin', ResetSuperadmin::class)->name('superadmin.reset');
 });
 
 Auth::routes();

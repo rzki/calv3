@@ -18,7 +18,9 @@
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="fas fa-envelope"></i>
                                 </span>
-                                <input name="username" type="username" class="form-control" placeholder="{{ __('Email / Username') }}" id="username" value="{{ old('username') }}" required autofocus>
+                                <input name="username" type="username" class="form-control"
+                                    placeholder="{{ __('Email / Username') }}" id="username" value="{{ old('username') }}"
+                                    required autofocus>
                             </div>
                             @error('username')
                                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -33,7 +35,8 @@
                                     <span class="input-group-text" id="basic-addon2">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </span>
-                                    <input name="password" type="password" placeholder="{{ __('Password') }}" class="form-control" id="password" required>
+                                    <input name="password" type="password" placeholder="{{ __('Password') }}"
+                                        class="form-control" id="password" required>
                                 </div>
                                 @error('password')
                                     <div class="invalid-feedback"> {{ $message }} </div>
@@ -47,24 +50,13 @@
                                         {{ __('Remember me') }}
                                     </label>
                                 </div>
-                                {{-- <div>
-                                    <a href="{{ route('password.request') }}" class="text-right small">
-                                        {{ __('Lost password?') }}
-                                    </a>
-                                </div> --}}
                             </div>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-gray-800">{{ __('Sign in') }}</button>
+                            <button type="submit" class="btn btn-gray-800 mb-3">{{ __('Sign in') }}</button>
                         </div>
                     </form>
-                    {{-- <div class="mt-4 d-flex justify-content-center align-items-center">
-                        <span class="fw-normal">
-                            {{ __('Not registered?') }}
-                            <a href="{{ route('register') }}" class="fw-bold">{{ __('Create account') }}</a>
-                        </span>
-                    </div> --}}
                 </div>
             </div>
         </div>

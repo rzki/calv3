@@ -19,7 +19,8 @@
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex justify-content-end align-items-center">
-                                    <a class="btn btn-info" href="{{ route('devices.printAll') }}" target="_blank"><i class="fas fa-print"></i> {{ __('Print Semua QR Kosong') }}</a>
+                                    <a class="btn btn-info" href="{{ route('devices.printAll') }}" target="_blank"><i
+                                            class="fas fa-print"></i> {{ __('Print Semua QR Kosong') }}</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -38,42 +39,84 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- {{ dd($devices) }} --}}
-                                                @if ($alats->isEmpty())
-                                                    <tr>
-                                                        <td colspan='8' class="text-center">
-                                                            {{ __('Data tidak ditemukan') }}
-                                                        </td>
-                                                    </tr>
-                                                @else
-                                                    @foreach ($alats as $device)
+                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager'))
+                                                    @if ($alatSuperadmin->isEmpty())
                                                         <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $device->names->name ?? '' }}</td>
-                                                            <td>{{ $device->serial_number ?? '' }}</td>
-                                                            @if ($device->calibration_date == null)
-                                                                <td></td>
-                                                            @else
-                                                                <td>{{ date('j F Y', strtotime($device->calibration_date)) ?? '' }}
-                                                                </td>
-                                                            @endif
-
-                                                            <td>{{ $device->status ?? '' }}</td>
-                                                            <td>{{ $device->users->name ?? '' }}</td>
-                                                            <td>
-                                                                <a href="{{ route('devices.detail', $device->deviceId) }}"
-                                                                    class="btn btn-primary" target="_blank"><i
-                                                                        class="fas fa-eye"></i></a>
-                                                                <a class="btn btn-secondary" target="_blank" wire:click="print('{{ $device->deviceId }}')"><i class="fas fa-print"></i></a>
-                                                                <a href="{{ route('devices.edit', $device->deviceId) }}"
-                                                                    class="btn btn-info"><i
-                                                                        class="fas fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger"
-                                                                    wire:click.prevent="deleteConfirm('{{ $device->deviceId }}')"><i
-                                                                        class="fas fa-trash"></i></button>
+                                                            <td colspan='8' class="text-center">
+                                                                {{ __('Data tidak ditemukan') }}
                                                             </td>
                                                         </tr>
-                                                    @endforeach
+                                                    @else
+                                                        @foreach ($alatSuperadmin as $sadmin)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $sadmin->names->name ?? '' }}</td>
+                                                                <td>{{ $sadmin->serial_number ?? '' }}</td>
+                                                                @if ($sadmin->calibration_date == null)
+                                                                    <td></td>
+                                                                @else
+                                                                    <td>{{ date('j F Y', strtotime($sadmin->calibration_date)) ?? '' }}
+                                                                    </td>
+                                                                @endif
+
+                                                                <td>{{ $sadmin->status ?? '' }}</td>
+                                                                <td>{{ $sadmin->users->name ?? '' }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('devices.detail', $sadmin->deviceId) }}"
+                                                                        class="btn btn-primary" target="_blank"><i
+                                                                            class="fas fa-eye"></i></a>
+                                                                    <a class="btn btn-secondary" target="_blank"
+                                                                        wire:click="print('{{ $sadmin->deviceId }}')"><i
+                                                                            class="fas fa-print"></i></a>
+                                                                    <a href="{{ route('devices.edit', $sadmin->deviceId) }}"
+                                                                        class="btn btn-info"><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $sadmin->deviceId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                @else
+                                                    @if ($alats->isEmpty())
+                                                        <tr>
+                                                            <td colspan='8' class="text-center">
+                                                                {{ __('Data tidak ditemukan') }}
+                                                            </td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($alats as $device)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $device->names->name ?? '' }}</td>
+                                                                <td>{{ $device->serial_number ?? '' }}</td>
+                                                                @if ($device->calibration_date == null)
+                                                                    <td></td>
+                                                                @else
+                                                                    <td>{{ date('j F Y', strtotime($device->calibration_date)) ?? '' }}
+                                                                    </td>
+                                                                @endif
+
+                                                                <td>{{ $device->status ?? '' }}</td>
+                                                                <td>{{ $device->users->name ?? '' }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('devices.detail', $device->deviceId) }}"
+                                                                        class="btn btn-primary" target="_blank"><i
+                                                                            class="fas fa-eye"></i></a>
+                                                                    <a class="btn btn-secondary" target="_blank"
+                                                                        wire:click="print('{{ $device->deviceId }}')"><i
+                                                                            class="fas fa-print"></i></a>
+                                                                    <a href="{{ route('devices.edit', $device->deviceId) }}"
+                                                                        class="btn btn-info"><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $device->deviceId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 @endif
                                             </tbody>
                                         </table>
