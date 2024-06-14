@@ -24,8 +24,8 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="table-wrapper">
-                                        <table class="table table-responsive striped-table text-black text-center">
+                                    <div class="table-wrapper table-responsive">
+                                        <table class="table striped-table text-black text-center">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>

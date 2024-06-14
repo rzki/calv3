@@ -23,8 +23,8 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="table-wrapper">
-                                        <table class="table table-responsive striped-table text-black text-center">
+                                    <div class="table-wrapper table-responsive">
+                                        <table class="table striped-table text-black text-center">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
@@ -58,7 +58,7 @@
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
                                                 <select wire:model.live='perPage'
-                                                    class="form-control text-black per-page" style="width: 5%">
+                                                    class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
