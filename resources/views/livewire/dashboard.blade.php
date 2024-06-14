@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-3">
                 <div class="px-0">
                     <div class="border-0 shadow card">
                         <a href="{{ route('hospitals.index') }}" wire:navigate>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-3">
                 <div class="px-0">
                     <div class="border-0 shadow card">
                         <a href="{{ route('devices.index') }}" wire:navigate>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-3">
                 <div class="px-0">
                     <div class="border-0 shadow card">
                         <a href="{{ route('inventories.index') }}" wire:navigate>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-3">
                 <div class="px-0">
                     <div class="border-0 shadow card">
                         <a href="{{ route('logbooks.index') }}" wire:navigate>

@@ -32,11 +32,13 @@ use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
 use App\Livewire\MyProfile;
+use App\Livewire\ResetSuperadmin;
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {
-    return view('auth.login');
-});
+        return view('auth.login');
+    });
+    Route::get('/reset-superadmin', ResetSuperadmin::class)->name('superadmin.reset');
 });
 
 Auth::routes();
