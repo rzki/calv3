@@ -3,6 +3,7 @@
 namespace App\Livewire\Devices;
 
 // use App\Models\Device;
+use App\Models\User;
 use Livewire\Component;
 use App\Jobs\GenerateQRJob;
 use Illuminate\Support\Str;
@@ -39,8 +40,10 @@ class DeviceGenerate extends Component
         return $this->redirectRoute('devices.index', navigate:true);
     }
     #[Title('Generate Kode QR Alat')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.devices.device-generate');
+        if($this->authorize('technicianAccess', $user)){
+            return view('livewire.devices.device-generate');
+        }
     }
 }

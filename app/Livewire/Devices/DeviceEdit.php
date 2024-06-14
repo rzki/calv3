@@ -3,6 +3,7 @@
 namespace App\Livewire\Devices;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
@@ -54,12 +55,14 @@ class DeviceEdit extends Component
         return $this->redirectRoute('devices.index', navigate:true);
     }
     #[Title('Update QR Alat')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.devices.device-edit', [
-            'qr' => $this->alat,
-            'name' => $this->namaAlat,
-            'rs' => $this->rumah_sakit
-        ]);
+        if($this->authorize('technicianAccess', $user)){
+            return view('livewire.devices.device-edit', [
+                'qr' => $this->alat,
+                'name' => $this->namaAlat,
+                'rs' => $this->rumah_sakit
+            ]);
+        }
     }
 }

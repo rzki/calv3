@@ -8,20 +8,30 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Alat') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('devices.generate') }}" wire:navigate
-                                        class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                        {{ __('Tambah Alat') }}</a>
+                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                        <a href="{{ route('devices.generate') }}" wire:navigate
+                                            class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                            {{ __('Tambah Alat') }}</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input wire:model.live.debounce.250ms='search' type="text" name="search"
-                                        id="search" class="form-control mb-3 w-25" placeholder="Search...">
+                                    @if (auth()->user()->hasRole('Admin')||auth()->user()->hasRole('Teknisi'))
+<input wire:model.live.debounce.250ms='search' type="text" name="search" id="search" class="form-control mb-3 w-25"
+                                        placeholder="Search...">
+                                    @else
+                                    <input wire:model.live.debounce.250ms='adminSearch' type="text" name="search" id="search" class="form-control mb-3 w-25"
+                                        placeholder="Search...">
+                                    @endif
                                 </div>
-                                <div class="col-lg-6 d-flex justify-content-end align-items-center">
-                                    <a class="btn btn-info" href="{{ route('devices.printAll') }}" target="_blank"><i
-                                            class="fas fa-print"></i> {{ __('Print Semua QR Kosong') }}</a>
-                                </div>
+                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                    <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                                        <a class="btn btn-info" href="{{ route('devices.printAll') }}"
+                                            target="_blank"><i class="fas fa-print"></i>
+                                            {{ __('Print Semua QR Kosong') }}</a>
+                                    </div>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col">
@@ -39,7 +49,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager'))
+                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if ($alatSuperadmin->isEmpty())
                                                         <tr>
                                                             <td colspan='8' class="text-center">
@@ -68,12 +78,6 @@
                                                                     <a class="btn btn-secondary" target="_blank"
                                                                         wire:click="print('{{ $sadmin->deviceId }}')"><i
                                                                             class="fas fa-print"></i></a>
-                                                                    <a href="{{ route('devices.edit', $sadmin->deviceId) }}"
-                                                                        class="btn btn-info"><i
-                                                                            class="fas fa-pen-to-square"></i></a>
-                                                                    <button class="btn btn-danger"
-                                                                        wire:click.prevent="deleteConfirm('{{ $sadmin->deviceId }}')"><i
-                                                                            class="fas fa-trash"></i></button>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -134,8 +138,14 @@
                                                 </select>
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end">
-                                                @if (!$alats->isEmpty())
-                                                    {{ $alats->links() }}
+                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
+                                                    @if (!$alatSuperadmin->isEmpty())
+                                                        {{ $alatSuperadmin->links() }}
+                                                    @endif
+                                                @else
+                                                    @if (!$alats->isEmpty())
+                                                        {{ $alats->links() }}
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

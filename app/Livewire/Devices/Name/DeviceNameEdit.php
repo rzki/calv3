@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Devices\Name;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\DeviceName;
 use Livewire\Attributes\Title;
@@ -31,8 +32,12 @@ class DeviceNameEdit extends Component
         return $this->redirectRoute('device_name.index', navigate:true);
     }
     #[Title('Update Nama Alat')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.devices.name.device-name-edit');
+        if($this->authorize('technicianAccess', $user)){
+            return view('livewire.devices.name.device-name-edit');
+        }elseif($this->authorize('adminAccess', $user)){
+            return view('livewire.devices.name.device-name-edit');
+        }
     }
 }

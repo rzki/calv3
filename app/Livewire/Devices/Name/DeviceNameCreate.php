@@ -4,6 +4,7 @@ namespace App\Livewire\Devices\Name;
 
 use Livewire\Component;
 use App\Models\DeviceName;
+use App\Models\User;
 use Livewire\Attributes\Title;
 
 class DeviceNameCreate extends Component
@@ -12,22 +13,26 @@ class DeviceNameCreate extends Component
     public function create()
     {
         DeviceName::create([
-            'name' => $this->nama
+            'name' => $this->nama,
         ]);
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Nama Alat berhasil ditambahkan!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 3000,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 3000,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('device_name.index', navigate:true);
+        return $this->redirectRoute('device_name.index', navigate: true);
     }
     #[Title('Tambah Nama Alat')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.devices.name.device-name-create');
+        if ($this->authorize('technicianAccess', $user)) {
+            return view('livewire.devices.name.device-name-create');
+        } elseif ($this->authorize('adminAccess', $user)) {
+            return view('livewire.devices.name.device-name-create');
+        }
     }
 }

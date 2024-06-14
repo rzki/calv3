@@ -15,7 +15,7 @@ class DeviceIndex extends Component
 {
     use WithPagination;
     public $devices, $device, $deviceId;
-    public $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
+    public $adminSearch, $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
     public function sort($sortByField)
     {
@@ -62,7 +62,7 @@ class DeviceIndex extends Component
     public function render()
     {
         return view('livewire.devices.device-index', [
-            'alatSuperadmin' => Device::search($this->search)
+            'alatSuperadmin' => Device::search($this->adminSearch)
             ->paginate($this->perPage),
             'alats' => Device::search($this->search)
             ->where('user_id', auth()->user()->id)

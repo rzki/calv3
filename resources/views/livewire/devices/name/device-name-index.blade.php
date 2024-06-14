@@ -8,9 +8,11 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Nama Alat') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('device_name.create') }}" wire:navigate
-                                        class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                        {{ __('Tambah Nama Alat') }}</a>
+                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                        <a href="{{ route('device_name.create') }}" wire:navigate
+                                            class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                            {{ __('Tambah Nama Alat') }}</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -29,27 +31,43 @@
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
                                                     <th>{{ __('Nama') }}</th>
-                                                    <th style="width: 5em;"></th>
+                                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                                        <th style="width: 5em;"></th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if($devnames->isEmpty())
+                                                @if ($devnames->isEmpty())
+                                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
                                                     <tr>
                                                         <td colspan='3' class="text-center">
                                                             {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
-                                                @else
-                                                @foreach ($devnames as $name)
+                                                    @else
                                                     <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $name->name }}</td>
-                                                        <td>
-                                                            <a href="{{ route('device_name.edit', $name->id) }}" class="btn btn-info"><i class="fas fa-pen-to-square"></i> </a>
-                                                            <button class="btn btn-danger" wire:click.prevent="deleteConfirm('{{ $name->id }}')"><i class="fas fa-trash"></i> </button>
+                                                        <td colspan='2' class="text-center">
+                                                            {{ __('Data tidak ditemukan') }}
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                    @endif
+                                                @else
+                                                    @foreach ($devnames as $name)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $name->name }}</td>
+                                                            @if (auth()->user()->hasRole('Superadmin') ||auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                                                <td>
+                                                                    <a href="{{ route('device_name.edit', $name->id) }}"
+                                                                        class="btn btn-info"><i
+                                                                            class="fas fa-pen-to-square"></i> </a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $name->id }}')"><i
+                                                                            class="fas fa-trash"></i> </button>
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
                                                 @endif
                                             </tbody>
                                         </table>
