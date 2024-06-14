@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'username' => 'muh.ardyansyah',
             'password' => Hash::make('Calibration24!')
         ]);
-        $admin->assignRole('Admin');
+        $admin->assignRole('Superadmin');
 
         $admin2 = User::create([
             'userId' => Str::orderedUuid(),
