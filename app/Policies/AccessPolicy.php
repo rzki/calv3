@@ -11,6 +11,6 @@ class AccessPolicy
      */
     public function adminAccess(User $user)
     {
-        return $user->hasRole('Superadmin') || $user->hasRole('Admin');
+        return $user->hasRole('Superadmin') || $user->hasRole('Manager') ||$user->hasRole('Admin');
     }
 }
