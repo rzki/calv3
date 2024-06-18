@@ -30,12 +30,12 @@
                                     <h6 class="mb-3">{{ __('Status') }}</h6>
                                 </div>
                                 <div class="col-lg-6 text-end">
-                                    <h6 class="mb-3">{{ $invDetail->inv_number }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->devnames->name }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->brand }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->type }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->sn }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->procurement_year }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->inv_number ?? '' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->devnames->name ?? '' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->brand ?? '' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->type ?? '' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->sn ?? '' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->procurement_year ?? '' }}</h6>
                                     <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}
                                     </h6>
                                     <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}
