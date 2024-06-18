@@ -34,7 +34,9 @@
                                                     <th>{{ __('Lokasi') }}</th>
                                                     <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th style="width: 5em;"></th>
+                                                    @if (auth()->user()->hasRole('Admin'))
+                                                        <th style="width: 5em;"></th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -52,33 +54,44 @@
                                                             <td>{{ $log->inventories->brand ?? '' }}</td>
                                                             <td>{{ $log->inventories->type ?? '' }}</td>
                                                             <td>{{ $log->inventories->sn ?? '' }}</td>
-                                                            <td><a href="{{ route('inventories.detail', $log->inventories->inventoryId) }}" class="text-info">{{ $log->inventories->inv_number ?? '' }}</a></td>
-                                                            @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) || empty($log->tanggal_mulai_pinjam) || empty($log->tanggal_selesai_pinjam))
+                                                            <td><a href="{{ route('inventories.detail', $log->inventories->inventoryId) }}"
+                                                                    class="text-info">{{ $log->inventories->inv_number ?? '' }}</a>
+                                                            </td>
+                                                            @if (empty($log->tanggal_mulai_pinjam && $log->tanggal_selesai_pinjam) ||
+                                                                    empty($log->tanggal_mulai_pinjam) ||
+                                                                    empty($log->tanggal_selesai_pinjam))
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }} - {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}</td>
+                                                                <td>{{ date('j M Y', strtotime($log->tanggal_mulai_pinjam)) }}
+                                                                    -
+                                                                    {{ date('j M Y', strtotime($log->tanggal_selesai_pinjam)) }}
+                                                                </td>
                                                             @endif
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
                                                             <td>{{ $log->pic_pinjam ?? '' }}</td>
                                                             <td>{{ $log->status ?? '' }}</td>
-                                                            <td>
-                                                                <a href="{{ route('inventories.edit_log', [$log->inventories->inventoryId, $log->logId]) }}"
-                                                                    class="btn btn-primary"><i
-                                                                        class="fas fa-pen-to-square"></i></a>
-                                                                <button class="btn btn-danger"
-                                                                    wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
-                                                                        class="fas fa-trash"></i></button>
+                                                            @if (auth()->user()->hasRole('Admin'))
+                                                                <td>
+                                                                    <a href="{{ route('inventories.edit_log', [$log->inventories->inventoryId, $log->logId]) }}"
+                                                                        class="btn btn-primary"><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
 
-                                                            </td>
+                                                                </td>
+                                                            @endif
                                                         </tr>
                                                     @endforeach
                                                 @endif
                                             </tbody>
-                                        </table><div class="row mt-4">
+                                        </table>
+                                        <div class="row mt-4">
                                             <div class="col d-flex align-items-center justify-content-start">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
-                                                <select wire:model.live='perPage' class="form-control text-black per-page" style="width: 7%">
+                                                <select wire:model.live='perPage'
+                                                    class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
@@ -103,8 +116,8 @@
     </div>
 </div>
 @script
-<script>
-    window.addEventListener('delete-confirmation', event => {
+    <script>
+        window.addEventListener('delete-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
                 text: "Log akan terhapus secara permanen!",
@@ -119,13 +132,13 @@
                 }
             });
         })
-</script>
+    </script>
 @endscript
 
 @if (session()->has('alert'))
-@script
-<script>
-    const alerts = @json(session()->get('alert'));
+    @script
+        <script>
+            const alerts = @json(session()->get('alert'));
             const title = alerts.title;
             const icon = alerts.type;
             const toast = alerts.toast;
@@ -143,6 +156,6 @@
                 timerProgressBar: progbar,
                 showConfirmButton: confirm
             });
-</script>
-@endscript
+        </script>
+    @endscript
 @endif

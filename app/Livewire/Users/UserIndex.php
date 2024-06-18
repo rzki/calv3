@@ -4,8 +4,9 @@ namespace App\Livewire\Users;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\Attributes\Title;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Hash;
 
 class UserIndex extends Component
 {
@@ -34,6 +35,25 @@ class UserIndex extends Component
             'showConfirmButton' => false,
         ]);
         return $this->redirectRoute('users.index', navigate: true);
+    }
+
+    public function resetPassword($userId)
+    {
+        $this->userId = $userId;
+        $this->user = User::where('userId', $this->userId)->update([
+            'password' => Hash::make('Calibration24!')
+        ]);
+
+        session()->flash('alert', [
+            'type' => 'success',
+            'title' => 'Password berhasil direset!',
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
+            'progbar' => true,
+            'showConfirmButton' => false,
+        ]);
+        return $this->redirectRoute('users.index', navigate:true);
     }
     #[Title('Semua User')]
     public function render(User $user)

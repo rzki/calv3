@@ -56,6 +56,7 @@
                                                                     class="btn btn-info" wire:navigate><i
                                                                         class="fas fa-pen-to-square"></i>
                                                                 </a>
+                                                                <button class="btn btn-warning" wire:click.prevent="resetPassword('{{ $user->userId }}')"><i class="fas fa-rotate"></i></button>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $user->userId }}')"><i
                                                                         class="fas fa-trash"></i> </button>

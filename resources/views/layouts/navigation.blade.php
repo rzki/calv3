@@ -17,7 +17,7 @@
         </a>
     </li>
 
-    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
+    {{-- @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin')) --}}
         {{-- Inventaris --}}
         <li
             class="nav-item {{ request()->routeIs('inventories.index') || request()->routeIs('inventories.create') || request()->routeIs('inventories.edit') || request()->routeIs('inventories.detail') || request()->routeIs('inventories.add_log') || request()->routeIs('inventories.edit_log') ? 'active' : '' }}">
@@ -37,7 +37,7 @@
                 <span class="sidebar-text">{{ __('Log Book') }}</span>
             </a>
         </li>
-    @endif
+    {{-- @endif --}}
     {{-- Alat --}}
     <li
         class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') || request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
@@ -55,12 +55,6 @@
         </span>
         <div class="multi-level collapse" role="list" id="device-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
-                <li
-                    class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
-                    <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
-                        <span class="sidebar-text">{{ __('QR Alat') }}</span>
-                    </a>
-                </li>
                 <li
                     class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
                     <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>

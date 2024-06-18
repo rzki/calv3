@@ -6,14 +6,15 @@ use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 class HospitalDetail extends Component
 {
     public $detailRS, $hospitalId, $alat, $deviceId;
     public $search,
-            $sortBy = 'created_at',
-            $sortDir = 'ASC',
-            $perPage = 5;
+        $sortBy = 'created_at',
+        $sortDir = 'ASC',
+        $perPage = 5;
     protected $listeners = ['unlinkConfirmed' => 'unlink'];
     public function mount($hospitalId)
     {
@@ -63,15 +64,17 @@ class HospitalDetail extends Component
     #[Title('Detail Rumah Sakit')]
     public function render()
     {
-        // $alat = Device::with('hospitals')->searchDeviceByHospitalId($this->search)->where('hospital_id', $this->detailRS->id)
-        //             ->orderByDesc('updated_at')->paginate($this->perPage);
-        // dd($alat);
-        return view('livewire.hospitals.hospital-detail', [
-            'detailRS' => $this->detailRS,
-            'alatRS'   => Device::with('hospitals')->searchDeviceByHospitalId($this->search)
-            ->where('hospital_id', $this->detailRS->id)
-            ->orderByDesc('updated_at')
-            ->paginate($this->perPage),
-        ]);
+        if (Auth::user()->hasRole('Teknisi')) {
+            abort(403);
+        } else {
+            return view('livewire.hospitals.hospital-detail', [
+                'detailRS' => $this->detailRS,
+                'alatRS' => Device::with('hospitals')
+                    ->searchDeviceByHospitalId($this->search)
+                    ->where('hospital_id', $this->detailRS->id)
+                    ->orderByDesc('updated_at')
+                    ->paginate($this->perPage),
+            ]);
+        }
     }
 }

@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Inventory;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryIndex extends Component
 {
@@ -45,13 +46,13 @@ class InventoryIndex extends Component
     #[Title('Semua Inventaris')]
     public function render(User $user)
     {
-        if($this->authorize('adminAccess', $user)){
-            return view('livewire.inventories.inventory-index', [
-                'inventoryIndex' => Inventory::search($this->search)
-                ->paginate($this->perPage)
-            ]);
-        }else{
-            return view('livewire.dashboard');
-        }
+        // if(Auth::user()->hasRole('Teknisi')){
+        //     abort(403);
+        // } else {
+        return view('livewire.inventories.inventory-index', [
+            'inventoryIndex' => Inventory::search($this->search)
+            ->paginate($this->perPage)
+        ]);
+        // }
     }
 }

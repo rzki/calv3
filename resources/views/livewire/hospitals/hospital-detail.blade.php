@@ -41,9 +41,11 @@
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                    @if (!auth()->user()->hasRole('Manager'))
                                     <a href="{{ route('hospitals.add_device', $detailRS->hospitalId) }}"
                                         class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                         {{ __('Tambah Alat') }}</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -82,7 +84,7 @@
                                                                 </td>
                                                             @endif
                                                             <td>{{ $alat->status ?? '' }}</td>
-                                                            @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                            @if (!auth()->user()->hasRole('Manager'))
                                                                 <td>
                                                                     <button class="btn btn-danger"
                                                                         wire:click.prevent="unlinkConfirm('{{ $alat->deviceId }}')"><i

@@ -7,6 +7,7 @@ use App\Models\LogBook;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 class LogbookIndex extends Component
 {
@@ -48,14 +49,10 @@ class LogbookIndex extends Component
         return $this->redirectRoute('logbooks.index', navigate: true);
     }
     #[Title('Log Book')]
-    public function render(User $user)
+    public function render()
     {
-        if ($this->authorize('adminAccess', $user)) {
-            return view('livewire.logbooks.logbook-index', [
-                'logInv' => LogBook::search($this->search)->paginate($this->perPage),
-            ]);
-        } else {
-            return view('livewire.dashboard');
-        }
+        return view('livewire.logbooks.logbook-index', [
+            'logInv' => LogBook::search($this->search)->paginate($this->perPage),
+        ]);
     }
 }

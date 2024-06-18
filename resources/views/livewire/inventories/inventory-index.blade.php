@@ -8,9 +8,10 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Inventaris') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i
-                                            class="fas fa-plus"></i>
-                                        {{ __('Tambah Inventaris') }}</a>
+                                    @if (!auth()->user()->hasRole('Manager'))
+                                        <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                            {{ __('Tambah Inventaris') }}</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -63,12 +64,14 @@
                                                                 <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
                                                                     class="btn btn-primary" wire:navigate><i
                                                                         class="fas fa-eye"></i></a>
-                                                                <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
-                                                                    class="btn btn-info" wire:navigate><i class="fas fa-pen-to-square"
-                                                                        ></i></a>
-                                                                <button class="btn btn-danger"
-                                                                    wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
-                                                                        class="fas fa-trash"></i></button>
+                                                                @if (auth()->user()->hasRole('Admin'))
+                                                                    <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
+                                                                        class="btn btn-info" wire:navigate><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                @endif
 
                                                             </td>
                                                         </tr>
