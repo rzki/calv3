@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('my-profile', MyProfile::class)->name('profiles.show');
     // Inventories
     Route::get('inventories', InventoryIndex::class)->name('inventories.index');
-    Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');
+    // Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');
     Route::get('inventories/edit/{inventoryId}', InventoryEdit::class)->name('inventories.edit');
     Route::get('inventories/detail/{inventoryId}', InventoryDetail::class)->name('inventories.detail');
     Route::get('inventories/detail/{inventoryId}/add-log', InventoryAddLog::class)->name('inventories.add_log');

@@ -18,7 +18,7 @@ class Dashboard extends Component
     public function render()
     {
         return view('livewire.dashboard', [
-            'dashboardInventory' => Inventory::count(),
+            'dashboardInventory' => Device::count(),
             'dashboardLogBook' => LogBook::count(),
             'dashboardAlat' => Device::count(),
             'dashboardRS' => Hospital::count()

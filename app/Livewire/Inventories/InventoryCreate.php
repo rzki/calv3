@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories;
 
+use App\Models\Device;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
@@ -12,15 +13,15 @@ use Livewire\Attributes\Title;
 
 class InventoryCreate extends Component
 {
-    public $nama, $merk, $tipe, $sn, $tahun, $no_inv='MJG.INV-', $kalibrasi_terakhir, $pic, $lokasi, $status;
+    public $nama, $merk, $tipe, $sn, $tahun, $no_inv, $kalibrasi_terakhir, $pic, $lokasi, $status;
     public function create()
     {
-        Inventory::create([
-            'inventoryId' => Str::orderedUuid(),
-            'device_name' => $this->nama,
+        Device::create([
+            'deviceId' => Str::orderedUuid(),
+            'name_id' => $this->nama,
             'brand' => $this->merk,
             'type' => $this->tipe,
-            'sn' => $this->sn,
+            'serial_number' => $this->sn,
             'procurement_year' => $this->tahun,
             'inv_number' => $this->no_inv,
             'last_calibrated_date' => $this->kalibrasi_terakhir,
