@@ -5,10 +5,8 @@ namespace App\Livewire\Inventories;
 use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
-use App\Models\Inventory;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
-use Illuminate\Support\Facades\Auth;
 
 class InventoryIndex extends Component
 {
@@ -30,7 +28,7 @@ class InventoryIndex extends Component
     }
     public function delete()
     {
-        $this->inventaris = Inventory::where('inventoryId', $this->inventoryId)->first();
+        $this->inventaris = Device::where('deviceId', $this->inventoryId)->first();
         $this->inventaris->delete();
 
         session()->flash('alert', [
@@ -51,7 +49,7 @@ class InventoryIndex extends Component
         //     abort(403);
         // } else {
         return view('livewire.inventories.inventory-index', [
-            'inventoryIndex' => Device::inventorySearch($this->search)
+            'inventoryIndex' => Device::search($this->search)
             ->paginate($this->perPage)
         ]);
         // }

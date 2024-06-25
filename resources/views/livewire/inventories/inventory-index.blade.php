@@ -50,29 +50,31 @@
                                                     @foreach ($inventoryIndex as $inv)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $inv->devnames->name ?? '' }}</td>
+                                                            <td>{{ $inv->names->name ?? '' }}</td>
                                                             <td>{{ $inv->brand ?? '' }}</td>
                                                             <td>{{ $inv->type ?? '' }}</td>
-                                                            <td>{{ $inv->sn ?? '' }}</td>
+                                                            <td>{{ $inv->serial_number ?? '' }}</td>
                                                             <td>{{ $inv->procurement_year ?? '' }}</td>
                                                             <td>{{ $inv->inv_number ?? '' }}</td>
-                                                            <td>{{ date('j F Y', strtotime($inv->last_calibrated_date)) ?? '' }}
-                                                            </td>
+                                                            @if ($inv->calibration_date == null)
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('j F Y', strtotime($inv->calibration_date)) ?? '' }}</td>
+                                                            @endif
                                                             <td>{{ $inv->pic ?? '' }}</td>
                                                             <td>{{ $inv->location ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('inventories.detail', $inv->inventoryId) }}"
+                                                                <a href="{{ route('inventories.detail', $inv->deviceId) }}"
                                                                     class="btn btn-primary" wire:navigate><i
                                                                         class="fas fa-eye"></i></a>
                                                                 @if (auth()->user()->hasRole('Admin'))
-                                                                    <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
+                                                                    <a href="{{ route('inventories.edit', $inv->deviceId) }}"
                                                                         class="btn btn-info" wire:navigate><i
                                                                             class="fas fa-pen-to-square"></i></a>
                                                                     <button class="btn btn-danger"
-                                                                        wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
+                                                                        wire:click.prevent="deleteConfirm('{{ $inv->deviceId }}')"><i
                                                                             class="fas fa-trash"></i></button>
                                                                 @endif
-
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -81,8 +83,7 @@
                                         </table>
                                         <div class="row mt-4">
                                             <div class="col d-flex align-items-center justify-content-start">
-                                                <label class="text-black font-bold form-label me-3 mb-0">Per
-                                                    Page</label>
+                                                <label class="text-black font-bold form-label me-3 mb-0">Per Page</label>
                                                 <select wire:model.live='perPage'
                                                     class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>

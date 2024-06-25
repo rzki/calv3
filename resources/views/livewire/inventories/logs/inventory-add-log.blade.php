@@ -8,7 +8,7 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Log Pinjam') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
-                                    <a href="{{ route('inventories.detail', $invAddLog->inventoryId) }}" wire:navigate
+                                    <a href="{{ route('inventories.detail', $invAddLog->deviceId) }}" wire:navigate
                                         class="btn btn-primary text-white"><i class="fas fa-arrow-left"></i>
                                         {{ __('Kembali') }}</a>
                                 </div>
@@ -21,7 +21,7 @@
                                                 class="form-label text-capitalize">{{ __('no. inventaris alat') }}</label>
                                             <select type="text" name="no_inv" id="no_inv" class="form-control"
                                                 wire:model='no_inv' disabled>
-                                                <option value="{{ $invAddLog->id }}">{{ $invAddLog->inv_number }} ({{ $invAddLog->devnames->name }}, {{ $invAddLog->brand }}, {{ $invAddLog->type }}, {{ $invAddLog->sn }}, {{ $invAddLog->procurement_year }})</option>
+                                                <option value="{{ $invAddLog->id }}">{{ $invAddLog->inv_number }} ({{ $invAddLog->names->name ?? '' }}, {{ $invAddLog->brand }}, {{ $invAddLog->type }}, {{ $invAddLog->serial_number }}, {{ $invAddLog->procurement_year }})</option>
                                             </select>
                                         </div>
                                         <div class="row">

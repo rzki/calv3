@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories;
 
+use App\Models\Device;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
@@ -20,38 +21,37 @@ class InventoryEdit extends Component
         $tipe,
         $sn,
         $tahun,
-        $no_inv = 'MJG.INV-',
+        $no_inv,
         $kalibrasi_terakhir,
         $pic,
         $lokasi,
         $status;
     public function mount($inventoryId)
     {
-        $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
+        $this->inventories = Device::where('deviceId', $inventoryId)->first();
         $this->invName = DeviceName::all();
         $this->nama = $this->inventories->device_name;
         $this->merk = $this->inventories->brand;
         $this->tipe = $this->inventories->type;
-        $this->sn = $this->inventories->sn;
+        $this->sn = $this->inventories->serial_number;
         $this->tahun = $this->inventories->procurement_year;
         $this->no_inv = $this->inventories->inv_number;
-        $this->kalibrasi_terakhir = $this->inventories->last_calibrated_date;
+        $this->kalibrasi_terakhir = $this->inventories->calibration_date;
         $this->pic = $this->inventories->pic;
         $this->lokasi = $this->inventories->location;
         $this->status = $this->inventories->status;
     }
     public function update()
     {
-        Inventory::where('inventoryId', $this->inventoryId)->update([
-            'inventoryId' => Str::orderedUuid(),
-            'device_name' => $this->nama,
+        Device::where('deviceId', $this->inventoryId)->update([
+            'name_id' => $this->nama,
             'brand' => $this->merk,
             'type' => $this->tipe,
-            'sn' => $this->sn,
+            'serial_number' => $this->sn,
             'procurement_year' => $this->tahun,
             'inv_number' => $this->no_inv,
-            'last_calibrated_date' => $this->kalibrasi_terakhir,
-            'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+            'calibration_date' => $this->kalibrasi_terakhir,
+            'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
             'pic' => $this->pic,
             'location' => $this->lokasi,
             'status' => $this->status,

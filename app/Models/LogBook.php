@@ -16,7 +16,7 @@ class LogBook extends Model
     }
     public function inventories()
     {
-        return $this->belongsTo(Inventory::class, 'inventory_id');
+        return $this->belongsTo(Device::class, 'inventory_id');
     }
     public function scopeSearch($query, $value)
     {

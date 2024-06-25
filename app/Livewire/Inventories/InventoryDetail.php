@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Inventories;
 
+use App\Models\Device;
 use App\Models\LogBook;
 use Livewire\Component;
-use App\Models\Inventory;
 use Livewire\Attributes\Title;
 
 class InventoryDetail extends Component
@@ -15,7 +15,7 @@ class InventoryDetail extends Component
 
     public function mount($inventoryId)
     {
-        $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
+        $this->inventories = Device::where('deviceId', $inventoryId)->first();
         $this->latestLog = LogBook::where('inventory_id', $this->inventories->id)->with('inventories')->orderByDesc('created_at')->first();
     }
 
@@ -50,6 +50,7 @@ class InventoryDetail extends Component
     #[Title('Detail Inventaris')]
     public function render()
     {
+        // dd($this->inventories);
         return view('livewire.inventories.inventory-detail',[
             'latest' => $this->latestLog,
             'invDetail' => $this->inventories,

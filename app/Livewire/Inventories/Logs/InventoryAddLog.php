@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories\Logs;
 
+use App\Models\Device;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\LogBook;
@@ -15,7 +16,7 @@ class InventoryAddLog extends Component
     public $inventories, $inventoryId, $no_inv, $mulai_pinjam, $selesai_pinjam, $lokasi_pinjam, $pic, $status;
     public function mount($inventoryId)
     {
-        $this->inventories = Inventory::with('devnames')->where('inventoryId', $inventoryId)->first();
+        $this->inventories = Device::with('names')->where('deviceId', $inventoryId)->first();
     }
     public function addLog()
     {
@@ -43,7 +44,7 @@ class InventoryAddLog extends Component
     #[Title('Tambah Log Inventaris')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
+        if ($this->authorize('devices', $user)) {
             return view('livewire.inventories.logs.inventory-add-log', [
                 'invAddLog' => $this->inventories,
             ]);

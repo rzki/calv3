@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
             $table->uuid('logId');
-            $table->foreignId('inventory_id')->nullable()->constrained('inventories', 'id', 'inventory_id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('inventory_id')->nullable()->constrained('devices', 'id', 'inventory_id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('tanggal_mulai_pinjam');
             $table->date('tanggal_selesai_pinjam');
             $table->string('lokasi_pinjam');

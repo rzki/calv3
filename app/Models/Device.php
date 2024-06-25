@@ -27,6 +27,10 @@ class Device extends Model
     {
         return $this->belongsTo(Hospital::class, 'hospital_id');
     }
+    public function logbooks()
+    {
+        return $this->hasMany(LogBook::class);
+    }
     public function scopeSearch($query, $value)
     {
         $query->whereHas('users', function ($query) use ($value) {
@@ -36,12 +40,7 @@ class Device extends Model
 
     public function scopeInventorySearch($query, $value)
     {
-        $query->whereHas('devnames', function ($query) use ($value) {
-            $query->where('device_name', 'like', "%{$value}%")
-                ->orWhereNull('device_name', 'like', "%{$value}%");
-
-        })
-        ->orWhere('brand', 'like', "%{$value}%")
+        $query->where('brand', 'like', "%{$value}%")
         ->orWhere('type', 'like', "%{$value}%")
         ->orWhere('serial_number', 'like', "%{$value}%")
         ;

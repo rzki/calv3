@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Inventories\Logs;
 
+use App\Models\Device;
 use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class InventoryEditLog extends Component
     public $inventories, $inventoryId, $logBook, $logId, $no_inv, $mulai_pinjam, $selesai_pinjam, $lokasi_pinjam, $pic, $status;
     public function mount($inventoryId, $logId)
     {
-        $this->inventories = Inventory::with('devnames')->where('inventoryId', $inventoryId)->first();
+        $this->inventories = Device::with('names')->where('deviceId', $inventoryId)->first();
         $this->logBook = LogBook::with('inventories')->where('logId', $logId)->first();
         $this->mulai_pinjam = $this->logBook->tanggal_mulai_pinjam;
         $this->selesai_pinjam = $this->logBook->tanggal_selesai_pinjam;
@@ -38,13 +39,13 @@ class InventoryEditLog extends Component
             'progbar' => true,
             'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('inventories.detail', ['inventoryId' => $this->inventoryId], navigate: true);
+        return $this->redirectRoute('inventories.detail', ['deviceId' => $this->inventoryId], navigate: true);
     }
 
     #[Title('Update Log Inventaris')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
+        if ($this->authorize('devices', $user)) {
             return view('livewire.inventories.logs.inventory-edit-log', [
                 'invEditLog' => $this->inventories,
                 'logEdit' => $this->logBook,

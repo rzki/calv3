@@ -30,23 +30,33 @@
                                     <h6 class="mb-3">{{ __('Status') }}</h6>
                                 </div>
                                 <div class="col-lg-6 text-end">
-                                    <h6 class="mb-3">{{ $invDetail->inv_number ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->devnames->name ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->brand ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->type ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->sn ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->procurement_year ?? '' }}</h6>
-                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->last_calibrated_date)) }}
-                                    </h6>
-                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibrated_date)) }}
-                                    </h6>
-                                    <h6 class="mb-3">{{ $invDetail->pic }}</h6>
-                                    <h6 class="mb-3">{{ $invDetail->location }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->inv_number ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->names->name ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->brand ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->type ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->serial_number ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->procurement_year ?? 'null' }}</h6>
+                                    @if ($invDetail->calibration_date == null)
+                                    <h6 class="mb-3"></h6>
+                                    @else
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->calibration_date)) }}</h6>
+                                    @endif
+                                    @if ($invDetail->next_calibration_date == null)
+                                    <h6 class="mb-3"></h6>
+                                    @else
+                                    <h6 class="mb-3">{{ date('j F Y', strtotime($invDetail->next_calibration_date)) }}</h6>
+                                    @endif
+                                    <h6 class="mb-3">{{ $invDetail->pic ?? 'null' }}</h6>
+                                    <h6 class="mb-3">{{ $invDetail->location ?? 'null' }}</h6>
                                     @if(empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
                                         <h6 class="mb-3">{{ __('Tersedia') }}</h6>
                                     @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
                                         <h6 class="mb-3">{{ __('Dipinjamkan') }}</h6>
                                     @endif
+                                </div>
+                                <div class="d-grid">
+                                    <a href="{{ route('inventories.edit', $invDetail->deviceId) }}" class="btn btn-info"><i
+                                            class="fas fa-pen-to-square"></i> {{ __('Perbarui Data') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -66,11 +76,11 @@
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
                                     @if (empty($latest) || Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) <= Carbon\Carbon::today())
-                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                        <a href="{{ route('inventories.add_log', $invDetail->deviceId) }}"
                                             class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
                                             {{ __('Tambah Log') }}</a>
                                     @elseif (Carbon\Carbon::parse($latest->tanggal_selesai_pinjam) > Carbon\Carbon::today())
-                                        <a href="{{ route('inventories.add_log', $invDetail->inventoryId) }}"
+                                        <a href="{{ route('inventories.add_log', $invDetail->deviceId) }}"
                                             class="btn btn-success text-white disabled" wire:navigate disabled><i
                                                 class="fas fa-plus"></i> {{ __('Tambah Log') }}</a>
                                     @endif
@@ -115,7 +125,7 @@
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
                                                             <td>{{ $log->status ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->inventoryId, 'logId' => $log->logId]) }}"
+                                                                <a href="{{ route('inventories.edit_log', ['inventoryId' => $invDetail->deviceId, 'logId' => $log->logId]) }}"
                                                                     class="btn btn-info" wire:navigate><i class="fas fa-edit"></i></a>
                                                                 <button class="btn btn-danger"
                                                                     wire:click.prevent="deleteConfirm('{{ $log->logId }}')"><i
