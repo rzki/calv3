@@ -56,11 +56,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="status">
-                    <h4 class="fw-bold">{{ __('Status') }}</h4>
-                    <p class="fs-5">{{ $qr->status ?? '' }}</p>
-                </div>
+            <div class="row mb-3 d-grid">
+                <h4 class="fw-bold">{{ __('Sertifikat') }}</h4>
+                <a href="{{ asset('storage/'.$qr->certif_file) }}" class="btn btn-primary" target="_blank"><i class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a>
+            </div>
+            <div class="row text-center">
+                <h4 class="fw-bold">{{ __('Status') }}</h4>
+                <p>{{ $qr->status ?? '' }}</p>
             </div>
             <div class="row">
                 @if (Auth::guest())
