@@ -41,6 +41,7 @@ class GenerateQRJob implements ShouldQueue
 
             $devices[] = [
                 'deviceId' => $device['deviceId'],
+                'inv_number' => 'INVT-',
                 'barcode' => $path,
                 'user_id' => auth()->user()->id,
                 'status' => 'Tersedia',

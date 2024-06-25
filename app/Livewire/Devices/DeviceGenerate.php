@@ -42,7 +42,7 @@ class DeviceGenerate extends Component
     #[Title('Generate Kode QR Alat')]
     public function render(User $user)
     {
-        if($this->authorize('technicianAccess', $user)){
+        if($this->authorize('devices', $user)){
             return view('livewire.devices.device-generate');
         }
     }

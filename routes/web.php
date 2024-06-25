@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('devices/detail/{deviceId}', DeviceDetail::class)->name('devices.detail');
     Route::get('devices/print/{deviceId}', DeviceIndex::class)->name('devices.print');
     Route::get('devices/print-all', [PrintQRController::class, 'printAll'])->name('devices.printAll');
+    Route::get('devices/view/{deviceId}', DeviceIndex::class)->name('devices.viewSertif');
     // Device Name
     Route::get('device_name', DeviceNameIndex::class)->name('device_name.index');
     Route::get('device_name/create', DeviceNameCreate::class)->name('device_name.create');

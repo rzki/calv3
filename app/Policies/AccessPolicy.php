@@ -21,4 +21,8 @@ class AccessPolicy
     {
         return $user->hasRole('Teknisi');
     }
+    public function devices(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+    }
 }

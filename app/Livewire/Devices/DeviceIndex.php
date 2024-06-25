@@ -58,6 +58,12 @@ class DeviceIndex extends Component
             echo $pdf->stream();
         }, 'QR_Cal'.$device->deviceId.'.pdf', ['Content-Type'=>'application/pdf']);
     }
+    public function viewSertif(Device $device)
+    {
+        $sertif = Device::where('deviceId', $device->deviceId)->first();
+        $fileSertif = Storage::url($sertif->certif_file);
+        return $fileSertif;
+    }
     #[Title('Semua Alat')]
     public function render()
     {

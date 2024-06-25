@@ -17,12 +17,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    @if (auth()->user()->hasRole('Admin')||auth()->user()->hasRole('Teknisi'))
-<input wire:model.live.debounce.250ms='search' type="text" name="search" id="search" class="form-control mb-3 w-25"
-                                        placeholder="Search...">
+                                    @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                        <input wire:model.live.debounce.250ms='search' type="text" name="search"
+                                            id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                     @else
-                                    <input wire:model.live.debounce.250ms='adminSearch' type="text" name="search" id="search" class="form-control mb-3 w-25"
-                                        placeholder="Search...">
+                                        <input wire:model.live.debounce.250ms='adminSearch' type="text"
+                                            name="search" id="search" class="form-control mb-3 w-25"
+                                            placeholder="Search...">
                                     @endif
                                 </div>
                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
@@ -43,6 +44,7 @@
                                                     <th>{{ __('Nama') }}</th>
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Tanggal Kalibrasi') }}</th>
+                                                    <th>{{ __('Nomor Sertifikat') }}</th>
                                                     <th>{{ __('Status') }}</th>
                                                     <th>{{ __('Dibuat oleh') }}</th>
                                                     <th style="width: 5em;"></th>
@@ -68,7 +70,13 @@
                                                                     <td>{{ date('j F Y', strtotime($sadmin->calibration_date)) ?? '' }}
                                                                     </td>
                                                                 @endif
-
+                                                                @if ($sadmin->certif_file == null)
+                                                                    <td></td>
+                                                                @else
+                                                                    <td>
+                                                                        <a href="{{ asset('storage/'.$sadmin->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i> {{ 'Lihat sertifikat' }}</a>
+                                                                    </td>
+                                                                @endif
                                                                 <td>{{ $sadmin->status ?? '' }}</td>
                                                                 <td>{{ $sadmin->users->name ?? '' }}</td>
                                                                 <td>
@@ -78,6 +86,14 @@
                                                                     <a class="btn btn-secondary" target="_blank"
                                                                         wire:click="print('{{ $sadmin->deviceId }}')"><i
                                                                             class="fas fa-print"></i></a>
+                                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                                    <a href="{{ route('devices.edit', $sadmin->deviceId) }}"
+                                                                        class="btn btn-info"><i
+                                                                            class="fas fa-pen-to-square"></i></a>
+                                                                    <button class="btn btn-danger"
+                                                                        wire:click.prevent="deleteConfirm('{{ $sadmin->deviceId }}')"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -101,7 +117,14 @@
                                                                     <td>{{ date('j F Y', strtotime($device->calibration_date)) ?? '' }}
                                                                     </td>
                                                                 @endif
-
+                                                                @if ($device->certif_file == null)
+                                                                <td></td>
+                                                                @else
+                                                                <td>
+                                                                    <a href="{{ asset('storage/'.$device->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i>
+                                                                        {{ 'Lihat sertifikat' }}</a>
+                                                                </td>
+                                                                @endif
                                                                 <td>{{ $device->status ?? '' }}</td>
                                                                 <td>{{ $device->users->name ?? '' }}</td>
                                                                 <td>

@@ -33,6 +33,19 @@ class Device extends Model
             $query->where('serial_number', 'like', "%{$value}%")->orWhereNull('serial_number', 'like', "%{$value}%");
         });
     }
+
+    public function scopeInventorySearch($query, $value)
+    {
+        $query->whereHas('devnames', function ($query) use ($value) {
+            $query->where('device_name', 'like', "%{$value}%")
+                ->orWhereNull('device_name', 'like', "%{$value}%");
+
+        })
+        ->orWhere('brand', 'like', "%{$value}%")
+        ->orWhere('type', 'like', "%{$value}%")
+        ->orWhere('serial_number', 'like', "%{$value}%")
+        ;
+    }
     public function scopeSearchDeviceByHospitalId($query, $value)
     {
         $query->whereHas('hospitals', function ($query) use ($value){

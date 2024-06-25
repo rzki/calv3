@@ -3,6 +3,7 @@
 namespace App\Livewire\Inventories;
 
 use App\Models\User;
+use App\Models\Device;
 use Livewire\Component;
 use App\Models\Inventory;
 use Livewire\WithPagination;
@@ -50,7 +51,7 @@ class InventoryIndex extends Component
         //     abort(403);
         // } else {
         return view('livewire.inventories.inventory-index', [
-            'inventoryIndex' => Inventory::search($this->search)
+            'inventoryIndex' => Device::inventorySearch($this->search)
             ->paginate($this->perPage)
         ]);
         // }
