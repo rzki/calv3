@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    @livewireStyles()
 </head>
     <main class="content">
         {{ $slot }}
     </main>
 
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    @livewireScripts()
 <body>
 
 </body>

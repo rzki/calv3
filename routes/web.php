@@ -1,13 +1,17 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\MyProfile;
+use App\Livewire\DeviceList;
 use App\Livewire\Roles\RoleEdit;
 use App\Livewire\Users\UserEdit;
+use App\Livewire\ResetSuperadmin;
 use App\Livewire\Roles\RoleIndex;
 use App\Livewire\Users\UserIndex;
 use App\Livewire\Roles\RoleCreate;
 use App\Livewire\Users\UserCreate;
 use App\Livewire\Users\UserImport;
+use App\Livewire\DeviceDetailPublic;
 use App\Livewire\Devices\DeviceEdit;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
@@ -31,8 +35,9 @@ use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
-use App\Livewire\MyProfile;
-use App\Livewire\ResetSuperadmin;
+
+Route::get('devices-list', DeviceList::class)->name('devices.list');
+Route::get('devices-list/detail/{deviceId}', DeviceDetailPublic::class)->name('devices.publicDetail');
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {

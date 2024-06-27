@@ -53,8 +53,12 @@
                             </div>
                         </div>
 
-                        <div class="d-grid">
+                        <div class="d-grid mb-4">
                             <button type="submit" class="btn btn-gray-800 mb-3">{{ __('Sign in') }}</button>
+                        </div>
+
+                        <div class="d-grid">
+                            <a href="{{ route('devices.list') }}" class="btn btn-info" wire:navigate>{{ __('List Alat') }}</a>
                         </div>
                     </form>
                 </div>

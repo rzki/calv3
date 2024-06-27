@@ -2,15 +2,15 @@
     <div class="row vh-100 mx-0">
         <div class="col d-flex flex-column justify-content-center align-items-center">
             @if (Auth::user())
-                <div class="row mb-5">
-                    <a href="{{ route('devices.index') }}" wire:navigate class="btn btn-primary"><i
-                            class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
-                </div>
+            <div class="row mb-5">
+                <a href="{{ route('devices.index') }}" wire:navigate class="btn btn-primary"><i
+                        class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
+            </div>
             @else
-                <div class="row mb-5">
-                    <a href="{{ route('devices.list') }}" wire:navigate class="btn btn-primary"><i
-                            class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
-                </div>
+            <div class="row mb-5">
+                <a href="{{ route('devices.list') }}" wire:navigate class="btn btn-primary"><i
+                        class="fas fa-arrow-left"></i> {{ __('Kembali') }}</a>
+            </div>
             @endif
             <div class="row mb-5">
                 <img src="{{ asset('storage/' . $qr->barcode) }}" style="width:10em;" alt="">
@@ -32,9 +32,9 @@
                     <div class="last-calibration">
                         <h4 class="fw-bold">{{ __('Kalibrasi Terakhir') }}</h4>
                         @if ($qr->calibration_date == null)
-                            <p class="fs-5">{{ '' }}</p>
+                        <p class="fs-5">{{ '' }}</p>
                         @else
-                            <p class="fs-5">{{ date('j F Y', strtotime($qr->calibration_date)) }}</p>
+                        <p class="fs-5">{{ date('j F Y', strtotime($qr->calibration_date)) }}</p>
                         @endif
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                     <div class="next-calibration">
                         <h4 class="fw-bold">{{ __('Kalibrasi Selanjutnya') }}</h4>
                         @if ($qr->next_calibration_date == null)
-                            <p class="fs-5">{{ '' }}</p>
+                        <p class="fs-5">{{ '' }}</p>
                         @else
-                            <p class="fs-5">{{ date('j F Y', strtotime($qr->next_calibration_date)) }}</p>
+                        <p class="fs-5">{{ date('j F Y', strtotime($qr->next_calibration_date)) }}</p>
                         @endif
                     </div>
                 </div>
@@ -64,15 +64,15 @@
             <div class="row mb-3 d-grid">
                 <h4 class="fw-bold text-center">{{ __('Sertifikat') }}</h4>
                 @if (Auth::guest())
-                    <a href="{{ route('login') }}" class="btn btn-danger" target="_blank"><i
-                            class="fas fa-up-right-from-square"></i>
-                        {{ __('Login untuk melihat / mengunduh sertifikat') }}</a>
-                    <script>
-                        sessionStorage.setItem('intended_url', asset('storage/'.$qr->certif_file));
-                    </script>
+                <a href="{{ route('devices.detail', $qr->deviceId) }}" class="btn btn-danger" target="_blank"><i
+                        class="fas fa-up-right-from-square"></i>
+                    {{ __('Login untuk melihat / mengunduh sertifikat') }}</a>
+                <script>
+                    sessionStorage.setItem('intended_url', route('devices.detail', $qr->deviceId));
+                </script>
                 @else
-                    <a href="{{ asset('storage/' . $qr->certif_file) }}" class="btn btn-primary" target="_blank"><i
-                            class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a>
+                <a href="{{ asset('storage/' . $qr->certif_file) }}" class="btn btn-primary" target="_blank"><i
+                        class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a>
                 @endif
             </div>
             <div class="row text-center">
@@ -81,14 +81,13 @@
             </div>
             <div class="row">
                 @if (Auth::guest())
-                    <a href="{{ route('devices.edit', $qr->deviceId) }}"
-                        class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
-                    <script>
-                        sessionStorage.setItem('intended_url', route('devices.detail', $qr - > deviceId));
-                    </script>
-                @elseif(!Auth::user()->hasRole('Manager') && $qr->user_id == Auth::user()->id)
-                    <a href="{{ route('devices.edit', $qr->deviceId) }}"
-                        class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
+                <a href="{{ route('devices.detail', $qr->deviceId) }}" class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
+                {{-- <a href="{{ route('login') }}" class="btn btn-info"><i class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a> --}}
+                <script>
+                    sessionStorage.setItem('intended_url', route('devices.publicDetail', $qr->deviceId));
+                </script>
+                @elseif(Auth::check())
+                <a href="{{ route('devices.edit', $qr->deviceId) }}" class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
                 @endif
             </div>
         </div>
