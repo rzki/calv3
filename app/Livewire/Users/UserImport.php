@@ -5,10 +5,8 @@ namespace App\Livewire\Users;
 use App\Models\User;
 use Livewire\Component;
 use App\Imports\UsersImport;
-use Illuminate\Http\Request;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
