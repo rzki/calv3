@@ -36,33 +36,50 @@ class DeviceEdit extends Component
         $this->rumah_sakit_id = $this->alat->hospital_id;
         $this->kalibrasi_terakhir = $this->alat->calibration_date;
         $this->certif_no = $this->alat->certif_no;
-        $this->certif_file = $this->alat->certif_file;
         $this->status = $this->alat->status;
     }
 
     public function update()
     {
 
-        $namaSertif = $this->certif_no.'.pdf';
-        $this->sertifPath = 'files/pdf/sertifikat/';
-        Storage::disk('public')->putFileAs($this->sertifPath, $this->certif_file, $namaSertif);
+        if($this->certif_file){
+            $namaSertif = $this->certif_no.'.pdf';
+            $this->sertifPath = 'files/pdf/sertifikat/';
+            Storage::disk('public')->putFileAs($this->sertifPath, $this->certif_file, $namaSertif);
 
-        Device::where('deviceId', $this->deviceId)->update([
-            'name_id' => $this->nama,
-            'inv_number' => $this->inv_number,
-            'brand' => $this->merk,
-            'type' => $this->tipe,
-            'serial_number' => $this->serial_number,
-            'location' => $this->lokasi,
-            'pic' => $this->pic,
-            'hospital_id' => $this->rumah_sakit_id,
-            'calibration_date' => $this->kalibrasi_terakhir,
-            'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
-            'certif_no' => $this->certif_no,
-            'certif_file' => $this->sertifPath.$namaSertif,
-            'status' => 'Tersedia',
-            'user_id' => auth()->user()->id
-        ]);
+            Device::where('deviceId', $this->deviceId)->update([
+                'name_id' => $this->nama,
+                'inv_number' => $this->inv_number,
+                'brand' => $this->merk,
+                'type' => $this->tipe,
+                'serial_number' => $this->serial_number,
+                'location' => $this->lokasi,
+                'pic' => $this->pic,
+                'hospital_id' => $this->rumah_sakit_id,
+                'calibration_date' => $this->kalibrasi_terakhir,
+                'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+                'certif_no' => $this->certif_no,
+                'certif_file' => $this->sertifPath.$namaSertif,
+                'status' => 'Tersedia',
+                'user_id' => auth()->user()->id
+            ]);
+        }else{
+            Device::where('deviceId', $this->deviceId)->update([
+                'name_id' => $this->nama,
+                'inv_number' => $this->inv_number,
+                'brand' => $this->merk,
+                'type' => $this->tipe,
+                'serial_number' => $this->serial_number,
+                'location' => $this->lokasi,
+                'pic' => $this->pic,
+                'hospital_id' => $this->rumah_sakit_id,
+                'calibration_date' => $this->kalibrasi_terakhir,
+                'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+                'certif_no' => $this->certif_no,
+                'status' => 'Tersedia',
+                'user_id' => auth()->user()->id
+            ]);
+        }
 
         session()->flash('alert', [
             'type' => 'success',
