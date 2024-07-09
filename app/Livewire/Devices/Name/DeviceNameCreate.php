@@ -29,9 +29,7 @@ class DeviceNameCreate extends Component
     #[Title('Tambah Nama Alat')]
     public function render(User $user)
     {
-        if ($this->authorize('technicianAccess', $user)) {
-            return view('livewire.devices.name.device-name-create');
-        } elseif ($this->authorize('adminAccess', $user)) {
+        if($this->authorize('device_names', $user)){
             return view('livewire.devices.name.device-name-create');
         }
     }

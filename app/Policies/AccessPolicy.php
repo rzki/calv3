@@ -25,4 +25,8 @@ class AccessPolicy
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
     }
+    public function device_names(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+    }
 }
