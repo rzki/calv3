@@ -33,8 +33,11 @@ class Device extends Model
     }
     public function scopeSearch($query, $value)
     {
-        $query->whereHas('users', function ($query) use ($value) {
-            $query->where('serial_number', 'like', "%{$value}%")->orWhereNull('serial_number', 'like', "%{$value}%");
+        $query->whereHas('names', function ($query) use ($value) {
+            $query->where('serial_number', 'like', "%{$value}%")
+                  ->orWhereNull('serial_number', 'like', "%{$value}%")
+                  ->where('serial_number', 'like', "%{$value}%")
+                  ->orWhereNull('serial_number', 'like', "%{$value}%");
         });
     }
 

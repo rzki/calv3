@@ -41,7 +41,7 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>{{ __('Nama') }}</th>
+                                                    <th>{{ __('Nama Alat') }}</th>
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Tanggal Kalibrasi') }}</th>
                                                     <th>{{ __('Nomor Sertifikat') }}</th>

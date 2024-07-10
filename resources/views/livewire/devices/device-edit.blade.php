@@ -17,7 +17,7 @@
                                 <div class="col">
                                     <form wire:submit='update' method="post" enctype="multipart/form-data">
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-6">
                                                 <div class="form-group mb-3">
                                                     <label for="nama"
                                                         class="form-label text-capitalize">{{ __('nama') }}</label>
@@ -31,18 +31,19 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            {{-- <div class="col-lg-4">
                                                 <div class="form-group mb-3">
                                                     <label for="inv_number"
                                                         class="form-label text-capitalize">{{ __('no. inventaris') }}</label>
                                                     <input type="text" class="form-control" wire:model='inv_number'>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-4">
+                                            </div> --}}
+                                            <div class="col-lg-6">
                                                 <div class="form-group mb-3">
-                                                    <label for="merk"
-                                                        class="form-label text-capitalize">{{ __('merk') }}</label>
-                                                    <input type="text" class="form-control" wire:model='merk'>
+                                                    <label for="serial_number"
+                                                        class="form-label text-capitalize">{{ __('no. seri') }}</label>
+                                                    <input type="text" class="form-control"
+                                                        wire:model='serial_number'>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,16 +57,16 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
-                                                    <label for="serial_number"
-                                                        class="form-label text-capitalize">{{ __('serial number') }}</label>
-                                                    <input type="text" class="form-control"
-                                                        wire:model='serial_number'>
+                                                    <label for="merk"
+                                                        class="form-label text-capitalize">{{ __('merek') }}</label>
+                                                    <input type="text" class="form-control" wire:model='merk'>
                                                 </div>
+
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
                                                     <label for="lokasi"
-                                                        class="form-label text-capitalize">{{ __('lokasi') }}</label>
+                                                        class="form-label text-capitalize">{{ __('ruang') }}</label>
                                                     <input type="text" class="form-control" wire:model='lokasi'>
                                                 </div>
                                             </div>
@@ -104,15 +105,20 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group mb-3">
-                                                    <label for="certif_no" class="form-label text-capitalize" wire:model='certif_no'>{{ __('no. sertifikat') }}</label>
-                                                    <input type="text" name="certif_no" id="certif_no" class="form-control" wire:model='certif_no'>
+                                                    <label for="certif_no" class="form-label text-capitalize"
+                                                        wire:model='certif_no'>{{ __('no. sertifikat') }}</label>
+                                                    <input type="text" name="certif_no" id="certif_no"
+                                                        class="form-control" wire:model='certif_no'>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group mb-3">
-                                                    <label for="certif_file" class="form-label text-capitalize">{{ __('unggah sertifikat') }}</label>
-                                                    <input type="file" name="certif_file" id="certif_file" class="form-control" wire:model='certif_file'>
-                                                    <span class="form-text fst-italic">{{ __('hanya mendukung pdf dan maksimal file 1MB') }}</span>
+                                                    <label for="certif_file"
+                                                        class="form-label text-capitalize">{{ __('unggah sertifikat') }}</label>
+                                                    <input type="file" name="certif_file" id="certif_file"
+                                                        class="form-control" wire:model='certif_file'>
+                                                    <span
+                                                        class="form-text fst-italic">{{ __('hanya mendukung pdf dan maksimal file 1MB') }}</span>
                                                 </div>
                                             </div>
                                         </div>
