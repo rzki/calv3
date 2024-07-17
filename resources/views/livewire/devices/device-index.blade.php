@@ -121,7 +121,10 @@
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
                                                                 <td>{{ $device->names->name ?? '' }}</td>
+                                                                <td>{{ $device->brand ?? '' }}</td>
+                                                                <td>{{ $device->type ?? '' }}</td>
                                                                 <td>{{ $device->serial_number ?? '' }}</td>
+                                                                <td>{{ $device->location ?? '' }}</td>
                                                                 @if ($device->calibration_date == null)
                                                                     <td></td>
                                                                 @else
@@ -136,6 +139,7 @@
                                                                         {{ 'Lihat sertifikat' }}</a>
                                                                 </td>
                                                                 @endif
+                                                                <td>{{ $device->result ?? '' }}</td>
                                                                 <td>{{ $device->status ?? '' }}</td>
                                                                 <td>{{ $device->users->name ?? '' }}</td>
                                                                 <td>

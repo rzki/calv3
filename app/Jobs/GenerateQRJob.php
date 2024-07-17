@@ -35,7 +35,7 @@ class GenerateQRJob implements ShouldQueue
         foreach ($this->devices as $device){
             // Generate QR code and path
             $qr = new DNS2D();
-            $qr = base64_decode($qr->getBarcodePNG(route('devices.detail', $device['deviceId']), "QRCODE"));
+            $qr = base64_decode($qr->getBarcodePNG(route('devices.publicDetail', $device['deviceId']), "QRCODE"));
             $path = 'img/qr-codes/' . $device['deviceId'] . '.png';
             Storage::disk('public')->put($path, $qr);
 

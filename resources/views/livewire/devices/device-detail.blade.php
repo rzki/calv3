@@ -86,7 +86,7 @@
                     <script>
                         sessionStorage.setItem('intended_url', route('devices.detail', $qr - > deviceId));
                     </script>
-                @elseif(!Auth::user()->hasRole('Manager') && $qr->user_id == Auth::user()->id)
+                @elseif(!Auth::user()->hasRole('Manager') && $qr->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
                     <a href="{{ route('devices.edit', $qr->deviceId) }}"
                         class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
                 @endif
