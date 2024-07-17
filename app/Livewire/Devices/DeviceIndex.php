@@ -5,10 +5,12 @@ namespace App\Livewire\Devices;
 use Carbon\Carbon;
 use App\Models\Device;
 use Livewire\Component;
+use App\Exports\QrExport;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class DeviceIndex extends Component
@@ -64,6 +66,14 @@ class DeviceIndex extends Component
         $fileSertif = Storage::url($sertif->certif_file);
         return $fileSertif;
     }
+
+    public function export()
+    {
+        $tanggal = Carbon::today();
+        $namaFile = 'QR-Cal-'.$tanggal->format('j_m_Y');
+        return Excel::download(new QrExport, $namaFile.'.xlsx');
+    }
+
     #[Title('Semua Alat')]
     public function render()
     {

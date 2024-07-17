@@ -28,7 +28,9 @@ return new class extends Migration
             $table->string('certif_no')->nullable();
             $table->text('certif_file')->nullable();
             $table->text('barcode')->nullable();
+            $table->string('result')->nullable();
             $table->string('status')->nullable();
+            $table->text('note')->nullable();
             $table->foreignId('user_id')->constrained('users', 'id', 'user_id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -36,15 +36,22 @@
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <div class="export">
+                                        <button class="btn btn-primary text-center fw-bold" wire:click='export'>XLS</button>
+                                    </div>
                                     <div class="table-wrapper table-responsive">
                                         <table class="table striped-table text-black text-center">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
                                                     <th>{{ __('Nama Alat') }}</th>
-                                                    <th>{{ __('Serial Number') }}</th>
+                                                    <th>{{ __('Merek') }}</th>
+                                                    <th>{{ __('Tipe') }}</th>
+                                                    <th>{{ __('No. Seri') }}</th>
+                                                    <th>{{ __('Ruang') }}</th>
                                                     <th>{{ __('Tanggal Kalibrasi') }}</th>
                                                     <th>{{ __('Nomor Sertifikat') }}</th>
+                                                    <th>{{ __('Hasil') }}</th>
                                                     <th>{{ __('Status') }}</th>
                                                     <th>{{ __('Dibuat oleh') }}</th>
                                                     <th style="width: 5em;"></th>
@@ -54,7 +61,7 @@
                                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if ($alatSuperadmin->isEmpty())
                                                         <tr>
-                                                            <td colspan='8' class="text-center">
+                                                            <td colspan='12' class="text-center fw-bold">
                                                                 {{ __('Data tidak ditemukan') }}
                                                             </td>
                                                         </tr>
@@ -63,7 +70,10 @@
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
                                                                 <td>{{ $sadmin->names->name ?? '' }}</td>
+                                                                <td>{{ $sadmin->brand ?? '' }}</td>
+                                                                <td>{{ $sadmin->type ?? '' }}</td>
                                                                 <td>{{ $sadmin->serial_number ?? '' }}</td>
+                                                                <td>{{ $sadmin->location ?? '' }}</td>
                                                                 @if ($sadmin->calibration_date == null)
                                                                     <td></td>
                                                                 @else
@@ -77,6 +87,7 @@
                                                                         <a href="{{ asset('storage/'.$sadmin->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i> {{ 'Lihat sertifikat' }}</a>
                                                                     </td>
                                                                 @endif
+                                                                <td>{{ $sadmin->result ?? '' }}</td>
                                                                 <td>{{ $sadmin->status ?? '' }}</td>
                                                                 <td>{{ $sadmin->users->name ?? '' }}</td>
                                                                 <td>
