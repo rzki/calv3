@@ -46,10 +46,4 @@ class LoginController extends Controller
         request()->merge([$field => $login]);
         return $field;
     }
-    // public function logout()
-    // {
-    //     Session::flush();
-    //     Auth::logout();
-    //     return to_route('login');
-    // }
 }
