@@ -79,11 +79,11 @@ class DeviceIndex extends Component
     {
         return view('livewire.devices.device-index', [
             'alatSuperadmin' => Device::search($this->adminSearch)
-            ->orderByDesc('created_at')
+            ->orderByDesc('updated_at')
             ->paginate($this->perPage),
             'alats' => Device::search($this->search)
             ->where('user_id', auth()->user()->id)
-            ->orderByDesc('created_at')
+            ->orderByDesc('updated_at')
             ->paginate($this->perPage),
             'qr' => $this->device
         ]);
