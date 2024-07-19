@@ -87,8 +87,8 @@
                                                                         <a href="{{ asset('storage/'.$sadmin->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i> {{ 'Lihat sertifikat' }}</a>
                                                                     </td>
                                                                 @endif
-                                                                <td>{{ $sadmin->result ?? '' }}</td>
-                                                                <td>{{ $sadmin->status ?? '' }}</td>
+                                                                <td>{{ $sadmin->result ?? 'Laik Pakai' }}</td>
+                                                                <td>{{ $sadmin->status ?? 'Tersedia' }}</td>
                                                                 <td>{{ $sadmin->users->name ?? '' }}</td>
                                                                 <td>
                                                                     <a href="{{ route('devices.detail', $sadmin->deviceId) }}"

@@ -71,8 +71,8 @@
                                                 @endif
                                             </tbody>
                                         </table>
-                                        <div class="paginate mt-4">
-                                            <div class="d-flex align-items-center data-row">
+                                        <div class="row mt-4">
+                                            <div class="col-6 d-flex align-items-center justify-content-start data-row">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
                                                 <select wire:model.live='perPage'
@@ -84,9 +84,11 @@
                                                     <option value="100">100</option>
                                                 </select>
                                             </div>
-                                            @if (!$devnames->isEmpty())
-                                                {{ $devnames->links() }}
-                                            @endif
+                                            <div class="col-6 d-flex align-items-center justify-content-end data-row">
+                                                @if (!$devnames->isEmpty())
+                                                    {{ $devnames->links() }}
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

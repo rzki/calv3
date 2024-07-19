@@ -82,6 +82,7 @@ class DeviceIndex extends Component
             ->paginate($this->perPage),
             'alats' => Device::search($this->search)
             ->where('user_id', auth()->user()->id)
+            ->orderByDesc('updated_at')
             ->paginate($this->perPage),
             'qr' => $this->device
         ]);
