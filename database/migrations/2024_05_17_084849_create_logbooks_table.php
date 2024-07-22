@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DeviceName;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +15,15 @@ return new class extends Migration
         Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
             $table->uuid('logId');
-            $table->date('tanggal_mulai_pinjam');
-            $table->date('tanggal_selesai_pinjam');
-            $table->string('lokasi_pinjam');
-            $table->string('pic_pinjam');
-            $table->string('status');
+            $table->foreignIdFor(DeviceName::class, 'device_name_id')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('type')->nullable();
+            $table->string('serial_number')->nullable();
+            $table->date('tanggal_mulai_pinjam')->nullable();
+            $table->date('tanggal_selesai_pinjam')->nullable();
+            $table->string('lokasi_pinjam')->nullable();
+            $table->string('pic_pinjam')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
