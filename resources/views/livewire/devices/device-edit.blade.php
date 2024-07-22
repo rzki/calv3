@@ -21,7 +21,7 @@
                                                 <div class="form-group mb-3">
                                                     <label for="nama"
                                                         class="form-label text-capitalize">{{ __('nama') }}</label>
-                                                    <select type="text" class="form-control" wire:model='nama'>
+                                                    <select type="text" class="form-control" id="devname-select" wire:model='nama'>
                                                         <option value="">{{ __('Pilih salah satu...') }}</option>
                                                         @foreach ($name as $nama)
                                                             <option value="{{ $nama->id }}"
@@ -50,18 +50,17 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
-                                                    <label for="tipe"
-                                                        class="form-label text-capitalize">{{ __('tipe') }}</label>
-                                                    <input type="text" class="form-control" wire:model='tipe'>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group mb-3">
                                                     <label for="merk"
                                                         class="form-label text-capitalize">{{ __('merek') }}</label>
                                                     <input type="text" class="form-control" wire:model='merk'>
                                                 </div>
-
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group mb-3">
+                                                    <label for="tipe"
+                                                        class="form-label text-capitalize">{{ __('tipe') }}</label>
+                                                    <input type="text" class="form-control" wire:model='tipe'>
+                                                </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
@@ -83,7 +82,7 @@
                                                 <div class="form-group mb-3">
                                                     <label for="rumah_sakit"
                                                         class="form-label text-capitalize">{{ __('rumah sakit') }}</label>
-                                                    <select class="form-control" wire:model='rumah_sakit_id'>
+                                                    <select class="form-control" id="rs-select" wire:model='rumah_sakit_id'>
                                                         <option value="">{{ __('Pilih salah satu...') }}</option>
                                                         @foreach ($rs as $rs)
                                                             <option value="{{ $rs->id }}">{{ $rs->name }}
@@ -136,3 +135,13 @@
         </div>
     </div>
 </div>
+@script
+<script>
+    $( '#devname-select' ).select2( {
+        theme: 'bootstrap-5'
+    } );
+    $( '#rs-select' ).select2( {
+        theme: 'bootstrap-5'
+    } );
+</script>
+@endscript
