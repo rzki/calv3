@@ -58,6 +58,8 @@
                                                     <th>{{ __('Nama') }}</th>
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Kalibrasi Selanjutnya') }}</th>
+                                                    <th>{{ __('Nomor Sertifikat') }}</th>
+                                                    <th>{{ __('Sertifikat') }}</th>
                                                     <th>{{ __('Status') }}</th>
                                                     @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
                                                         <th style="width: 5em;"></th>
@@ -82,6 +84,16 @@
                                                             @else
                                                                 <td>{{ date('j M Y', strtotime($alat->calibration_date)) ?? '' }}
                                                                 </td>
+                                                            @endif
+                                                            <td>{{ $alat->certif_no ?? '' }}</td>
+                                                            @if ($alat->certif_file == null)
+                                                            <td></td>
+                                                            @else
+                                                            <td>
+                                                                <a href="{{ asset('storage/'.$alat->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i>
+                                                                    {{ 'Lihat sertifikat' }}</a>
+                                                            </td>
+
                                                             @endif
                                                             <td>{{ $alat->status ?? '' }}</td>
                                                             @if (!auth()->user()->hasRole('Manager'))
