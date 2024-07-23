@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('users', function($table){
+            $table->foreignId('user_hospital_id')->nullable()->constrained('hospitals', 'id', 'user_hospital_id')->cascadeOnUpdate()->cascadeOnDelete();
+        });
     }
 
     /**

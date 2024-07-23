@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,18 +18,23 @@ class DeviceIndex extends Component
 {
     use WithPagination;
     public $devices, $device, $deviceId;
-    public $adminSearch, $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
+    public $adminSearch,
+        $search,
+        $sortBy = 'created_at',
+        $sortDir = 'ASC',
+        $perPage = 5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
     public function sort($sortByField)
     {
-        if($this->sortBy === $sortByField){
-            $this->sortDir = ($this->sortDir == "ASC") ? 'DESC' : 'ASC';
+        if ($this->sortBy === $sortByField) {
+            $this->sortDir = $this->sortDir == 'ASC' ? 'DESC' : 'ASC';
             return;
         }
         $this->sortBy = $sortByField;
     }
 
-    public function deleteConfirm($deviceId){
+    public function deleteConfirm($deviceId)
+    {
         $this->deviceId = $deviceId;
         $this->dispatch('delete-confirmation');
     }
@@ -40,13 +46,13 @@ class DeviceIndex extends Component
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'Alat berhasil dihapus!',
-            'toast'=> true,
-            'position'=> 'top-end',
-            'timer'=> 2500,
+            'toast' => true,
+            'position' => 'top-end',
+            'timer' => 2500,
             'progbar' => true,
-            'showConfirmButton'=> false
+            'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('devices.index', navigate:true);
+        return $this->redirectRoute('devices.index', navigate: true);
     }
     public function print(Device $device)
     {
@@ -56,9 +62,13 @@ class DeviceIndex extends Component
         $pdf = PDF::loadView('printQR', ['qr' => $qr])->setPaper($customSize);
         // return $pdf->stream('QR_'.Carbon::now().'.pdf')->header('Content-Type','application/pdf');
 
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->stream();
-        }, 'QR_Cal'.$device->deviceId.'.pdf', ['Content-Type'=>'application/pdf']);
+        return response()->streamDownload(
+            function () use ($pdf) {
+                echo $pdf->stream();
+            },
+            'QR_Cal' . $device->deviceId . '.pdf',
+            ['Content-Type' => 'application/pdf'],
+        );
     }
     public function viewSertif(Device $device)
     {
@@ -70,22 +80,26 @@ class DeviceIndex extends Component
     public function export()
     {
         $tanggal = Carbon::today();
-        $namaFile = 'QR-Cal-'.$tanggal->format('j_m_Y');
-        return Excel::download(new QrExport, $namaFile.'.xlsx');
+        $namaFile = 'QR-Cal-' . $tanggal->format('j_m_Y');
+        return Excel::download(new QrExport(), $namaFile . '.xlsx');
     }
 
     #[Title('Semua Alat')]
     public function render()
     {
-        return view('livewire.devices.device-index', [
-            'alatSuperadmin' => Device::search($this->adminSearch)
-            ->orderByDesc('updated_at')
-            ->paginate($this->perPage),
-            'alats' => Device::search($this->search)
-            ->where('user_id', auth()->user()->id)
-            ->orderByDesc('updated_at')
-            ->paginate($this->perPage),
-            'qr' => $this->device
-        ]);
+        if (!Auth::user()->hasRole('Admin') || !Auth::user()->hasRole('Teknisi')) {
+            abort(403);
+        } else {
+            return view('livewire.devices.device-index', [
+                'alatSuperadmin' => Device::search($this->adminSearch)
+                    ->orderByDesc('updated_at')
+                    ->paginate($this->perPage),
+                'alats' => Device::search($this->search)
+                    ->where('user_id', auth()->user()->id)
+                    ->orderByDesc('updated_at')
+                    ->paginate($this->perPage),
+                'qr' => $this->device,
+            ]);
+        }
     }
 }

@@ -29,4 +29,8 @@ class AccessPolicy
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
     }
+    public function userAccess(User $user)
+    {
+        return $user->hasRole('User');
+    }
 }
