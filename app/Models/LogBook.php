@@ -20,30 +20,36 @@ class LogBook extends Model
     }
     public function deviceNames()
     {
-        return $this->belongsTo(DeviceName::class, 'device_name_id');
+        return $this->belongsTo(DeviceName::class);
     }
     public function scopeSearch($query, $value)
     {
         // $query->whereHas('devices', function ($query) use ($value) {
-            $query->whereHas('deviceNames', function ($query) use ($value) {
-                $query->where('device_name_id', 'like', "%{$value}%")
-                    ->orWhereNull('device_name_id', 'like', "%{$value}%")
-                    ->orWhere('brand', 'like', "%{$value}%")
-                    ->orWhereNull('brand', 'like', "%{$value}%")
-                    ->orWhere('type', 'like', "%{$value}%")
-                    ->orWhereNull('type', 'like', "%{$value}%")
-                    ->orWhere('serial_number', 'like', "%{$value}%")
-                    ->orWhereNull('serial_number', 'like', "%{$value}%");
-            });
-            // $query->orWhere('inv_number', 'like', "%{$value}%");
+        // $query->whereHas('deviceNames', function ($query) use ($value) {
+        $query
+            ->where('device_name_id', 'like', "%{$value}%")
+            ->orWhereNull('device_name_id', 'like', "%{$value}%")
+            ->orWhere('brand', 'like', "%{$value}%")
+            ->orWhereNull('brand', 'like', "%{$value}%")
+            ->orWhere('type', 'like', "%{$value}%")
+            ->orWhereNull('type', 'like', "%{$value}%")
+            ->orWhere('serial_number', 'like', "%{$value}%")
+            ->orWhereNull('serial_number', 'like', "%{$value}%");
+        $query
+            ->where('brand', 'like', "%{$value}%")
+            ->orWhereNull('brand', 'like', "%{$value}%")
+            ->orWhere('type', 'like', "%{$value}%")
+            ->orWhereNull('type', 'like', "%{$value}%")
+            ->orWhere('serial_number', 'like', "%{$value}%")
+            ->orWhereNull('serial_number', 'like', "%{$value}%");
+        // });
+        // $query->orWhere('inv_number', 'like', "%{$value}%");
         // });
     }
     public function scopeSearchLogByInventoryId($query, $value)
     {
         $query->whereHas('inventories', function ($query) use ($value) {
-            $query->where('pic_pinjam', 'like', "%{$value}%")
-                ->orWhere('lokasi_pinjam', 'like', "%{$value}%");
+            $query->where('pic_pinjam', 'like', "%{$value}%")->orWhere('lokasi_pinjam', 'like', "%{$value}%");
         });
     }
-
 }
