@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
+use App\Livewire\Logbooks\LogbookEdit;
 use App\Livewire\Logbooks\LogbookIndex;
 use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
+use App\Livewire\Logbooks\LogbookCreate;
 use App\Livewire\Hospitals\HospitalIndex;
 use App\Livewire\Hospitals\HospitalCreate;
 use App\Livewire\Hospitals\HospitalDetail;
@@ -83,6 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::get('device_name/edit/{nameId}', DeviceNameEdit::class)->name('device_name.edit');
     // Logbooks
     Route::get('logbooks', LogbookIndex::class)->name('logbooks.index');
+    Route::get('logbooks/create', LogbookCreate::class)->name('logbooks.create');
+    Route::get('logbooks/edit/{logId}', LogbookEdit::class)->name('logbooks.edit');
     // Hospitals
     Route::get('hospitals', HospitalIndex::class)->name('hospitals.index');
     Route::get('hospitals/create', HospitalCreate::class)->name('hospitals.create');

@@ -52,7 +52,10 @@ class LogbookIndex extends Component
     public function render()
     {
         return view('livewire.logbooks.logbook-index', [
-            'logInv' => LogBook::search($this->search)->paginate($this->perPage),
+            'logInv' => LogBook::search($this->search)
+            ->with('deviceNames')
+            ->where('submitter_id', Auth::user()->id)
+            ->paginate($this->perPage),
         ]);
     }
 }
