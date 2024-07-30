@@ -89,10 +89,6 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="export">
-                                        <button class="btn btn-primary text-center fw-bold"
-                                            wire:click='export'>XLS</button>
-                                    </div>
                                     <div class="table-wrapper table-responsive">
                                         <table class="table striped-table text-black text-center">
                                             <thead>
