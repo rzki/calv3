@@ -82,13 +82,6 @@ class DeviceIndex extends Component
         return $fileSertif;
     }
 
-    public function export()
-    {
-        $tanggal = Carbon::today();
-        $namaFile = 'QR-Cal-' . $tanggal->format('j_m_Y');
-        return Excel::download(new QrExport(), $namaFile . '.xlsx');
-    }
-
     #[Title('Semua Alat')]
     public function render(User $user)
     {
@@ -100,7 +93,6 @@ class DeviceIndex extends Component
                     ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
                         $q->whereDate('created_at', '>=', $this->start_date_admin)
                             ->whereDate('created_at', '<=', $this->end_date_admin);
-
                     })
                     ->orderByDesc('created_at')
                     ->orderByDesc('updated_at')

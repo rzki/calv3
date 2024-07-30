@@ -17,12 +17,14 @@
                                     <form wire:submit='addDevice'>
                                         <div class="form-group mb-3">
                                             <label for="number" class="form-label">{{ __('Pilih Alat') }}</label>
-                                            <select name="device_id" id="device_id" class="form-control" wire:model='device_id'>
-                                                <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                @foreach ($deviceAdd as $dev)
-                                                    <option value="{{ $dev->id }}">{{ $dev->names->name ?? '' }}</option>
-                                                @endforeach
-                                            </select>
+                                            <div wire:ignore>
+                                                <select name="device_id" id="device_id" class="form-control" wire:model='device_id'>
+                                                    <option value="">{{ __('Pilih salah satu...') }}</option>
+                                                    @foreach ($deviceAdd as $dev)
+                                                    <option value="{{ $dev->id }}">{{ $dev->devNames->name ?? '' }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-success text-white">{{ __('Submit')
@@ -38,3 +40,16 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $(document).ready(function(){
+            $( '#device_id' ).select2({
+                theme: "bootstrap-5"
+            });
+            $( '#device_id' ).on('change', function(e){
+                var devices = $(this).val();
+                $wire.set('device_id', devices);
+            });
+        })
+    </script>
+@endscript

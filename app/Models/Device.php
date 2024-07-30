@@ -19,9 +19,9 @@ class Device extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function names()
+    public function devNames()
     {
-        return $this->belongsTo(DeviceName::class, 'device_id');
+        return $this->belongsTo(DeviceName::class, 'name_id');
     }
     public function hospitals()
     {
@@ -33,9 +33,7 @@ class Device extends Model
     }
     public function scopeSearch($query, $value)
     {
-        $query->whereHas('users', function ($query) use ($value) {
-            $query->where('serial_number', 'like', "%{$value}%")->orWhereNull('serial_number', 'like', "%{$value}%");
-        });
+        $query->where('serial_number', 'like', "%{$value}%")->orWhereNull('serial_number', 'like', "%{$value}%");
     }
 
     public function scopeInventorySearch($query, $value)

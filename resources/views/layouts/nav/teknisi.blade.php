@@ -59,12 +59,12 @@
                         <span class="sidebar-text">{{ __('QR Alat') }}</span>
                     </a>
                 </li>
-                <li
+                {{-- <li
                     class="nav-item {{ request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
                     <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
                         <span class="sidebar-text">{{ __('Nama Alat') }}</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </li>

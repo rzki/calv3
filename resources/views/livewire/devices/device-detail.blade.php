@@ -19,7 +19,7 @@
                 <div class="col text-center">
                     <div class="name">
                         <h4 class="fw-bold">{{ __('Nama') }}</h4>
-                        <p class="fs-5">{{ $qr->names->name ?? '' }}</p>
+                        <p class="fs-5">{{ $qr->devNames->name ?? '' }}</p>
                     </div>
                     <div class="brand">
                         <h4 class="fw-bold">{{ __('Merk') }}</h4>
@@ -30,7 +30,7 @@
                         <p class="fs-5">{{ $qr->type ?? '' }}</p>
                     </div>
                     <div class="last-calibration">
-                        <h4 class="fw-bold">{{ __('Kalibrasi Terakhir') }}</h4>
+                        <h4 class="fw-bold">{{ __('Tanggal Kalibrasi') }}</h4>
                         @if ($qr->calibration_date == null)
                             <p class="fs-5">{{ '' }}</p>
                         @else

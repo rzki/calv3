@@ -8,10 +8,11 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Inventaris') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    @if (!Auth::user()->hasRole('Manager') || !Auth::user()->hasRole('User'))
+                                    @can('inventories')
+
+                                    @endcan
                                         <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                             {{ __('Tambah Inventaris') }}</a>
-                                    @endif
                                 </div>
                             </div>
                             <div class="row">

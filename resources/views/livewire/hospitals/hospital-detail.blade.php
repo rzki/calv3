@@ -50,7 +50,10 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="table-wrapper">
+                                    <div class="export">
+                                        <button class="btn btn-primary text-center fw-bold" wire:click='export'>XLS</button>
+                                    </div>
+                                    <div class="table-responsive table-wrapper">
                                         <table class="table table-responsive striped-table text-black text-center">
                                             <thead>
                                                 <tr>
@@ -58,7 +61,7 @@
                                                     <th>{{ __('Nama') }}</th>
                                                     <th>{{ __('Serial Number') }}</th>
                                                     <th>{{ __('Kalibrasi Selanjutnya') }}</th>
-                                                    <th>{{ __('Nomor Sertifikat') }}</th>
+                                                    <th>{{ __('No. Sertifikat') }}</th>
                                                     <th>{{ __('Sertifikat') }}</th>
                                                     <th>{{ __('Status') }}</th>
                                                     @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
@@ -77,7 +80,7 @@
                                                     @foreach ($alatRS as $alat)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $alat->names->name ?? '' }}</td>
+                                                            <td>{{ $alat->devNames->name ?? '' }}</td>
                                                             <td>{{ $alat->serial_number ?? '' }}</td>
                                                             @if (empty($alat->calibration_date))
                                                                 <td></td>

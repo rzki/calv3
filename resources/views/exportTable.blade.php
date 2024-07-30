@@ -14,13 +14,13 @@
     <tbody style="text-align: center;">
         @foreach ($alats as $alat)
             <tr>
-                <td>{{ $loop->iteration}}</td>
-                <td>{{ $alat->names->name ?? '' }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $alat->devNames->name ?? '' }}</td>
                 <td>{{ $alat->brand ?? '' }}</td>
-                <td>{{ $alat->type?? '' }}</td>
-                <td>{{ $alat->serial_number?? '' }}</td>
-                <td>{{ $alat->location?? '' }}</td>
-                <td>{{ $alat->result?? '' }}</td>
+                <td>{{ $alat->type ?? '' }}</td>
+                <td>{{ $alat->serial_number ?? '' }}</td>
+                <td>{{ $alat->location ?? '' }}</td>
+                <td>{{ $alat->result ?? '' }}</td>
                 <td>{{ $alat->note ?? '' }}</td>
             </tr>
         @endforeach

@@ -116,7 +116,7 @@
                                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if ($alatSuperadmin->isEmpty())
                                                         <tr>
-                                                            <td colspan='12' class="text-center fw-bold">
+                                                            <td colspan='13' class="text-center fw-bold">
                                                                 {{ __('Data tidak ditemukan') }}
                                                             </td>
                                                         </tr>
@@ -126,7 +126,7 @@
                                                                 <td>{{ $loop->iteration }}</td>
                                                                 <td>{{ date('d-m-Y', strtotime($sadmin->created_at)) ?? '' }}
                                                                 </td>
-                                                                <td>{{ $sadmin->names->name ?? '' }}</td>
+                                                                <td>{{ $sadmin->devNames->name ?? '' }}</td>
                                                                 <td>{{ $sadmin->brand ?? '' }}</td>
                                                                 <td>{{ $sadmin->type ?? '' }}</td>
                                                                 <td>{{ $sadmin->serial_number ?? '' }}</td>
@@ -172,7 +172,7 @@
                                                 @else
                                                     @if ($alats->isEmpty())
                                                         <tr>
-                                                            <td colspan='8' class="text-center">
+                                                            <td colspan='13' class="text-center">
                                                                 {{ __('Data tidak ditemukan') }}
                                                             </td>
                                                         </tr>
@@ -180,7 +180,8 @@
                                                         @foreach ($alats as $device)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $device->names->name ?? '' }}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($device->created_at)) ?? '' }}
+                                                                <td>{{ $device->devNames->name ?? '' }}</td>
                                                                 <td>{{ $device->brand ?? '' }}</td>
                                                                 <td>{{ $device->type ?? '' }}</td>
                                                                 <td>{{ $device->serial_number ?? '' }}</td>

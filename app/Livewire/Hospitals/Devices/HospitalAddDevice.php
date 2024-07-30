@@ -38,10 +38,12 @@ class HospitalAddDevice extends Component
         if ($this->authorize('adminAccess', $user)) {
             return view('livewire.hospitals.devices.device-add', [
                 'hospitals' => $this->hospitals,
-                'deviceAdd' => Device::get(),
+                'deviceAdd' => Device::where('hospital_id', '!=', $this->hospitals->id)
+                ->where('hospital_id', '=', null)
+                ->get(),
             ]);
         }else{
-            return view('livewire.dashboard');
+            abort(403);
         }
     }
 }

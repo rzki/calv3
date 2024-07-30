@@ -27,7 +27,7 @@ class AccessPolicy
     }
     public function device_names(User $user)
     {
-        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin');
     }
     public function userAccess(User $user)
     {

@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Hospitals;
 
+use App\Exports\HospitalDeviceExport;
+use Carbon\Carbon;
 use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HospitalDetail extends Component
 {
@@ -60,6 +63,13 @@ class HospitalDetail extends Component
             'showConfirmButton' => false,
         ]);
         return $this->redirectRoute('hospitals.detail', ['hospitalId' => $this->hospitalId], navigate: true);
+    }
+
+    public function export()
+    {
+        $tanggal = Carbon::today();
+        $namaFile = 'QR-Cal-' . $tanggal->format('j_m_Y');
+        return Excel::download(new HospitalDeviceExport(), $namaFile . '.xlsx');
     }
     #[Title('Detail Rumah Sakit')]
     public function render()
