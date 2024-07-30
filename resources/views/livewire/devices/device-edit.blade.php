@@ -21,14 +21,15 @@
                                                 <div class="form-group mb-3">
                                                     <label for="nama"
                                                         class="form-label text-capitalize">{{ __('nama') }}</label>
-                                                    <select type="text" class="form-control" id="devname-select" wire:model='nama'>
-                                                        <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                        @foreach ($name as $nama)
-                                                            <option value="{{ $nama->id }}"
-                                                                {{ old('name_id', $qr->name_id) == $nama->id ? 'selected' : '' }}>
+                                                    <div wire:ignore>
+                                                        <select class="form-control" id="name_id" name="name_id">
+                                                            <option value="">{{ __('Pilih salah satu...') }}</option>
+                                                            @foreach ($name as $nama)
+                                                            <option value="{{ $nama->id }}" {{ old('name_id', $qr->name_id) == $nama->id ? 'selected' : '' }}>
                                                                 {{ $nama->name }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             {{-- <div class="col-lg-4">
@@ -82,13 +83,16 @@
                                                 <div class="form-group mb-3">
                                                     <label for="rumah_sakit"
                                                         class="form-label text-capitalize">{{ __('rumah sakit') }}</label>
-                                                    <select class="form-control" id="rs-select" wire:model='rumah_sakit_id'>
-                                                        <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                        @foreach ($rs as $rs)
-                                                            <option value="{{ $rs->id }}">{{ $rs->name }}
+                                                    <div wire:ignore>
+                                                        <select class="form-control" name="hospital_id" id="hospital_id">
+                                                            <option value="">{{ __('Pilih salah satu...') }}</option>
+                                                            @foreach ($rs as $rs)
+                                                            <option value="{{ $rs->id }}" {{ old('hospital_id', $qr->hospital_id) == $rs->id ? 'selected' : '' }}>
+                                                                {{ $rs->name }}
                                                             </option>
-                                                        @endforeach
-                                                    </select>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
@@ -136,12 +140,25 @@
     </div>
 </div>
 @script
-<script>
-    $( '#devname-select' ).select2( {
-        theme: 'bootstrap-5'
-    } );
-    $( '#rs-select' ).select2( {
-        theme: 'bootstrap-5'
-    } );
-</script>
+    <script>
+        $(document).ready(function(){
+            // Nama Alat
+            $( '#name_id' ).select2({
+                theme: "bootstrap-5"
+            });
+            $( '#name_id' ).on('change', function(e){
+                var names = $(this).val();
+                $wire.set('name_id', names);
+            });
+
+            // Rumah Sakit
+            $( '#hospital_id' ).select2({
+                theme: "bootstrap-5"
+            });
+            $( '#hospital_id' ).on('change', function(e){
+                var names = $(this).val();
+                $wire.set('hospital_id', names);
+            });
+        })
+    </script>
 @endscript

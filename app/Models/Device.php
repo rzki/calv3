@@ -21,7 +21,7 @@ class Device extends Model
     }
     public function names()
     {
-        return $this->belongsTo(DeviceName::class, 'name_id');
+        return $this->belongsTo(DeviceName::class, 'device_id');
     }
     public function hospitals()
     {

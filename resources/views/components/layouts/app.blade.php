@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/chosen/chosen.min.css') }}">
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <!-- Styles -->
     @vite('resources/sass/app.scss')
     <!-- Select2 + Bootstrap Theme -->
@@ -27,7 +30,10 @@
         @include('layouts.topbar')
         {{ $slot }}
     </main>
+    <!-- Include Choices JavaScript (latest) -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="{{ asset('assets/chosen/chosen.jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
 </body>
