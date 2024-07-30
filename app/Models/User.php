@@ -48,6 +48,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Device::class);
     }
+    public function hospitals()
+    {
+        return $this->belongsTo(Hospital::class);
+    }
     public function scopeSearch($query, $value)
     {
         $query->where('name', 'like', "%{$value}%")

@@ -17,6 +17,10 @@ class Hospital extends Model
     {
         return $this->hasMany(Device::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
     public function scopeSearch($query, $value)
     {
         $query->where('name', 'like', "%{$value}%")

@@ -68,7 +68,7 @@
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
                                                             <td>{{ $log->pic_pinjam ?? '' }}</td>
                                                             <td>{{ $log->status ?? '' }}</td>
-                                                            @if ($log->user_id == auth()->user()->id)
+                                                            @if ($log->submitter_id == auth()->user()->id)
                                                                 <td>
                                                                     <a href="{{ route('logbooks.edit', $log->logId) }}" class="btn btn-primary"><i
                                                                             class="fas fa-pen-to-square"></i></a>

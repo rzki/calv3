@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Inventory;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryIndex extends Component
 {
@@ -51,6 +52,8 @@ class InventoryIndex extends Component
         // } else {
         return view('livewire.inventories.inventory-index', [
             'inventoryIndex' => Inventory::search($this->search)
+            ->with('hospitalInventories')
+            ->where('rs_id', Auth::user()->user_hospital_id)
             ->paginate($this->perPage)
         ]);
         // }

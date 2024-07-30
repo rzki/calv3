@@ -3,6 +3,7 @@
 namespace App\Livewire\Devices;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
 use App\Exports\QrExport;
@@ -19,10 +20,14 @@ class DeviceIndex extends Component
     use WithPagination;
     public $devices, $device, $deviceId;
     public $adminSearch,
-        $search,
-        $sortBy = 'created_at',
-        $sortDir = 'ASC',
-        $perPage = 5;
+    $search,
+    $sortBy = 'created_at',
+    $sortDir = 'ASC',
+    $perPage = 5,
+    $start_date='',
+    $end_date='',
+    $start_date_admin='',
+    $end_date_admin='';
     protected $listeners = ['deleteConfirmed' => 'delete'];
     public function sort($sortByField)
     {
@@ -85,16 +90,24 @@ class DeviceIndex extends Component
     }
 
     #[Title('Semua Alat')]
-    public function render()
+    public function render(User $user)
     {
-        if (!Auth::user()->hasRole('Admin') || !Auth::user()->hasRole('Teknisi')) {
+        if (!$this->authorize('devices', $user)) {
             abort(403);
         } else {
             return view('livewire.devices.device-index', [
                 'alatSuperadmin' => Device::search($this->adminSearch)
+                    ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
+                        $q->whereDate('created_at', '>=', $this->start_date_admin)
+                            ->whereDate('created_at', '<=', $this->end_date_admin);
+
+                    })
+                    ->orderByDesc('created_at')
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
                 'alats' => Device::search($this->search)
+                    ->whereDate('created_at', '>=', $this->start_date)
+                    ->whereDate('created_at', '<=', $this->end_date)
                     ->where('user_id', auth()->user()->id)
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),

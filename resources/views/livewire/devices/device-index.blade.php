@@ -15,6 +15,58 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="row filter">
+                                <div class="col">
+                                    <div class="d-flex mb-3">
+                                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#filterDropdown" aria-expanded="false"
+                                            aria-controls="filterDropdown">
+                                            Filter
+                                        </button>
+                                    </div>
+                                    <div class="collapse" id="filterDropdown">
+                                        <div class="card card-body border-0">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="row">
+                                                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
+                                                            <div class="col-lg-6">
+                                                                <p class="text-center mb-1">{{ __('Start') }}</p>
+                                                                <input type="date" name="start-date" id="start-date"
+                                                                    class="form-control" wire:model.live.debounce.500ms='start_date'>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p class="text-center mb-1">{{ __('End') }}</p>
+                                                                <input type="date" name="end-date" id="end-date"
+                                                                    class="form-control" wire:model.live.debounce.500ms='end_date'>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-lg-6">
+                                                                <p class="text-center mb-1">{{ __('Start') }}</p>
+                                                                <input type="date" name="start-date-admin"
+                                                                    id="start-date-admin" class="form-control"
+                                                                    wire:model='start_date_admin'>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p class="text-center mb-1">{{ __('End') }}</p>
+                                                                <input type="date" name="end-date-admin"
+                                                                    id="end-date-admin" class="form-control"
+                                                                    wire:model.live.debounce.500ms='end_date_admin'>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
@@ -33,17 +85,20 @@
                                             {{ __('Print Semua QR Kosong') }}</a>
                                     </div>
                                 @endif
+
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="export">
-                                        <button class="btn btn-primary text-center fw-bold" wire:click='export'>XLS</button>
+                                        <button class="btn btn-primary text-center fw-bold"
+                                            wire:click='export'>XLS</button>
                                     </div>
                                     <div class="table-wrapper table-responsive">
                                         <table class="table striped-table text-black text-center">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
+                                                    <th>{{ __('Tanggal') }}</th>
                                                     <th>{{ __('Nama Alat') }}</th>
                                                     <th>{{ __('Merek') }}</th>
                                                     <th>{{ __('Tipe') }}</th>
@@ -69,6 +124,8 @@
                                                         @foreach ($alatSuperadmin as $sadmin)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ date('d-m-Y', strtotime($sadmin->created_at)) ?? '' }}
+                                                                </td>
                                                                 <td>{{ $sadmin->names->name ?? '' }}</td>
                                                                 <td>{{ $sadmin->brand ?? '' }}</td>
                                                                 <td>{{ $sadmin->type ?? '' }}</td>
@@ -84,7 +141,10 @@
                                                                     <td></td>
                                                                 @else
                                                                     <td>
-                                                                        <a href="{{ asset('storage/'.$sadmin->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i> {{ 'Lihat sertifikat' }}</a>
+                                                                        <a href="{{ asset('storage/' . $sadmin->certif_file) }}"
+                                                                            target="_blank"><i
+                                                                                class="fas fa-up-right-from-square"></i>
+                                                                            {{ 'Lihat sertifikat' }}</a>
                                                                     </td>
                                                                 @endif
                                                                 <td>{{ $sadmin->result ?? 'Laik Pakai' }}</td>
@@ -97,14 +157,14 @@
                                                                     <a class="btn btn-secondary" target="_blank"
                                                                         wire:click="print('{{ $sadmin->deviceId }}')"><i
                                                                             class="fas fa-print"></i></a>
-                                                                @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
-                                                                    <a href="{{ route('devices.edit', $sadmin->deviceId) }}"
-                                                                        class="btn btn-info"><i
-                                                                            class="fas fa-pen-to-square"></i></a>
-                                                                    <button class="btn btn-danger"
-                                                                        wire:click.prevent="deleteConfirm('{{ $sadmin->deviceId }}')"><i
-                                                                            class="fas fa-trash"></i></button>
-                                                                @endif
+                                                                    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
+                                                                        <a href="{{ route('devices.edit', $sadmin->deviceId) }}"
+                                                                            class="btn btn-info"><i
+                                                                                class="fas fa-pen-to-square"></i></a>
+                                                                        <button class="btn btn-danger"
+                                                                            wire:click.prevent="deleteConfirm('{{ $sadmin->deviceId }}')"><i
+                                                                                class="fas fa-trash"></i></button>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -132,12 +192,14 @@
                                                                     </td>
                                                                 @endif
                                                                 @if ($device->certif_file == null)
-                                                                <td></td>
+                                                                    <td></td>
                                                                 @else
-                                                                <td>
-                                                                    <a href="{{ asset('storage/'.$device->certif_file) }}" target="_blank"><i class="fas fa-up-right-from-square"></i>
-                                                                        {{ 'Lihat sertifikat' }}</a>
-                                                                </td>
+                                                                    <td>
+                                                                        <a href="{{ asset('storage/' . $device->certif_file) }}"
+                                                                            target="_blank"><i
+                                                                                class="fas fa-up-right-from-square"></i>
+                                                                            {{ 'Lihat sertifikat' }}</a>
+                                                                    </td>
                                                                 @endif
                                                                 <td>{{ $device->result ?? '' }}</td>
                                                                 <td>{{ $device->status ?? '' }}</td>

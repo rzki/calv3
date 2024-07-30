@@ -39,7 +39,7 @@ class LogbookCreate extends Component
 
         return $this->redirectRoute('logbooks.index', navigate:true);
     }
-    #[Title('Tambah Log Pinjam')]
+    #[Title('Tambah Logbook Item')]
     public function render()
     {
         return view('livewire.logbooks.logbook-create', [

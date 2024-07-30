@@ -46,9 +46,6 @@
                 </span>
                 <span class="sidebar-text">{{ __('Alat') }}</span>
             </span>
-            <span class="link-arrow">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </span>
         </span>
         <div class="multi-level collapse" role="list" id="device-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
