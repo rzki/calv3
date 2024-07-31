@@ -34,7 +34,7 @@ class DeviceNameEdit extends Component
     #[Title('Update Nama Alat')]
     public function render(User $user)
     {
-        if($this->authorize('device_names', $user)){
+        if($this->authorize('adminAccess', $user)){
             return view('livewire.devices.name.device-name-edit');
         }
     }

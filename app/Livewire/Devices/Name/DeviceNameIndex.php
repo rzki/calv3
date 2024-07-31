@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Devices\Name;
 
+use App\Models\User;
+use Livewire\Component;
 use App\Models\DeviceName;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
 class DeviceNameIndex extends Component
 {
@@ -43,12 +44,16 @@ class DeviceNameIndex extends Component
     }
 
     #[Title('Semua Nama Alat')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.devices.name.device-name-index',[
-            'devnames' => DeviceName::search($this->search)
-            ->orderBy($this->sortBy,$this->sortDir)
-            ->paginate($this->perPage)
-        ]);
+        if($this->authorize('adminAccess', $user)){
+            return view('livewire.devices.name.device-name-index',[
+                'devnames' => DeviceName::search($this->search)
+                ->orderBy($this->sortBy,$this->sortDir)
+                ->paginate($this->perPage)
+            ]);
+        }else{
+            abort(403);
+        };
     }
 }
