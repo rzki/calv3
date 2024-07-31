@@ -63,16 +63,20 @@
             </div>
             <div class="row mb-3 d-grid">
                 <h4 class="fw-bold text-center">{{ __('Sertifikat') }}</h4>
-                @if (Auth::guest())
-                    <a href="{{ route('login') }}" class="btn btn-danger" target="_blank"><i
-                            class="fas fa-up-right-from-square"></i>
-                        {{ __('Login untuk melihat / mengunduh sertifikat') }}</a>
-                    <script>
-                        sessionStorage.setItem('intended_url', asset('storage/'.$qr->certif_file));
-                    </script>
+                @if ($qr->certif_file != null)
+                    @if (Auth::guest())
+                        <a href="{{ route('login') }}" class="btn btn-danger" target="_blank"><i
+                                class="fas fa-up-right-from-square"></i>
+                            {{ __('Login untuk melihat / mengunduh sertifikat') }}</a>
+                        <script>
+                            sessionStorage.setItem('intended_url', asset('storage/'.$qr->certif_file));
+                        </script>
+                    @else
+                        <a href="{{ asset('storage/' . $qr->certif_file) }}" class="btn btn-primary" target="_blank"><i
+                                class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a>
+                    @endif
                 @else
-                    <a href="{{ asset('storage/' . $qr->certif_file) }}" class="btn btn-primary" target="_blank"><i
-                            class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a>
+                    <p class="text-black">{{ __('Sertifikat Belum Terbit') }}</p>
                 @endif
             </div>
             <div class="row text-center">
@@ -88,7 +92,8 @@
                     </script>
                 @elseif(!Auth::user()->hasRole('Manager') && $qr->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
                     <a href="{{ route('devices.edit', $qr->deviceId) }}"
-                        class="btn btn-success w-100">{{ __('Perbarui Data') }}</a>
+                        class="btn btn-success w-100">{{ __('Perbarui Data') }}
+                    </a>
                 @endif
             </div>
         </div>

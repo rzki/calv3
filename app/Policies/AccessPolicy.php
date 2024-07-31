@@ -9,6 +9,8 @@ class AccessPolicy
     /**
      * Create a new policy instance.
      */
+
+    // Role-based Access
     public function adminAccess(User $user)
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin');
@@ -21,6 +23,17 @@ class AccessPolicy
     {
         return $user->hasRole('Teknisi');
     }
+    public function userAccess(User $user)
+    {
+        return $user->hasRole('User');
+    }
+
+    public function internal(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+    }
+
+    // Per Menu Access
     public function devices(User $user)
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
@@ -29,8 +42,8 @@ class AccessPolicy
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin');
     }
-    public function userAccess(User $user)
+    public function inventories(User $user)
     {
-        return $user->hasRole('User');
+        return $user->hasRole('Admin')  ;
     }
 }

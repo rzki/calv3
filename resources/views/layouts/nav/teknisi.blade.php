@@ -69,7 +69,7 @@
         </div>
     </li>
     {{-- RS --}}
-    <li
+    {{-- <li
         class="nav-item {{ request()->routeIs('hospitals.index') || request()->routeIs('hospitals.create') || request()->routeIs('hospitals.edit') || request()->routeIs('hospitals.detail') || request()->routeIs('hospitals.add_device') || request()->routeIs('hospitals.index') ? 'active' : '' }}">
         <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -77,6 +77,6 @@
             </span>
             <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
         </a>
-    </li>
+    </li> --}}
 
 </ul>
