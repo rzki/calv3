@@ -16,7 +16,7 @@
                 <img src="{{ asset('storage/' . $qr->barcode) }}" style="width:10em;" alt="">
             </div>
             <div class="row mb-3">
-                <div class="col text-center">
+                <div class="col-lg-6 text-center">
                     <div class="name">
                         <h4 class="fw-bold">{{ __('Nama') }}</h4>
                         <p class="fs-5">{{ $qr->devNames->name ?? '' }}</p>
@@ -38,7 +38,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-6 text-center">
                     <div class="serial-number">
                         <h4 class="fw-bold">{{ __('S/N') }}</h4>
                         <p class="fs-5">{{ $qr->serial_number ?? '' }}</p>
