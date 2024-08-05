@@ -70,7 +70,7 @@ class InventoryEdit extends Component
     #[Title('Update Inventaris')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
+        if ($this->authorize('inventories', $user)) {
             return view('livewire.inventories.inventory-edit', [
                 'invEdit' => $this->inventories,
                 'namaAlat' => $this->invName,

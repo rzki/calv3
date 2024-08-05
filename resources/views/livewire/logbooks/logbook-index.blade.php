@@ -8,8 +8,10 @@
                             <h2 class="mb-1 fs-5 fw-bold">{{ __('Log Book') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
+                                    @can('logbooks')
                                     <a href="{{ route('logbooks.create') }}" class="btn btn-success text-white" wire:navigate><i class="fas fa-plus"></i>
                                         {{ __('Tambah Log') }}</a>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="row">

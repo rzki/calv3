@@ -34,12 +34,36 @@ class AccessPolicy
     }
 
     // Per Menu Access
+    // Alat
     public function devices(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi') || $user->hasRole('Manager');
+    }
+    public function createDevices(User $user)
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
     }
+    public function editDevices(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+    }
+
     public function inventories(User $user)
     {
-        return $user->hasRole('Admin')  ;
+        return $user->hasRole('Admin') ;
+    }
+
+    // LogBook
+    public function logbooks(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi') || $user->hasRole('Manager');
+    }
+    public function createLogbooks(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
+    }
+    public function editLogbooks(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
     }
 }

@@ -9,10 +9,9 @@
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
                                     @can('inventories')
-
+                                    <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                        {{ __('Tambah Inventaris') }}</a>
                                     @endcan
-                                        <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
-                                            {{ __('Tambah Inventaris') }}</a>
                                 </div>
                             </div>
                             <div class="row">

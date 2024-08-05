@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Logbooks;
 
+use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
 use App\Models\DeviceName;
@@ -49,10 +50,14 @@ class LogbookEdit extends Component
         return $this->redirectRoute('logbooks.index', navigate:true);
     }
     #[Title('Edit Logbook Item')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.logbooks.logbook-edit', [
-            'deviceName' => DeviceName::all()
-        ]);
+        if($this->authorize('editLogbooks', $user)){
+            return view('livewire.logbooks.logbook-edit', [
+                'deviceName' => DeviceName::all()
+            ]);
+        }else{
+            abort(403);
+        }
     }
 }

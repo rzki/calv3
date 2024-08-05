@@ -49,13 +49,17 @@ class LogbookIndex extends Component
         return $this->redirectRoute('logbooks.index', navigate: true);
     }
     #[Title('Log Book')]
-    public function render()
+    public function render(User $user)
     {
-        return view('livewire.logbooks.logbook-index', [
-            'logInv' => LogBook::search($this->search)
-            ->with('deviceNames')
-            ->where('submitter_id', Auth::user()->id)
-            ->paginate($this->perPage),
-        ]);
+        if($this->authorize('logbooks', $user)){
+            return view('livewire.logbooks.logbook-index', [
+                'logInv' => LogBook::search($this->search)
+                ->with('deviceNames')
+                ->where('submitter_id', Auth::user()->id)
+                ->paginate($this->perPage),
+            ]);
+        }else{
+            abort(403);
+        }
     }
 }

@@ -91,7 +91,7 @@ class DeviceEdit extends Component
     #[Title('Update QR Alat')]
     public function render(User $user)
     {
-        if($this->authorize('devices', $user)){
+        if($this->authorize('editDevices', $user)){
             return view('livewire.devices.device-edit', [
                 'qr' => $this->alat,
                 'name' => DeviceName::all(),

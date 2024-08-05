@@ -45,7 +45,7 @@ class InventoryCreate extends Component
     #[Title('Tambah Inventaris')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
+        if ($this->authorize('inventories', $user)) {
                     return view('livewire.inventories.inventory-create', [
                         'namaAlat' => DeviceName::all()
                     ]);
