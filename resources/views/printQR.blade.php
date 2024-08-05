@@ -10,7 +10,7 @@
 
 <body>
     <div class="barcode">
-        <img src="{{ asset('storage/' . $qr->barcode) }}" alt="" width="25%" height="40%">
+        <img src="{{ asset('storage/' . $qr->barcode) }}" alt="" width="20%" height="30%">
     </div>
 </body>
 
