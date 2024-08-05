@@ -79,7 +79,7 @@
                 <h4 class="fw-bold">{{ __('Status') }}</h4>
                 <p>{{ $qr->status ?? '' }}</p>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 @if (Auth::guest())
                 <a href="{{ route('devices.detail', $qr->deviceId) }}" class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
                 {{-- <a href="{{ route('login') }}" class="btn btn-info"><i class="fas fa-up-right-from-square"></i> {{ __('Lihat Sertifikat') }}</a> --}}
