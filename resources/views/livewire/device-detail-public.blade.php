@@ -1,5 +1,5 @@
 <div>
-    <div class="row vh-100 mx-0">
+    <div class="row vh-100 mx-0 my-4">
         <div class="col d-flex flex-column justify-content-center align-items-center">
             @if (Auth::user())
             <div class="row mb-5">
