@@ -1,5 +1,5 @@
 <div>
-    <div class="row vh-100 mx-0">
+    <div class="row vh-100 mx-0 my-4">
         <div class="col d-flex flex-column justify-content-center align-items-center">
             @if (Auth::user())
                 <div class="row mb-5">
@@ -16,7 +16,7 @@
                 <img src="{{ asset('storage/' . $qr->barcode) }}" style="width:10em;" alt="">
             </div>
             <div class="row mb-3">
-                <div class="col text-center">
+                <div class="col-lg-6 text-center">
                     <div class="name">
                         <h4 class="fw-bold">{{ __('Nama') }}</h4>
                         <p class="fs-5">{{ $qr->devNames->name ?? '' }}</p>
@@ -38,7 +38,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-6 text-center">
                     <div class="serial-number">
                         <h4 class="fw-bold">{{ __('S/N') }}</h4>
                         <p class="fs-5">{{ $qr->serial_number ?? '' }}</p>
@@ -83,7 +83,7 @@
                 <h4 class="fw-bold">{{ __('Status') }}</h4>
                 <p>{{ $qr->status ?? '' }}</p>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 @if (Auth::guest())
                     <a href="{{ route('devices.edit', $qr->deviceId) }}"
                         class="btn btn-danger btn-block w-100">{{ __('Masuk untuk mengubah data') }}</a>
