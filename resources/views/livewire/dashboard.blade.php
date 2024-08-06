@@ -17,7 +17,7 @@
                     <div class="border-0 shadow card">
                         <a href="{{ route('hospitals.index') }}" wire:navigate>
                             <div class="card-body">
-                                <h2 class="mb-4 fs-5 fw-bold text-center">{{ __('Rumah Sakit') }}</h2>
+                                <h2 class="mb-4 fs-5 fw-bold text-center">{{ __('Total Pelanggan') }}</h2>
                                 <h3 class="text-center">{{ $dashboardRS }}</h3>
                             </div>
                         </a>

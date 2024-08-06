@@ -37,7 +37,7 @@ class HospitalIndex extends Component
 
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Rumah Sakit berhasil dihapus!',
+            'title' => 'Data Pelanggan berhasil dihapus!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,
@@ -46,7 +46,7 @@ class HospitalIndex extends Component
         ]);
         return $this->redirectRoute('hospitals.index', navigate: true);
     }
-    #[Title('Semua Rumah Sakit')]
+    #[Title('Semua Data Pelanggan')]
     public function render()
     {
         if (Auth::user()->hasRole('Teknisi')) {

@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
 
         $user = User::create([
             'userId' => Str::orderedUuid(),
-            'name' => 'User Rumah Sakit',
+            'name' => 'User Data Pelanggan',
             'email' => 'user@medquest.co.id',
             'username' => 'user',
             'password' => Hash::make('Calibration24!'),

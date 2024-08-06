@@ -82,7 +82,7 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
                                                     <label for="rumah_sakit"
-                                                        class="form-label text-capitalize">{{ __('rumah sakit') }}</label>
+                                                        class="form-label text-capitalize">{{ __('nama pelanggan') }}</label>
                                                     <div wire:ignore>
                                                         <select class="form-control" name="hospital_id" id="hospital_id">
                                                             <option value="">{{ __('Pilih salah satu...') }}</option>
@@ -151,7 +151,7 @@
                 $wire.set('name_id', names);
             });
 
-            // Rumah Sakit
+            // Data Pelanggan
             $( '#hospital_id' ).select2({
                 theme: "bootstrap-5"
             });

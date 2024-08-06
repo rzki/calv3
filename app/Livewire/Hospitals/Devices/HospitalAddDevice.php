@@ -32,7 +32,7 @@ class HospitalAddDevice extends Component
         ]);
         return $this->redirectRoute('hospitals.detail', ['hospitalId' => $this->hospitalId], navigate: true);
     }
-    #[Title('Tambah Alat Rumah Sakit')]
+    #[Title('Tambah Alat Data Pelanggan')]
     public function render(User $user)
     {
         if ($this->authorize('adminAccess', $user)) {

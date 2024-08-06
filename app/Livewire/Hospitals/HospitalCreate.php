@@ -21,7 +21,7 @@ class HospitalCreate extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Rumah Sakit berhasil ditambahkan!',
+            'title' => 'Data Pelanggan berhasil ditambahkan!',
             'toast'=> true,
             'position'=> 'top-end',
             'timer'=> 3000,
@@ -30,7 +30,7 @@ class HospitalCreate extends Component
         ]);
         return $this->redirectRoute('hospitals.index', navigate:true);
     }
-    #[Title('Tambah Rumah Sakit')]
+    #[Title('Tambah Data Pelanggan')]
     public function render(User $user)
     {
         if($this->authorize('adminAccess', $user)){

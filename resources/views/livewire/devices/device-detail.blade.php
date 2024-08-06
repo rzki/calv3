@@ -29,6 +29,16 @@
                         <h4 class="fw-bold">{{ __('Tipe') }}</h4>
                         <p class="fs-5">{{ $qr->type ?? '' }}</p>
                     </div>
+                    <div class="serial-number">
+                        <h4 class="fw-bold">{{ __('Nomor Seri') }}</h4>
+                        <p class="fs-5">{{ $qr->serial_number ?? '' }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="location">
+                        <h4 class="fw-bold">{{ __('Lokasi') }}</h4>
+                        <p class="fs-5">{{ $qr->location ?? '' }}</p>
+                    </div>
                     <div class="last-calibration">
                         <h4 class="fw-bold">{{ __('Tanggal Kalibrasi') }}</h4>
                         @if ($qr->calibration_date == null)
@@ -37,20 +47,6 @@
                             <p class="fs-5">{{ date('j F Y', strtotime($qr->calibration_date)) }}</p>
                         @endif
                     </div>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <div class="serial-number">
-                        <h4 class="fw-bold">{{ __('S/N') }}</h4>
-                        <p class="fs-5">{{ $qr->serial_number ?? '' }}</p>
-                    </div>
-                    <div class="location">
-                        <h4 class="fw-bold">{{ __('Lokasi') }}</h4>
-                        <p class="fs-5">{{ $qr->location ?? '' }}</p>
-                    </div>
-                    <div class="hospital">
-                        <h4 class="fw-bold">{{ __('Rumah Sakit') }}</h4>
-                        <p class="fs-5">{{ $qr->hospitals->name ?? '' }}</p>
-                    </div>
                     <div class="next-calibration">
                         <h4 class="fw-bold">{{ __('Kalibrasi Selanjutnya') }}</h4>
                         @if ($qr->next_calibration_date == null)
@@ -58,6 +54,10 @@
                         @else
                             <p class="fs-5">{{ date('j F Y', strtotime($qr->next_calibration_date)) }}</p>
                         @endif
+                    </div>
+                    <div class="hospital">
+                        <h4 class="fw-bold">{{ __('Identitas Pemilik Alat') }}</h4>
+                        <p class="fs-5">{{ $qr->hospitals->name ?? '' }}</p>
                     </div>
                 </div>
             </div>

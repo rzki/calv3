@@ -41,7 +41,7 @@ class HospitalDetail extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Alat berhasil dihapus dari rumah sakit!',
+            'title' => 'Alat berhasil dihapus dari Data Pelanggan!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,
@@ -55,7 +55,7 @@ class HospitalDetail extends Component
         Device::where('deviceId', $this->deviceId)->delete();
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Rumah Sakit berhasil dihapus!',
+            'title' => 'Data Pelanggan berhasil dihapus!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,
@@ -71,7 +71,7 @@ class HospitalDetail extends Component
         $namaFile = 'QR-Cal-' . $tanggal->format('j_m_Y');
         return Excel::download(new HospitalDeviceExport(), $namaFile . '.xlsx');
     }
-    #[Title('Detail Rumah Sakit')]
+    #[Title('Detail Data Pelanggan')]
     public function render()
     {
         if (Auth::user()->hasRole('Teknisi')) {

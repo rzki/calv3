@@ -48,7 +48,7 @@
                         <p class="fs-5">{{ $qr->location ?? '' }}</p>
                     </div>
                     <div class="hospital">
-                        <h4 class="fw-bold">{{ __('Rumah Sakit') }}</h4>
+                        <h4 class="fw-bold">{{ __('Identitas Pemilik Alat') }}</h4>
                         <p class="fs-5">{{ $qr->hospitals->name ?? '' }}</p>
                     </div>
                     <div class="next-calibration">

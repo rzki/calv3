@@ -5,13 +5,13 @@
                 <div class="px-0 col-12">
                     <div class="border-0 shadow card">
                         <div class="card-body">
-                            <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Rumah Sakit') }}</h2>
+                            <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Data Pelanggan') }}</h2>
                             <div class="row mb-4">
                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
                                     <div class="col d-flex justify-content-end">
                                         <a href="{{ route('hospitals.create') }}" class="btn btn-success text-white"
                                             wire:navigate><i class="fas fa-plus"></i>
-                                            {{ __('Tambah Rumah Sakit') }}</a>
+                                            {{ __('Tambah Data Pelanggan') }}</a>
                                     </div>
                                 @endif
                             </div>
@@ -100,7 +100,7 @@
         window.addEventListener('delete-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
-                text: "Rumah Sakit akan terhapus secara permanen!",
+                text: "Data Pelanggan akan terhapus secara permanen!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

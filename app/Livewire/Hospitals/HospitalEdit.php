@@ -26,7 +26,7 @@ class HospitalEdit extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Rumah Sakit berhasil diperbarui!',
+            'title' => 'Data Pelanggan berhasil diperbarui!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 3000,
@@ -35,7 +35,7 @@ class HospitalEdit extends Component
         ]);
         return $this->redirectRoute('hospitals.index', navigate: true);
     }
-    #[Title('Update Rumah Sakit')]
+    #[Title('Update Data Pelanggan')]
     public function render(User $user)
     {
         if ($this->authorize('adminAccess', $user)) {

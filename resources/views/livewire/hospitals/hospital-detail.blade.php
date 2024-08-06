@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <div class="row mb-4">
                                 <div class="col">
-                                    <h2 class="mb-1 fs-4 fw-bold mb-3 text-center">{{ __('Detail Rumah Sakit') }}</h2>
+                                    <h2 class="mb-1 fs-4 fw-bold mb-3 text-center">{{ __('Detail Data Pelanggan') }}</h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -149,7 +149,7 @@
         window.addEventListener('unlink-confirmation', event => {
             Swal.fire({
                 title: "Apakah anda yakin?",
-                text: "Alat ini akan terhapus dari rumah sakit ini!",
+                text: "Alat ini akan terhapus dari Data Pelanggan ini!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

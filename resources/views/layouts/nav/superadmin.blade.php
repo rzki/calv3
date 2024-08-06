@@ -70,7 +70,7 @@
             <span class="sidebar-icon me-3">
                 <i class="fas fa-hospital" aria-hidden="true"></i>
             </span>
-            <span class="sidebar-text">{{ __('Rumah Sakit') }}</span>
+            <span class="sidebar-text">{{ __('Data Pelanggan') }}</span>
         </a>
     </li>
     @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))

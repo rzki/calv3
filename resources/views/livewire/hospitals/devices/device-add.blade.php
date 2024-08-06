@@ -5,7 +5,7 @@
                 <div class="px-0 col-12">
                     <div class="border-0 shadow card">
                         <div class="card-body">
-                            <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Alat Rumah Sakit') }}</h2>
+                            <h2 class="mb-1 fs-5 fw-bold mb-5">{{ __('Tambah Alat Data Pelanggan') }}</h2>
                             <div class="row mb-5">
                                 <div class="col">
                                     <a href="{{ route('hospitals.detail', $hospitals->hospitalId) }}" class="btn btn-primary text-white"><i
