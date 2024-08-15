@@ -13,7 +13,10 @@ class PrintQRController extends Controller
 {
     public function printAll()
     {
-        $devices = DB::table('devices')->where('name_id', '=', null)->pluck('barcode');
+        $devices = DB::table('devices')
+                    ->whereNull('name_id')
+                    ->orWhereNull('serial_number')
+                    ->pluck('barcode');
         $customSize = array(0,0,226.77,170.08);
         $pdf = Pdf::loadView('printAllQR', ['devices' => $devices])->setPaper($customSize);
         return $pdf->stream('QR_Cal_'.Carbon::now()->format('d-m-Y').'_'.uniqid().'.pdf')->header('Content-Type','application/pdf');

@@ -98,8 +98,10 @@ class DeviceIndex extends Component
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
                 'alats' => Device::search($this->search)
-                    ->whereDate('created_at', '>=', $this->start_date)
-                    ->whereDate('created_at', '<=', $this->end_date)
+                    ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
+                        $q->whereDate('created_at', '>=', $this->start_date_admin)
+                            ->whereDate('created_at', '<=', $this->end_date_admin);
+                    })
                     ->where('user_id', auth()->user()->id)
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
