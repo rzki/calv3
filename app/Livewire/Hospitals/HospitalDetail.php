@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Hospitals;
 
-use App\Exports\HospitalDeviceExport;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\HospitalDeviceExport;
 
 class HospitalDetail extends Component
 {
@@ -72,11 +73,9 @@ class HospitalDetail extends Component
         return Excel::download(new HospitalDeviceExport(), $namaFile . '.xlsx');
     }
     #[Title('Detail Data Pelanggan')]
-    public function render()
+    public function render(User $user)
     {
-        if (Auth::user()->hasRole('Teknisi')) {
-            abort(403);
-        } else {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.hospitals.hospital-detail', [
                 'detailRS' => $this->detailRS,
                 'alatRS' => Device::with('hospitals')
@@ -85,6 +84,8 @@ class HospitalDetail extends Component
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
             ]);
+        } else {
+            abort(403);
         }
     }
 }

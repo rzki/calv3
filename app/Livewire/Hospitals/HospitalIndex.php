@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Hospitals;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\WithPagination;
@@ -47,14 +48,14 @@ class HospitalIndex extends Component
         return $this->redirectRoute('hospitals.index', navigate: true);
     }
     #[Title('Semua Data Pelanggan')]
-    public function render()
+    public function render(User $user)
     {
-        if (Auth::user()->hasRole('Teknisi')) {
-            abort(403);
-        } else {
+        if ($this->authorize('adminAccess', $user)) {
             return view('livewire.hospitals.hospital-index', [
                 'rs' => Hospital::search($this->search)->paginate($this->perPage),
             ]);
+        } else {
+            abort(403);
         }
     }
 }
