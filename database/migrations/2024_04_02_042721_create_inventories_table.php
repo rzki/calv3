@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('next_calibrated_date')->nullable();
             $table->string('pic')->nullable();
             $table->string('location')->nullable();
+            $table->text('certificate')->nullable();
             $table->foreignId('rs_id')->nullable()->constrained('hospitals', 'id', 'rs_id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
