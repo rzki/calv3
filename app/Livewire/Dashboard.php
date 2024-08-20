@@ -10,6 +10,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Component
 {
@@ -17,6 +18,7 @@ class Dashboard extends Component
     #[Title('Dashboard')]
     public function render()
     {
+        // dd(Auth::user());
         return view('livewire.dashboard', [
             'dashboardInventory' => Device::count(),
             'dashboardLogBook' => LogBook::count(),

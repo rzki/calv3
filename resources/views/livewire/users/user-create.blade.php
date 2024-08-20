@@ -29,7 +29,16 @@
                                             <select class="form-control" wire:model='roles'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($role as $role)
-                                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="hospitals" class="form-label hospitals">{{ __('Rumah Sakit') }}</label>
+                                            <select name="hospitals" id="hospitals" class="form-control" wire:model='rs'>
+                                                <option value="">{{ __('Pilih salah satu...') }}</option>
+                                                @foreach ($hospital as $rs)
+                                                    <option value="{{ $rs->id }}">{{ $rs->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

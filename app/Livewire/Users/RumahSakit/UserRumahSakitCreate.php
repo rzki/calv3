@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Livewire\Users;
+namespace App\Livewire\Users\RumahSakit;
 
-use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Hospital;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Hash;
 
-class UserCreate extends Component
+class UserRumahSakitCreate extends Component
 {
     public $nama, $email, $roles, $rs;
     public function create()
@@ -23,10 +21,10 @@ class UserCreate extends Component
             'password' => Hash::make('Calibration24!'),
             'user_hospital_id' => $this->rs
         ]);
-        $user->assignRole($this->roles);
+        $user->assignRole('User');
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'User berhasil ditambahkan!',
+            'title' => 'User Rumah Sakit berhasil ditambahkan!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,
@@ -38,12 +36,10 @@ class UserCreate extends Component
     #[Title('Tambah User')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
-            return view('livewire.users.user-create', [
-                'role' => Role::where('id', '!=', 1)->get()
-            ]);
-        } else {
-            return view('livewire.dashboard');
+        if($this->authorize('adminAccess', $user)){
+            return view('livewire.users.rumah-sakit.user-rumah-sakit-create');
+        }else{
+            abort(403);
         }
     }
 }

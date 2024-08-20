@@ -66,4 +66,8 @@ class AccessPolicy
     {
         return $user->hasRole('Superadmin') || $user->hasRole('Admin') || $user->hasRole('Teknisi');
     }
+    public function userRS(User $user)
+    {
+        return $user->hasRole('Superadmin') || $user->hasRole('Admin') ||  $user->hasRole('User');
+    }
 }

@@ -50,7 +50,7 @@ class User extends Authenticatable
     }
     public function hospitals()
     {
-        return $this->belongsTo(Hospital::class);
+        return $this->belongsTo(Hospital::class, 'user_hospital_id');
     }
     public function scopeSearch($query, $value)
     {

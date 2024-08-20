@@ -73,27 +73,41 @@
             <span class="sidebar-text">{{ __('Data Pelanggan') }}</span>
         </a>
     </li>
-    @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Admin'))
-        <li
-            class="nav-item {{ request()->routeIs('users.index') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.import') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
-                <span class="sidebar-icon me-2">
+    <li
+        class="nav-item {{ request()->routeIs('users.index') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.import') || request()->routeIs('user-rs.index') || request()->routeIs('user-rs.create') || request()->routeIs('user-rs.edit') ? 'active' : '' }}">
+        <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+            data-bs-target="#users-dropdown">
+            <span>
+                <span class="sidebar-icon me-3">
                     <i class="fas fa-users" aria-hidden="true"></i>
                 </span>
                 <span class="sidebar-text">{{ __('Users') }}</span>
-            </a>
-        </li>
-    @endif
-    @if (auth()->user()->hasRole('Superadmin'))
-        <li
-            class="nav-item {{ request()->routeIs('roles.index') || request()->routeIs('roles.index') ? 'active' : '' }}">
-            <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
-                <span class="sidebar-icon me-2">
-                    <i class="fas fa-user-gear" aria-hidden="true"></i>
-                </span>
-                <span class="sidebar-text">{{ __('Roles') }}</span>
-            </a>
-        </li>
-    @endif
+            </span>
+        </span>
+        <div class="multi-level collapse" role="list" id="users-dropdown" aria-expanded="false">
+            <ul class="flex-column nav">
+                <li
+                    class="nav-item {{ request()->routeIs('users.index') || request()->routeIs('users.create') || request()->routeIs('users.edit') || request()->routeIs('users.import') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class="nav-link" wire:navigate>
+                        <span class="sidebar-text">{{ __('Semua User') }}</span>
+                    </a>
+                </li>
+                <li
+                    class="nav-item {{ request()->routeIs('user-rs.index') || request()->routeIs('user-rs.create') || request()->routeIs('user-rs.edit') ? 'active' : '' }}">
+                    <a href="{{ route('user-rs.index') }}" class="nav-link" wire:navigate>
+                        <span class="sidebar-text">{{ __('User Rumah Sakit') }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li class="nav-item {{ request()->routeIs('roles.index') || request()->routeIs('roles.index') ? 'active' : '' }}">
+        <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
+            <span class="sidebar-icon me-2">
+                <i class="fas fa-user-gear" aria-hidden="true"></i>
+            </span>
+            <span class="sidebar-text">{{ __('Roles') }}</span>
+        </a>
+    </li>
 
 </ul>

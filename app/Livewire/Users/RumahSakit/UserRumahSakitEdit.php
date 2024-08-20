@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Livewire\Users;
+namespace App\Livewire\Users\RumahSakit;
 
-use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Hash;
 
-class UserEdit extends Component
+class UserRumahSakitEdit extends Component
 {
-    public $users, $userId, $nama, $username, $email, $rs, $roles;
-    public function mount($userId)
+    public $users, $userRsId, $nama, $username, $email, $rs, $roles;
+    public function mount($userRsId)
     {
-        $this->users = User::with(['roles', 'hospitals'])->where('userId', $userId)->first();
+        $this->users = User::with(['roles', 'hospitals'])->where('userId', $userRsId)->first();
         $this->nama = $this->users->name;
         $this->username = $this->users->username;
         $this->email = $this->users->email;
     }
     public function update()
     {
-        User::where('userId', $this->userId)->update([
+        User::where('userId', $this->userRsId)->update([
             'name' => $this->nama,
             'username' => $this->username,
             'email' => $this->email,
+            'user_hospital_id' => $this->rs
         ]);
-        $this->users->assignRole($this->roles);
+        $this->users->assignRole('User');
         session()->flash('alert', [
             'type' => 'success',
             'title' => 'User berhasil diperbarui!',
@@ -36,18 +36,13 @@ class UserEdit extends Component
             'progbar' => true,
             'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate: true);
+        return $this->redirectRoute('user-rs.index', navigate: true);
     }
     #[Title('Update User')]
-    public function render(User $user)
+    public function render()
     {
-        if ($this->authorize('adminAccess', $user)) {
-            return view('livewire.users.user-edit', [
-                'role' => Role::where('id', '!=', 1)->get(),
+        return view('livewire.users.rumah-sakit.user-rumah-sakit-edit',[
                 'hospital' => Hospital::all()
-            ]);
-        } else {
-            return view('livewire.dashboard');
-        }
+        ]);
     }
 }

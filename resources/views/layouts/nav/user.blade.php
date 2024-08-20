@@ -18,7 +18,7 @@
     </li>
 
     {{-- Inventaris --}}
-    <li
+    {{-- <li
         class="nav-item {{ request()->routeIs('inventories.index') || request()->routeIs('inventories.create') || request()->routeIs('inventories.edit') || request()->routeIs('inventories.detail') || request()->routeIs('inventories.add_log') || request()->routeIs('inventories.edit_log') ? 'active' : '' }}">
         <a href="{{ route('inventories.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
@@ -26,11 +26,11 @@
             </span>
             <span class="sidebar-text">{{ __('Inventaris') }}</span>
         </a>
-    </li>
+    </li> --}}
     {{-- RS --}}
     <li
-        class="nav-item {{ request()->routeIs('hospitals.index') || request()->routeIs('hospitals.create') || request()->routeIs('hospitals.edit') || request()->routeIs('hospitals.detail') || request()->routeIs('hospitals.add_device') || request()->routeIs('hospitals.index') ? 'active' : '' }}">
-        <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
+        class="nav-item {{ request()->routeIs('hospitals.detail') ? 'active' : '' }}">
+        <a href="{{ route('hospitals.detail', Auth::user()->hospitals->hospitalId ?? '#') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-3">
                 <i class="fas fa-hospital" aria-hidden="true"></i>
             </span>

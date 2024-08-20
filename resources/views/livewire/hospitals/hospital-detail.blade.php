@@ -41,11 +41,11 @@
                                         id="search" class="form-control mb-3 w-25" placeholder="Search...">
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                    @if (!auth()->user()->hasRole('Manager'))
+                                    @can('userRs')
                                     <a href="{{ route('hospitals.add_device', $detailRS->hospitalId) }}"
                                         class="btn btn-success text-white"><i class="fas fa-plus"></i>
                                         {{ __('Tambah Alat') }}</a>
-                                    @endif
+                                    @endcan
                                 </div>
                             </div>
                             <div class="row">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Users;
+namespace App\Livewire\Users\RumahSakit;
 
 use App\Models\User;
 use Livewire\Component;
@@ -8,7 +8,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Hash;
 
-class UserIndex extends Component
+class UserRumahSakitIndex extends Component
 {
     use WithPagination;
     public $user, $userId;
@@ -34,7 +34,7 @@ class UserIndex extends Component
             'progbar' => true,
             'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate: true);
+        return $this->redirectRoute('user-rs.index', navigate: true);
     }
 
     public function resetPassword($userId)
@@ -53,24 +53,19 @@ class UserIndex extends Component
             'progbar' => true,
             'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('users.index', navigate:true);
+        return $this->redirectRoute('user-rs.index', navigate:true);
     }
     #[Title('Semua User')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
-            return view('livewire.users.user-index', [
-                'users' => User::search($this->search)
-                    ->role([
-                        'Admin', 'Teknisi', 'User'
-                    ])
-                    ->with('roles')
-                    ->where('name', '!=', 'Superadmin')
-                    ->orderByDesc('created_at')
-                    ->paginate($this->perPage),
+        if($this->authorize('adminAccess', $user)){
+            return view('livewire.users.rumah-sakit.user-rumah-sakit-index',[
+                'userRS' => User::role('User')
+                ->search($this->search)
+                ->paginate($this->perPage)
             ]);
         }else{
-            return view('livewire.dashboard');
+            abort(403);
         }
     }
 }

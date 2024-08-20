@@ -23,6 +23,7 @@ use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
 use App\Livewire\Logbooks\LogbookCreate;
 use App\Livewire\Hospitals\HospitalIndex;
+use App\Http\Controllers\DeviceController;
 use App\Livewire\Hospitals\HospitalCreate;
 use App\Livewire\Hospitals\HospitalDetail;
 use App\Http\Controllers\PrintQRController;
@@ -37,6 +38,9 @@ use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
 use App\Livewire\Hospitals\Devices\HospitalAddDevice;
+use App\Livewire\Users\RumahSakit\UserRumahSakitEdit;
+use App\Livewire\Users\RumahSakit\UserRumahSakitIndex;
+use App\Livewire\Users\RumahSakit\UserRumahSakitCreate;
 
 Route::get('devices-list', DeviceList::class)->name('devices.list');
 Route::get('devices-list/detail/{deviceId}', DeviceDetailPublic::class)->name('devices.publicDetail');
@@ -56,6 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::get('users/create', UserCreate::class)->name('users.create');
     Route::get('users/edit/{userId}', UserEdit::class)->name('users.edit');
     Route::get('users/import', UserImport::class)->name('users.import');
+    Route::get('user-rs', UserRumahSakitIndex::class)->name('user-rs.index');
+    Route::get('user-rs/create', UserRumahSakitCreate::class)->name('user-rs.create');
+    Route::get('user-rs/edit/{userRsId}', UserRumahSakitEdit::class)->name('user-rs.edit');
     // Roles
     Route::get('roles', RoleIndex::class)->name('roles.index');
     Route::get('roles/create', RoleCreate::class)->name('roles.create');
@@ -77,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('devices/edit/{deviceId}', DeviceEdit::class)->name('devices.edit');
     Route::get('devices/detail/{deviceId}', DeviceDetail::class)->name('devices.detail');
     Route::get('devices/print/{deviceId}', DeviceIndex::class)->name('devices.print');
-    Route::get('devices/print-all', [PrintQRController::class, 'printAll'])->name('devices.printAll');
+    Route::get('devices/print-all', [DeviceController::class, 'printAll'])->name('devices.printAll');
     Route::get('devices/view/{deviceId}', DeviceIndex::class)->name('devices.viewSertif');
     // Device Name
     Route::get('device_name', DeviceNameIndex::class)->name('device_name.index');

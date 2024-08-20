@@ -29,20 +29,13 @@
                                             <input type="text" class="form-control" wire:model='email'>
                                         </div>
                                         <div class="form-group mb-3">
-                                            <label for="roles" class="form-label">{{ __('Role') }}</label>
-                                            <select class="form-control" wire:model='roles'>
-                                                <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                @foreach ($role as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label for="hospitals" class="form-label hospitals">{{ __('Rumah Sakit') }}</label>
-                                            <select name="hospitals" id="hospitals" class="form-control" wire:model='rs'>
+                                            <label for="hospitals" class="form-label hospitals">{{ __('Rumah Sakit')
+                                                }}</label>
+                                            <select name="hospitals" id="hospitals" class="form-control"
+                                                wire:model='rs'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
                                                 @foreach ($hospital as $rs)
-                                                    <option value="{{ $rs->id }}">{{ $rs->name }}</option>
+                                                <option value="{{ $rs->id }}">{{ $rs->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -60,3 +53,18 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $(document).ready(function(){
+
+            // Data Pelanggan
+            $( '#hospitals' ).select2({
+                theme: "bootstrap-5"
+            });
+            $( '#hospitals' ).on('change', function(e){
+                var names = $(this).val();
+                $wire.set('rs', names);
+            });
+        })
+    </script>
+@endscript
