@@ -73,7 +73,7 @@ class DeviceEdit extends Component
                 'calibration_date' => $this->kalibrasi_terakhir,
                 'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
                 'certif_no' => $this->certif_no,
-                'status' => 'Tersedia'
+                'status' => 'Belum Tersedia'
             ]);
         }
 

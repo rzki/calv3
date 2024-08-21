@@ -106,15 +106,15 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            {{-- <div class="col-lg-6">
                                                 <div class="form-group mb-3">
                                                     <label for="certif_no" class="form-label text-capitalize"
                                                         wire:model='certif_no'>{{ __('no. sertifikat') }}</label>
                                                     <input type="text" name="certif_no" id="certif_no"
                                                         class="form-control" wire:model='certif_no'>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6">
+                                            </div> --}}
+                                            <div class="col">
                                                 <div class="form-group mb-3">
                                                     <label for="certif_file"
                                                         class="form-label text-capitalize">{{ __('unggah sertifikat') }}</label>
