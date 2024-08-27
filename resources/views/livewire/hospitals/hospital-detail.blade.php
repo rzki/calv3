@@ -59,7 +59,11 @@
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
                                                     <th>{{ __('Nama') }}</th>
-                                                    <th>{{ __('Serial Number') }}</th>
+                                                    <th>{{ __('Merk') }}</th>
+                                                    <th>{{ __('Tipe') }}</th>
+                                                    <th>{{ __('No Seri') }}</th>
+                                                    <th>{{ __('Ruang') }}</th>
+                                                    <th>{{ __('Tgl Kalibrasi') }}</th>
                                                     <th>{{ __('Kalibrasi Selanjutnya') }}</th>
                                                     <th>{{ __('No. Sertifikat') }}</th>
                                                     <th>{{ __('Sertifikat') }}</th>
@@ -81,11 +85,20 @@
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $alat->devNames->name ?? '' }}</td>
+                                                            <td>{{ $alat->brand ?? '' }}</td>
+                                                            <td>{{ $alat->type ?? ''}}</td>
                                                             <td>{{ $alat->serial_number ?? '' }}</td>
+                                                            <td>{{ $alat->location ?? '' }}</td>
                                                             @if (empty($alat->calibration_date))
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j M Y', strtotime($alat->calibration_date)) ?? '' }}
+                                                                <td>{{ date('d/m/Y', strtotime($alat->calibration_date)) ?? '' }}
+                                                                </td>
+                                                            @endif
+                                                            @if (empty($alat->next_calibration_date))
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('d/m/Y', strtotime($alat->next_calibration_date)) ?? '' }}
                                                                 </td>
                                                             @endif
                                                             <td>{{ $alat->certif_no ?? '' }}</td>
