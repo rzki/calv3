@@ -40,7 +40,8 @@ class UserCreate extends Component
     {
         if ($this->authorize('adminAccess', $user)) {
             return view('livewire.users.user-create', [
-                'role' => Role::where('id', '!=', 1)->get()
+                'role' => Role::where('id', '!=', 1)->get(),
+                'hospital' => Hospital::all()
             ]);
         } else {
             return view('livewire.dashboard');
