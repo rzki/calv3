@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/regular.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/solid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('assets/chosen/chosen.min.css') }}"> --}}
-    <!-- Include Choices CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <!-- Styles -->
     @vite('resources/sass/app.scss')
     <!-- Select2 + Bootstrap Theme -->
