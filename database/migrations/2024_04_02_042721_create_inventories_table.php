@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->uuid('inventoryId');
-            $table->foreignId('device_name')->nullable()->constrained('device_names', 'id', 'device_name')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('device_name')->nullable()->constrained('device_names', 'id', 'device_name')->cascadeOnUpdate()->nullOnDelete();
             $table->string('brand');
             $table->string('type');
             $table->string('sn');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('pic')->nullable();
             $table->string('location')->nullable();
             $table->text('certificate')->nullable();
-            $table->foreignId('rs_id')->nullable()->constrained('hospitals', 'id', 'rs_id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('rs_id')->nullable()->constrained('hospitals', 'id', 'rs_id')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }

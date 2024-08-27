@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
             $table->uuid('deviceId');
-            $table->foreignId('name_id')->nullable()->constrained('device_names', 'id', 'name_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('name_id')->nullable()->constrained('device_names', 'id', 'name_id')->nullOnDelete()->cascadeOnUpdate();
             $table->string('inv_number')->nullable();
             $table->string('brand')->nullable();
             $table->string('type')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->year('procurement_year')->nullable();
             $table->string('pic')->nullable();
-            $table->foreignId('hospital_id')->nullable()->constrained('hospitals', 'id', 'hospital_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('hospital_id')->nullable()->constrained('hospitals', 'id', 'hospital_id')->nullOnDelete()->cascadeOnUpdate();
             $table->date('calibration_date')->nullable();
             $table->date('next_calibration_date')->nullable();
             $table->string('certif_no')->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('result')->nullable();
             $table->string('status')->nullable();
             $table->text('note')->nullable();
-            $table->foreignId('user_id')->constrained('users', 'id', 'user_id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users', 'id', 'user_id')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }
