@@ -28,8 +28,8 @@
                                             <label for="roles" class="form-label">{{ __('Role') }}</label>
                                             <select class="form-control" wire:model='roles'>
                                                 <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                @foreach ($role as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @foreach ($role as $r)
+                                                    <option value="{{ $r->name }}">{{ $r->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
