@@ -62,7 +62,7 @@ class UserIndex extends Component
             return view('livewire.users.user-index', [
                 'users' => User::search($this->search)
                     ->role([
-                        'Admin', 'Teknisi', 'User'
+                        'Admin', 'Teknisi', 'User', 'Manager'
                     ])
                     ->with('roles')
                     ->where('name', '!=', 'Superadmin')
