@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 class DeviceNameIndex extends Component
 {
     public $nameId;
-    public $search, $sortBy='created_at', $sortDir='ASC', $perPage=5;
+    public $search, $sortBy='name', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];
 
     public function sort($sortByField)
