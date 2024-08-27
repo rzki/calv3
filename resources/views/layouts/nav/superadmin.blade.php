@@ -39,15 +39,18 @@
     <li
         class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') || request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
         <span class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-            data-bs-target="#device-dropdown">
+            data-bs-target="#device">
             <span>
                 <span class="sidebar-icon me-3">
                     <i class="fas fa-screwdriver" aria-hidden="true"></i>
                 </span>
                 <span class="sidebar-text">{{ __('Alat') }}</span>
             </span>
+            <span class="link-arrow">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </span>
         </span>
-        <div class="multi-level collapse" role="list" id="device-dropdown" aria-expanded="false">
+        <div class="multi-level collapse" role="list" id="device" aria-expanded="false">
             <ul class="flex-column nav">
                 <li
                     class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
@@ -83,6 +86,9 @@
                 </span>
                 <span class="sidebar-text">{{ __('Users') }}</span>
             </span>
+            <span class="link-arrow">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </span>
         </span>
         <div class="multi-level collapse" role="list" id="users-dropdown" aria-expanded="false">
             <ul class="flex-column nav">
@@ -101,6 +107,7 @@
             </ul>
         </div>
     </li>
+    @if (Auth::user()->hasRole('Superadmin'))
     <li class="nav-item {{ request()->routeIs('roles.index') || request()->routeIs('roles.index') ? 'active' : '' }}">
         <a href="{{ route('roles.index') }}" class="nav-link" wire:navigate>
             <span class="sidebar-icon me-2">
@@ -109,5 +116,6 @@
             <span class="sidebar-text">{{ __('Roles') }}</span>
         </a>
     </li>
+    @endif
 
 </ul>
