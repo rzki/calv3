@@ -106,14 +106,18 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            {{-- <div class="col-lg-6">
+                                            <div class="col">
                                                 <div class="form-group mb-3">
-                                                    <label for="certif_no" class="form-label text-capitalize"
-                                                        wire:model='certif_no'>{{ __('no. sertifikat') }}</label>
-                                                    <input type="text" name="certif_no" id="certif_no"
-                                                        class="form-control" wire:model='certif_no'>
+                                                    <label for="result" class="form-label">{{ __('Status') }}</label>
+                                                    <select type="text" name="result" id="result" class="form-control" wire:model='result'>
+                                                        <option value="">Pilih salah satu...</option>
+                                                        <option value="Laik Pakai">Laik Pakai</option>
+                                                        <option value="Tidak Laik Pakai">Tidak Laik Pakai</option>
+                                                    </select>
                                                 </div>
-                                            </div> --}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col">
                                                 <div class="form-group mb-3">
                                                     <label for="certif_file"
