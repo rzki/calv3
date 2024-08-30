@@ -9,11 +9,13 @@ use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\HospitalDeviceExport;
 
 class HospitalDetail extends Component
 {
+    use WithPagination;
     public $detailRS, $hospitalId, $alat, $deviceId;
     public $search,
         $sortBy = 'created_at',

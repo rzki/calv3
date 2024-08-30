@@ -6,9 +6,11 @@ use App\Models\Device;
 use App\Models\LogBook;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class InventoryDetail extends Component
 {
+    use WithPagination;
     public $inventories, $inventoryId, $latestLog, $logbook, $logId;
     public $searchByInventoryId, $sortBy='created_at', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];

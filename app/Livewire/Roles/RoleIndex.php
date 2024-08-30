@@ -6,9 +6,11 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class RoleIndex extends Component
 {
+    use WithPagination;
     public $roles, $roleId;
     public $search,
         $perPage = 5;

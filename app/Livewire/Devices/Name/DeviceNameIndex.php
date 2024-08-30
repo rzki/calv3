@@ -6,9 +6,11 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\DeviceName;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class DeviceNameIndex extends Component
 {
+    use WithPagination;
     public $nameId;
     public $search, $sortBy='name', $sortDir='ASC', $perPage=5;
     protected $listeners = ['deleteConfirmed' => 'delete'];

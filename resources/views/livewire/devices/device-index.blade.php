@@ -119,7 +119,7 @@
                                                     @else
                                                         @foreach ($alatSuperadmin as $sadmin)
                                                             <tr>
-                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $alatSuperadmin->firstItem() + $loop->index }}</td>
                                                                 <td>{{ date('d-m-Y', strtotime($sadmin->created_at)) ?? '' }}
                                                                 </td>
                                                                 <td>{{ $sadmin->devNames->name ?? '' }}</td>
@@ -175,7 +175,7 @@
                                                     @else
                                                         @foreach ($alats as $device)
                                                             <tr>
-                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $alats->firstItem() + $loop->index }}</td>
                                                                 <td>{{ date('d-m-Y', strtotime($device->created_at)) ?? '' }}
                                                                 <td>{{ $device->devNames->name ?? '' }}</td>
                                                                 <td>{{ $device->brand ?? '' }}</td>

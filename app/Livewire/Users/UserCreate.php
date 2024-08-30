@@ -33,7 +33,7 @@ class UserCreate extends Component
             'progbar' => true,
             'showConfirmButton' => false,
         ]);
-        return $this->redirectRoute('user-rs.index', navigate: true);
+        return $this->redirectRoute('users.index', navigate: true);
     }
     #[Title('Tambah User')]
     public function render(User $user)

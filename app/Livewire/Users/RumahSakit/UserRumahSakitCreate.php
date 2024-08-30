@@ -4,6 +4,7 @@ namespace App\Livewire\Users\RumahSakit;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Hospital;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,9 @@ class UserRumahSakitCreate extends Component
     public function render(User $user)
     {
         if($this->authorize('adminAccess', $user)){
-            return view('livewire.users.rumah-sakit.user-rumah-sakit-create');
+            return view('livewire.users.rumah-sakit.user-rumah-sakit-create',[
+                'hospital' => Hospital::all()
+            ]);
         }else{
             abort(403);
         }
