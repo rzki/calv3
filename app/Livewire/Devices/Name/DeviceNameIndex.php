@@ -48,7 +48,7 @@ class DeviceNameIndex extends Component
     #[Title('Semua Nama Alat')]
     public function render(User $user)
     {
-        if($this->authorize('devices', $user)){
+        if($this->authorize('adminAccess', $user)){
             return view('livewire.devices.name.device-name-index',[
                 'devnames' => DeviceName::search($this->search)
                 ->orderBy($this->sortBy,$this->sortDir)

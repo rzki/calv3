@@ -59,16 +59,17 @@
                             <span class="sidebar-text">{{ __('QR Alat') }}</span>
                         </a>
                     </li>
-                    <li
-                        class="nav-item {{ request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
-                        <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
-                            <span class="sidebar-text">{{ __('Nama Alat') }}</span>
-                        </a>
-                    </li>
+                    @if (!Auth::user()->hasRole('Teknisi'))
+                        <li
+                            class="nav-item {{ request()->routeIs('device_name.index') || request()->routeIs('device_name.create') || request()->routeIs('device_name.edit') ? 'active' : '' }}">
+                            <a href="{{ route('device_name.index') }}" class="nav-link" wire:navigate>
+                                <span class="sidebar-text">{{ __('Nama Alat') }}</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </li>
-        @if(!Auth::user()->hasRole('Teknisi'))
         <li
             class="nav-item {{ request()->routeIs('hospitals.index') || request()->routeIs('hospitals.create') || request()->routeIs('hospitals.edit') || request()->routeIs('hospitals.detail') || request()->routeIs('hospitals.add_device') || request()->routeIs('hospitals.index') ? 'active' : '' }}">
             <a href="{{ route('hospitals.index') }}" class="nav-link" wire:navigate>
@@ -78,7 +79,6 @@
                 <span class="sidebar-text">{{ __('Data Pelanggan') }}</span>
             </a>
         </li>
-        @endif
     @endif
     @if (Auth::user()->hasRole('User'))
         {{-- RS --}}
