@@ -24,10 +24,11 @@ class DeviceIndex extends Component
     $sortBy = 'created_at',
     $sortDir = 'ASC',
     $perPage = 5,
-    $start_date='',
-    $end_date='',
-    $start_date_admin='',
-    $end_date_admin='';
+    $start_date = '',
+    $end_date = '',
+    $start_date_admin = '',
+    $end_date_admin = '',
+    $pageNumber;
     protected $listeners = ['deleteConfirmed' => 'delete'];
     public function sort($sortByField)
     {
@@ -88,6 +89,9 @@ class DeviceIndex extends Component
         if (!$this->authorize('devices', $user)) {
             abort(403);
         } else {
+            // $url = session(['last_page_number' => request()->url()]);
+            $this->pageNumber = request()->input('page', 1);
+            session()->put('lastPageWithPageNumber', $this->pageNumber);
             return view('livewire.devices.device-index', [
                 'alatSuperadmin' => Device::search($this->adminSearch)
                     ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {

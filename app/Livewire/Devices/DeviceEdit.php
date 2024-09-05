@@ -22,6 +22,7 @@ class DeviceEdit extends Component
     #[Validate('mimes:pdf|max:2048')]
     public $certif_no, $certif_file, $sertifPath;
     public $rumah_sakit, $hospital_id;
+    public $url;
     public function mount($deviceId)
     {
         $this->alat = Device::where('deviceId', $deviceId)->first();
@@ -36,6 +37,7 @@ class DeviceEdit extends Component
         $this->kalibrasi_terakhir = $this->alat->calibration_date;
         $this->certif_no = $this->alat->certif_no;
         $this->status = $this->alat->status;
+        $this->url = session('lastPageWithPageNumber');
     }
 
     public function update()
@@ -89,7 +91,8 @@ class DeviceEdit extends Component
             'progbar' => true,
             'showConfirmButton'=> false
         ]);
-        return $this->redirectRoute('devices.index', navigate:true);
+        return $this->redirectRoute('devices.index',['page' => $this->url], navigate:true);
+        // return $this->redirect($this->url);
     }
     #[Title('Update QR Alat')]
     public function render(User $user)
