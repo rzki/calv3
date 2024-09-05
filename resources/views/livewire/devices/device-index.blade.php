@@ -36,12 +36,14 @@
                                                             <div class="col-lg-6">
                                                                 <p class="text-center mb-1">{{ __('Start') }}</p>
                                                                 <input type="date" name="start-date" id="start-date"
-                                                                    class="form-control" wire:model.live.debounce.500ms='start_date'>
+                                                                    class="form-control"
+                                                                    wire:model.live.debounce.500ms='start_date'>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <p class="text-center mb-1">{{ __('End') }}</p>
                                                                 <input type="date" name="end-date" id="end-date"
-                                                                    class="form-control" wire:model.live.debounce.500ms='end_date'>
+                                                                    class="form-control"
+                                                                    wire:model.live.debounce.500ms='end_date'>
                                                             </div>
                                                         @else
                                                             <div class="col-lg-6">
@@ -119,7 +121,8 @@
                                                     @else
                                                         @foreach ($alatSuperadmin as $sadmin)
                                                             <tr>
-                                                                <td>{{ $alatSuperadmin->firstItem() + $loop->index }}</td>
+                                                                <td>{{ $alatSuperadmin->firstItem() + $loop->index }}
+                                                                </td>
                                                                 <td>{{ date('d-m-Y', strtotime($sadmin->created_at)) ?? '' }}
                                                                 </td>
                                                                 <td>{{ $sadmin->devNames->name ?? '' }}</td>
@@ -237,10 +240,24 @@
                                             <div class="col d-flex align-items-center justify-content-end">
                                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if (!$alatSuperadmin->isEmpty())
+                                                        <div class="pagination-text me-3 mb-3 text-muted">
+                                                            @if ($alatSuperadmin->total() > 0)
+                                                                Showing {{ $alatSuperadmin->firstItem() }} -
+                                                                {{ $alatSuperadmin->lastItem() }} of
+                                                                {{ $alatSuperadmin->total() }}
+                                                            @endif
+                                                        </div>
                                                         {{ $alatSuperadmin->links() }}
                                                     @endif
                                                 @else
                                                     @if (!$alats->isEmpty())
+                                                        <div class="pagination-text me-3 mb-3">
+                                                            @if ($alats->total() > 0)
+                                                                Showing {{ $alats->firstItem() }} -
+                                                                {{ $alats->lastItem() }} of
+                                                                {{ $alats->total() }}
+                                                            @endif
+                                                        </div>
                                                         {{ $alats->links() }}
                                                     @endif
                                                 @endif

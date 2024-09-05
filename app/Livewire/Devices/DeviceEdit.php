@@ -13,6 +13,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Url;
 
 class DeviceEdit extends Component
 {
@@ -95,6 +96,7 @@ class DeviceEdit extends Component
         // return $this->redirect($this->url);
     }
     #[Title('Update QR Alat')]
+    #[Url(history:true)]
     public function render(User $user)
     {
         if($this->authorize('editDevices', $user)){

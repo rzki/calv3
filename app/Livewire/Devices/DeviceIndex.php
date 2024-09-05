@@ -2,22 +2,17 @@
 
 namespace App\Livewire\Devices;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
-use App\Exports\QrExport;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class DeviceIndex extends Component
 {
-    use WithPagination;
+    // use WithPagination;
     public $devices, $device, $deviceId;
     public $adminSearch,
     $search,
