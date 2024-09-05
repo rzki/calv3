@@ -50,7 +50,7 @@ class HospitalIndex extends Component
     #[Title('Semua Data Pelanggan')]
     public function render(User $user)
     {
-        if ($this->authorize('adminAccess', $user)) {
+        if ($this->authorize('devices', $user)) {
             return view('livewire.hospitals.hospital-index', [
                 'rs' => Hospital::search($this->search)->paginate($this->perPage),
             ]);
