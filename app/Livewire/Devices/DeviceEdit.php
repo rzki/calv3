@@ -11,6 +11,7 @@ use App\Models\DeviceName;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DeviceEdit extends Component
@@ -58,6 +59,7 @@ class DeviceEdit extends Component
                 'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
                 'certif_no' => $this->certif_no,
                 'certif_file' => $this->sertifPath.$namaSertif,
+                'user_id' => Auth::user()->id,
                 'status' => 'Tersedia'
             ]);
         }else{
@@ -73,6 +75,7 @@ class DeviceEdit extends Component
                 'calibration_date' => $this->kalibrasi_terakhir,
                 'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
                 'certif_no' => $this->certif_no,
+                'user_id' => Auth::user()->id,
                 'status' => 'Belum Tersedia'
             ]);
         }
