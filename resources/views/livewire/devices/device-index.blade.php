@@ -104,7 +104,7 @@
                                                     <th>{{ __('Nomor Sertifikat') }}</th>
                                                     <th>{{ __('Hasil') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th>{{ __('Dibuat oleh') }}</th>
+                                                    <th>{{ __('Petugas Kalibrasi') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>

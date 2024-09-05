@@ -75,7 +75,7 @@
                                             <div class="col-lg-4">
                                                 <div class="form-group mb-3">
                                                     <label for="pic"
-                                                        class="form-label text-capitalize">{{ __('PIC') }}</label>
+                                                        class="form-label text-capitalize">{{ __('Petugas Kalibrasi') }}</label>
                                                     <input type="text" class="form-control" wire:model='pic'>
                                                 </div>
                                             </div>
