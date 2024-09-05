@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('result')->nullable();
             $table->string('status')->nullable();
             $table->text('note')->nullable();
-            $table->foreignId('user_id')->constrained('users', 'id', 'user_id')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id', 'user_id')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }

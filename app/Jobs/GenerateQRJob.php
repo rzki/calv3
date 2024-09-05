@@ -43,7 +43,7 @@ class GenerateQRJob implements ShouldQueue
                 'deviceId' => $device['deviceId'],
                 'inv_number' => 'INVT-',
                 'barcode' => $path,
-                'user_id' => auth()->user()->id,
+                // 'user_id' => auth()->user()->id,
                 'result' => 'Laik Pakai',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
