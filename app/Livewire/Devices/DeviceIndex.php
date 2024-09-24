@@ -100,8 +100,7 @@ class DeviceIndex extends Component
                         $q->whereDate('created_at', '>=', $this->start_date_admin)
                             ->whereDate('created_at', '<=', $this->end_date_admin);
                     })
-                    ->where('user_id', null)
-                    ->orWhereNull('user_id')
+                    ->whereNull('user_id')
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
                 'qr' => $this->device,
