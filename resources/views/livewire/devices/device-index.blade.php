@@ -225,7 +225,7 @@
                                             </tbody>
                                         </table>
                                         <div class="row mt-4">
-                                            <div class="col d-flex align-items-center justify-content-start">
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-start">
                                                 <label class="text-black font-bold form-label me-3 mb-0">Per
                                                     Page</label>
                                                 <select wire:model.live='perPage'
@@ -237,7 +237,7 @@
                                                     <option value="100">100</option>
                                                 </select>
                                             </div>
-                                            <div class="col d-flex align-items-center justify-content-end">
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-end">
                                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if (!$alatSuperadmin->isEmpty())
                                                         <div class="pagination-text me-3 mb-3 text-muted">

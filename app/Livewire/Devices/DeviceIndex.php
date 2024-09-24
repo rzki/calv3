@@ -5,7 +5,6 @@ namespace App\Livewire\Devices;
 use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
@@ -101,7 +100,7 @@ class DeviceIndex extends Component
                         $q->whereDate('created_at', '>=', $this->start_date_admin)
                             ->whereDate('created_at', '<=', $this->end_date_admin);
                     })
-                    ->where('user_id', auth()->user()->id)
+                    ->where('user_id', null)
                     ->orWhereNull('user_id')
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
