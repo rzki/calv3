@@ -7,6 +7,7 @@ use App\Models\Device;
 use Milon\Barcode\DNS2D;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -41,9 +42,10 @@ class GenerateQRJob implements ShouldQueue
 
             $devices[] = [
                 'deviceId' => $device['deviceId'],
-                'inv_number' => 'INVT-',
+                // 'inv_number' => 'INVT-',
                 'barcode' => $path,
-                // 'user_id' => auth()->user()->id,
+                // 'user_id' => Auth::user()->id,
+                // 'user_id' => null,
                 'result' => 'Laik Pakai',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
