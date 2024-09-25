@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Hospitals;
 
+use App\Exports\HospitalDeviceExport;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Hospital;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HospitalIndex extends Component
 {
@@ -46,6 +48,11 @@ class HospitalIndex extends Component
             'showConfirmButton' => false,
         ]);
         return $this->redirectRoute('hospitals.index', navigate: true);
+    }
+    public function export()
+    {
+        $filename = 'CAL_CUSTOMER_'.date('d-m-Y').'.xlsx';
+        return Excel::download(new HospitalDeviceExport, $filename);
     }
     #[Title('Semua Data Pelanggan')]
     public function render(User $user)
