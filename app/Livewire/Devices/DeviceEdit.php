@@ -65,6 +65,21 @@ class DeviceEdit extends Component
                 'user_id' => Auth::user()->id,
                 'status' => 'Tersedia'
             ]);
+        }elseif(Auth::user()->hasRole('Admin')){
+            Device::where('deviceId', $this->deviceId)->update([
+                'name_id' => $this->name_id,
+                'inv_number' => $this->inv_number,
+                'brand' => $this->merk,
+                'type' => $this->tipe,
+                'serial_number' => $this->serial_number,
+                'location' => $this->lokasi,
+                'pic' => $this->pic,
+                'hospital_id' => $this->hospital_id,
+                'calibration_date' => $this->kalibrasi_terakhir,
+                'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+                'certif_no' => $this->certif_no,
+                'status' => 'Belum Tersedia'
+            ]);
         }else{
             Device::where('deviceId', $this->deviceId)->update([
                 'name_id' => $this->name_id,

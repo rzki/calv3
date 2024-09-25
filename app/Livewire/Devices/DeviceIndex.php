@@ -7,6 +7,7 @@ use App\Models\Device;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DeviceIndex extends Component
@@ -32,7 +33,6 @@ class DeviceIndex extends Component
         }
         $this->sortBy = $sortByField;
     }
-
     public function deleteConfirm($deviceId)
     {
         $this->deviceId = $deviceId;
@@ -80,6 +80,15 @@ class DeviceIndex extends Component
     #[Title('Semua Alat')]
     public function render(User $user)
     {
+        $alats = Device::search($this->search)
+                    ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
+                        $q->whereDate('created_at', '>=', $this->start_date_admin)
+                            ->whereDate('created_at', '<=', $this->end_date_admin);
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->orWhereNull('user_id')
+                    ->orderByDesc('updated_at')
+                    ->paginate($this->perPage);
         if (!$this->authorize('devices', $user)) {
             abort(403);
         } else {
@@ -95,14 +104,7 @@ class DeviceIndex extends Component
                     ->orderByDesc('created_at')
                     ->orderByDesc('updated_at')
                     ->paginate($this->perPage),
-                'alats' => Device::search($this->search)
-                    ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
-                        $q->whereDate('created_at', '>=', $this->start_date_admin)
-                            ->whereDate('created_at', '<=', $this->end_date_admin);
-                    })
-                    ->whereNull('user_id')
-                    ->orderByDesc('updated_at')
-                    ->paginate($this->perPage),
+                'alats' => $alats,
                 'qr' => $this->device,
             ]);
         }
