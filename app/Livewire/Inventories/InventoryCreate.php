@@ -2,32 +2,39 @@
 
 namespace App\Livewire\Inventories;
 
-use App\Models\Device;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Device;
 use Livewire\Component;
+use Milon\Barcode\DNS2D;
 use App\Models\Inventory;
 use App\Models\DeviceName;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryCreate extends Component
 {
     public $nama, $merk, $tipe, $sn, $tahun, $no_inv, $kalibrasi_terakhir, $pic, $lokasi, $status;
     public function create()
     {
-        Device::create([
-            'deviceId' => Str::orderedUuid(),
-            'name_id' => $this->nama,
+        $uuid = Str::orderedUuid();
+        $qr = new DNS2D();
+        $qr = base64_decode($qr->getBarcodePNG(route('inventories.publicDetail', $uuid), "QRCODE"));
+        $path = 'img/inventory/qr/' . $uuid . '.png';
+        Storage::disk('public')->put($path, $qr);
+        Inventory::create([
+            'inventoryId' => $uuid,
+            'device_name' => $this->nama,
             'brand' => $this->merk,
             'type' => $this->tipe,
-            'serial_number' => $this->sn,
+            'sn' => $this->sn,
             'procurement_year' => $this->tahun,
             'inv_number' => $this->no_inv,
             'last_calibrated_date' => $this->kalibrasi_terakhir,
             'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
-            'pic' => $this->pic,
             'location' => $this->lokasi,
+            'barcode' => $path,
             'status' => 'Tersedia'
         ]);
         session()->flash('alert', [

@@ -31,19 +31,20 @@
 
                                                 </div>
                                                 <div class="col-lg-4">
+                                                    {{-- <form wire:submit='dateFilter' method="get"> --}}
                                                     <div class="row">
                                                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Teknisi'))
                                                             <div class="col-lg-6">
                                                                 <p class="text-center mb-1">{{ __('Start') }}</p>
                                                                 <input type="date" name="start-date" id="start-date"
                                                                     class="form-control"
-                                                                    wire:model.live.debounce.500ms='start_date'>
+                                                                    wire:model='start_date_admin'>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <p class="text-center mb-1">{{ __('End') }}</p>
                                                                 <input type="date" name="end-date" id="end-date"
                                                                     class="form-control"
-                                                                    wire:model.live.debounce.500ms='end_date'>
+                                                                    wire:model.live.debounce.500ms='end_date_admin'>
                                                             </div>
                                                         @else
                                                             <div class="col-lg-6">
@@ -60,6 +61,10 @@
                                                             </div>
                                                         @endif
                                                     </div>
+                                                    {{-- <div class="row mt-3">
+                                                        <button type="submit" class="btn btn-success text-white">Submit</button>
+                                                    </div> --}}
+                                                    {{-- </form> --}}
                                                 </div>
                                                 <div class="col-lg-4">
 
@@ -88,6 +93,11 @@
                                     </div>
                                 @endif
 
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#export" class="btn btn-primary" wire:click='export'>XLS</a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col">
@@ -123,7 +133,7 @@
                                                             <tr>
                                                                 <td>{{ $alatSuperadmin->firstItem() + $loop->index }}
                                                                 </td>
-                                                                <td>{{ date('d-m-Y', strtotime($sadmin->created_at)) ?? '' }}
+                                                                <td>{{ date('d/m/Y', strtotime($sadmin->created_at)) ?? '' }}
                                                                 </td>
                                                                 <td>{{ $sadmin->devNames->name ?? '' }}</td>
                                                                 <td>{{ $sadmin->brand ?? '' }}</td>
@@ -133,7 +143,7 @@
                                                                 @if ($sadmin->calibration_date == null)
                                                                     <td></td>
                                                                 @else
-                                                                    <td>{{ date('j F Y', strtotime($sadmin->calibration_date)) ?? '' }}
+                                                                    <td>{{ date('d M Y', strtotime($sadmin->calibration_date)) ?? '' }}
                                                                     </td>
                                                                 @endif
                                                                 @if ($sadmin->certif_file == null)
@@ -179,7 +189,7 @@
                                                         @foreach ($alats as $device)
                                                             <tr>
                                                                 <td>{{ $alats->firstItem() + $loop->index }}</td>
-                                                                <td>{{ date('d-m-Y', strtotime($device->created_at)) ?? '' }}
+                                                                <td>{{ date('d/m/Y', strtotime($device->created_at)) ?? '' }}
                                                                 <td>{{ $device->devNames->name ?? '' }}</td>
                                                                 <td>{{ $device->brand ?? '' }}</td>
                                                                 <td>{{ $device->type ?? '' }}</td>
@@ -240,23 +250,23 @@
                                             <div class="col-lg-6 d-flex align-items-center justify-content-end">
                                                 @if (auth()->user()->hasRole('Superadmin') || auth()->user()->hasRole('Manager') || auth()->user()->hasRole('Admin'))
                                                     @if (!$alatSuperadmin->isEmpty())
-                                                        <div class="pagination-text me-3 mb-3 text-muted">
+                                                        {{-- <div class="pagination-text me-3 mb-3 text-muted">
                                                             @if ($alatSuperadmin->total() > 0)
                                                                 Showing {{ $alatSuperadmin->firstItem() }} -
                                                                 {{ $alatSuperadmin->lastItem() }} of
                                                                 {{ $alatSuperadmin->total() }}
                                                             @endif
-                                                        </div>
+                                                        </div> --}}
                                                         {{ $alatSuperadmin->links() }}
                                                     @endif
                                                 @else
                                                     @if (!$alats->isEmpty())
                                                         <div class="pagination-text me-3 mb-3">
-                                                            @if ($alats->total() > 0)
+                                                            {{-- @if ($alats->total() > 0)
                                                                 Showing {{ $alats->firstItem() }} -
                                                                 {{ $alats->lastItem() }} of
                                                                 {{ $alats->total() }}
-                                                            @endif
+                                                            @endif --}}
                                                         </div>
                                                         {{ $alats->links() }}
                                                     @endif

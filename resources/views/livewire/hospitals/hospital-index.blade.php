@@ -23,6 +23,11 @@
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <a href="#export" class="btn btn-primary" wire:click='export'>XLS</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
                                     <div class="table-wrapper table-responsive">
                                         <table class="table striped-table text-black text-center">
                                             <thead>

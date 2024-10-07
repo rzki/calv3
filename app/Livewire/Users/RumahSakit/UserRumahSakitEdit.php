@@ -29,7 +29,7 @@ class UserRumahSakitEdit extends Component
         $this->users->assignRole('User');
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'User berhasil diperbarui!',
+            'title' => 'User berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,

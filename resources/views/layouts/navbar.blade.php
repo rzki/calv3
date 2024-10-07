@@ -56,7 +56,13 @@
                     <li
                         class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
                         <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
-                            <span class="sidebar-text">{{ __('QR Alat') }}</span>
+                            <span class="sidebar-text">{{ __('QR Isi') }}</span>
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
+                        <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
+                            <span class="sidebar-text">{{ __('QR Kosong') }}</span>
                         </a>
                     </li>
                     @if (!Auth::user()->hasRole('Teknisi'))
@@ -83,7 +89,7 @@
     @if (Auth::user()->hasRole('User'))
         {{-- RS --}}
         <li class="nav-item {{ request()->routeIs('hospitals.detail') ? 'active' : '' }}">
-            <a href="{{ route('hospitals.detail', Auth::user()->hospitals->hospitalId ?? '#') }}" class="nav-link"
+            <a href="{{ route('hospitals.detail_users', Auth::user()->hospitals->hospitalId ?? '#') }}" class="nav-link"
                 wire:navigate>
                 <span class="sidebar-icon me-3">
                     <i class="fas fa-hospital" aria-hidden="true"></i>

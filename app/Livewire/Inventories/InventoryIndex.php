@@ -30,7 +30,7 @@ class InventoryIndex extends Component
     }
     public function delete()
     {
-        $this->inventaris = Device::where('deviceId', $this->inventoryId)->first();
+        $this->inventaris = Inventory::where('inventoryId', $this->inventoryId)->first();
         $this->inventaris->delete();
 
         session()->flash('alert', [
@@ -52,8 +52,9 @@ class InventoryIndex extends Component
         // } else {
         return view('livewire.inventories.inventory-index', [
             'inventoryIndex' => Inventory::search($this->search)
-            ->with('hospitalInventories')
-            ->where('rs_id', Auth::user()->user_hospital_id)
+            // ->with('hospitalInventories')
+            // ->where('rs_id', Auth::user()->user_hospital_id)
+            // ->orWhereNull('')
             ->paginate($this->perPage)
         ]);
         // }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\Hospitals\HospitalUser;
 use App\Livewire\MyProfile;
 use App\Livewire\DeviceList;
 use App\Livewire\Roles\RoleEdit;
@@ -18,6 +19,7 @@ use App\Livewire\Devices\DeviceIndex;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Devices\DeviceDetail;
 use App\Livewire\Logbooks\LogbookEdit;
+use App\Livewire\InventoryDetailPublic;
 use App\Livewire\Logbooks\LogbookIndex;
 use App\Livewire\Devices\DeviceGenerate;
 use App\Livewire\Hospitals\HospitalEdit;
@@ -34,6 +36,7 @@ use App\Livewire\Devices\Name\DeviceNameEdit;
 use App\Livewire\Inventories\InventoryCreate;
 use App\Livewire\Inventories\InventoryDetail;
 use App\Livewire\Devices\Name\DeviceNameIndex;
+use App\Livewire\Inventories\InventoryHistory;
 use App\Livewire\Devices\Name\DeviceNameCreate;
 use App\Livewire\Inventories\Logs\InventoryAddLog;
 use App\Livewire\Inventories\Logs\InventoryEditLog;
@@ -41,9 +44,14 @@ use App\Livewire\Hospitals\Devices\HospitalAddDevice;
 use App\Livewire\Users\RumahSakit\UserRumahSakitEdit;
 use App\Livewire\Users\RumahSakit\UserRumahSakitIndex;
 use App\Livewire\Users\RumahSakit\UserRumahSakitCreate;
+use App\Livewire\Inventories\Histories\InventoryHistoryEdit;
+use App\Livewire\Inventories\Histories\InventoryHistoryCreate;
+use App\Livewire\Inventories\Histories\InventoryHistory as History;
+use App\Livewire\Inventories\Logs\InventoryLog;
 
 Route::get('devices-list', DeviceList::class)->name('devices.list');
 Route::get('devices-list/detail/{deviceId}', DeviceDetailPublic::class)->name('devices.publicDetail');
+Route::get('public/inventory/detail/{inventoryId}', InventoryDetailPublic::class)->name('inventories.publicDetail');
 
 Route::middleware('guest')->group(function(){
     Route::get('/', function () {
@@ -74,12 +82,16 @@ Route::middleware('auth')->group(function () {
     // Inventories
     Route::get('inventories', InventoryIndex::class)->name('inventories.index');
     Route::get('inventories/create', InventoryCreate::class)->name('inventories.create');
+    Route::get('inventories/history/{inventoryId}', History::class)->name('inventories.history');
+    Route::get('inventories/history/{inventoryId}/create', InventoryHistoryCreate::class)->name('inventories.history.create');
+    Route::get('inventories/history/{inventoryId}/edit/{historyId}', InventoryHistoryEdit::class)->name('inventories.history.edit');
     Route::get('inventories/edit/{inventoryId}', InventoryEdit::class)->name('inventories.edit');
-    Route::get('inventories/detail/{inventoryId}', InventoryDetail::class)->name('inventories.detail');
-    Route::get('inventories/detail/{inventoryId}/add-log', InventoryAddLog::class)->name('inventories.add_log');
-    Route::get('inventories/detail/{inventoryId}/edit-log/{logId}', InventoryEditLog::class)->name('inventories.edit_log');
+    Route::get('inventories/logs/{inventoryId}', InventoryLog::class)->name('inventories.logs');
+    Route::get('inventories/logs/{inventoryId}/add-log', InventoryAddLog::class)->name('inventories.add_logs');
+    Route::get('inventories/logs/{inventoryId}/edit-log/{logId}', InventoryEditLog::class)->name('inventories.edit_logs');
     // Devices
-    Route::get('devices', DeviceIndex::class)->name('devices.index');
+    Route::get('devices/filled-qr', DeviceIndex::class)->name('devices.filled_qr');
+    Route::get('devices/empty-qr', DeviceIndex::class)->name('devices.empty_qr');
     Route::get('devices/generate', DeviceGenerate::class)->name('devices.generate');
     Route::get('devices/edit/{deviceId}', DeviceEdit::class)->name('devices.edit');
     Route::get('devices/detail/{deviceId}', DeviceDetail::class)->name('devices.detail');
@@ -99,5 +111,6 @@ Route::middleware('auth')->group(function () {
     Route::get('hospitals/create', HospitalCreate::class)->name('hospitals.create');
     Route::get('hospitals/edit/{hospitalId}', HospitalEdit::class)->name('hospitals.edit');
     Route::get('hospitals/detail/{hospitalId}', HospitalDetail::class)->name('hospitals.detail');
+    Route::get('hospitals/user-detail/{hospitalId}', HospitalUser::class)->name('hospitals.detail_users');
     Route::get('hospitals/detail/{hospitalId}/add-device', HospitalAddDevice::class)->name('hospitals.add_device');
 });

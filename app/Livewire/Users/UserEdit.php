@@ -29,7 +29,7 @@ class UserEdit extends Component
         $this->users->assignRole($this->roles);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'User berhasil diperbarui!',
+            'title' => 'User berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,

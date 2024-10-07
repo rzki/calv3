@@ -22,7 +22,7 @@ class DeviceNameEdit extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Nama Alat berhasil diperbarui!',
+            'title' => 'Nama Alat berhasil diubah!',
             'toast'=> true,
             'position'=> 'top-end',
             'timer'=> 3000,

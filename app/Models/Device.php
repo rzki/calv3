@@ -33,7 +33,8 @@ class Device extends Model
     }
     public function scopeSearch($query, $value)
     {
-        $query->where('serial_number', 'like', "%{$value}%")->orWhereNull('serial_number', 'like', "%{$value}%");
+        $query->where('serial_number', 'like', "%{$value}%")
+        ->orWhereNull('serial_number', 'like', "%{$value}%");
     }
 
     public function scopeInventorySearch($query, $value)

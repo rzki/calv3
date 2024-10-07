@@ -51,8 +51,10 @@ class HospitalIndex extends Component
     }
     public function export()
     {
-        $filename = 'CAL_CUSTOMER_'.date('d-m-Y').'.xlsx';
-        return Excel::download(new HospitalDeviceExport, $filename);
+        $filename = 'CAL_CUSTOMER_'.date('d/m/Y').'.xlsx';
+        $query = Hospital::query();
+        $query->select(['name', 'phone_number', 'address'])->search($this->search)->paginate($this->perPage);
+        return Excel::download(new HospitalDeviceExport($query), $filename);
     }
     #[Title('Semua Data Pelanggan')]
     public function render(User $user)
@@ -62,7 +64,9 @@ class HospitalIndex extends Component
                 'rs' => Hospital::search($this->search)->paginate($this->perPage),
             ]);
         } else {
-            abort(403);
+            return view('livewire.hospitals.hospital-index', [
+                'rs' => Hospital::search($this->search)->paginate($this->perPage),
+            ]);;
         }
     }
 }

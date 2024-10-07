@@ -2,17 +2,20 @@
 
 namespace App\Livewire\Devices;
 
+use App\Exports\QrExport;
 use App\Models\User;
 use App\Models\Device;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class DeviceIndex extends Component
 {
-    // use WithPagination;
+    use WithPagination;
     public $devices, $device, $deviceId;
     public $adminSearch,
     $search,
@@ -75,6 +78,34 @@ class DeviceIndex extends Component
         $sertif = Device::where('deviceId', $device->deviceId)->first();
         $fileSertif = Storage::url($sertif->certif_file);
         return $fileSertif;
+    }
+
+    public function export()
+    {
+        $filename = 'CAL_DEVICE_'.date('d/m/Y').'.xlsx';
+        $query = Device::query();
+        // Superadmin, Admin and Manager query
+        if(Auth::user()->hasRole(['Superadmin', 'Admin', 'Manager'])){
+            $query->with(['devNames', 'users'])->search($this->search)
+                    ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
+                        $q->whereDate('created_at', '>=', $this->start_date_admin)
+                            ->whereDate('created_at', '<=', $this->end_date_admin);
+                    })
+                    ->orderByDesc('updated_at')
+                    ->take($this->perPage);
+        }// Teknisi query
+        else{
+            $query->with(['devNames', 'users'])->search($this->search)
+                        ->when($this->start_date_admin !== '' && $this->end_date_admin !== '', function ($q) {
+                            $q->whereDate('created_at', '>=', $this->start_date_admin)
+                                ->whereDate('created_at', '<=', $this->end_date_admin);
+                        })
+                        ->where('user_id', Auth::user()->id)
+                        ->orWhereNull('user_id')
+                        ->orderByDesc('updated_at')
+                        ->paginate($this->perPage);
+        }
+        return Excel::download(new QrExport($query), $filename);
     }
 
     #[Title('Semua Alat')]

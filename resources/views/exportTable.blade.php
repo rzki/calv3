@@ -7,6 +7,7 @@
             <th>Tipe</th>
             <th>No. Seri</th>
             <th>Ruang</th>
+            <th>Tgl Kalibrasi</th>
             <th>Hasil</th>
             <th>Keterangan</th>
         </tr>

@@ -44,11 +44,11 @@ class DeviceEdit extends Component
     public function update()
     {
         // dd($this->name_id);
-        if($this->certif_file){
-            $namaSertif = $this->certif_no.'.pdf';
-            $this->sertifPath = 'files/pdf/sertifikat/';
-            Storage::disk('public')->putFileAs($this->sertifPath, $this->certif_file, $namaSertif);
-
+        // If Sertif file exists and the user role is Teknisi
+        if($this->certif_file && Auth::user()->hasRole('Teknisi')){
+                $namaSertif = $this->serial_number.'.pdf';
+                $this->sertifPath = 'files/pdf/sertifikat/';
+                Storage::disk('public')->putFileAs($this->sertifPath, $this->certif_file, $namaSertif);
             Device::where('deviceId', $this->deviceId)->update([
                 'name_id' => $this->name_id,
                 'inv_number' => $this->inv_number,
@@ -65,7 +65,29 @@ class DeviceEdit extends Component
                 'user_id' => Auth::user()->id,
                 'status' => 'Tersedia'
             ]);
-        }elseif(Auth::user()->hasRole('Admin')){
+        }
+        // If Sertif file exists and the user role is Admin
+        elseif($this->certif_file && Auth::user()->hasRole(['Superadmin','Admin'])){
+                $namaSertif = $this->serial_number.'.pdf';
+                $this->sertifPath = 'files/pdf/sertifikat/';
+                Storage::disk('public')->putFileAs($this->sertifPath, $this->certif_file, $namaSertif);
+            Device::where('deviceId', $this->deviceId)->update([
+                'name_id' => $this->name_id,
+                'inv_number' => $this->inv_number,
+                'brand' => $this->merk,
+                'type' => $this->tipe,
+                'serial_number' => $this->serial_number,
+                'location' => $this->lokasi,
+                'pic' => $this->pic,
+                'hospital_id' => $this->hospital_id,
+                'calibration_date' => $this->kalibrasi_terakhir,
+                'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+                'certif_no' => $this->certif_no,
+                'certif_file' => $this->sertifPath.$namaSertif,
+                'status' => 'Belum Tersedia'
+            ]);
+
+        }elseif(!$this->certif_file && Auth::user()->hasRole(['Superadmin','Admin'])){
             Device::where('deviceId', $this->deviceId)->update([
                 'name_id' => $this->name_id,
                 'inv_number' => $this->inv_number,
@@ -100,7 +122,7 @@ class DeviceEdit extends Component
 
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Alat berhasil diperbarui!',
+            'title' => 'Alat berhasil diubah!',
             'toast'=> true,
             'position'=> 'top-end',
             'timer'=> 3000,

@@ -26,7 +26,7 @@ class HospitalEdit extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Data Pelanggan berhasil diperbarui!',
+            'title' => 'Data Pelanggan berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 3000,

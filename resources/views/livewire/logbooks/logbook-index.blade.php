@@ -27,15 +27,14 @@
                                             <thead>
                                                 <tr>
                                                     <th style="width: 2em;">No</th>
-                                                    <th>{{ __('Nama') }}</th>
-                                                    <th>{{ __('Merk') }}</th>
-                                                    <th>{{ __('Tipe') }}</th>
-                                                    <th>{{ __('S/N') }}</th>
-                                                    {{-- <th>{{ __('No. Inventaris') }}</th> --}}
+                                                    <th>{{ __('Tanggal') }}</th>
                                                     <th>{{ __('Tanggal Pinjam') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
+                                                    <th>{{ __('Aksesoris') }}</th>
+                                                    <th>{{ __('Kondisi Awal') }}</th>
                                                     <th>{{ __('PIC') }}</th>
-                                                    <th>{{ __('Status') }}</th>
+                                                    <th>{{ __('Tanggal Kembali') }}</th>
+                                                    <th>{{ __('Kondisi Akhir') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -50,27 +49,27 @@
                                                     @foreach ($logInv as $log)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $log->deviceNames->name ?? '' }}</td>
-                                                            <td>{{ $log->brand ?? '' }}</td>
-                                                            <td>{{ $log->type ?? '' }}</td>
-                                                            <td>{{ $log->serial_number ?? '' }}</td>
-                                                            {{-- <td><a href="{{ route('inventories.detail', $log->inventories->inventoryId) }}"
-                                                                    class="text-info">{{ $log->inventories->inv_number ?? '' }}</a>
-                                                            </td> --}}
-                                                            @if (empty($log->mulai_pinjam && $log->selesai_pinjam) ||
-                                                                    empty($log->mulai_pinjam) ||
-                                                                    empty($log->selesai_pinjam))
+                                                            @if ($log->date == null)
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j M Y', strtotime($log->mulai_pinjam)) }}
-                                                                    -
-                                                                    {{ date('j M Y', strtotime($log->selesai_pinjam)) }}
-                                                                </td>
+                                                                <td>{{ date('d/m/Y', strtotime($log->date)) }}</td>
+                                                            @endif
+                                                            @if ($log->mulai_pinjam == null)
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('d/m/Y', strtotime($log->tanggal_pinjam)) }}</td>
                                                             @endif
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
-                                                            <td>{{ $log->pic_pinjam ?? '' }}</td>
-                                                            <td>{{ $log->status ?? '' }}</td>
-                                                            @if ($log->submitter_id == auth()->user()->id)
+                                                            <td>{{ $log->aksesoris ?? '' }}</td>
+                                                            <td>{{ $log->kondisi_awal ?? '' }}</td>
+                                                            <td>{{ $log->pic_pinjam }}</td>
+                                                            @if ($log->selesai_pinjam == null)
+                                                                <td></td>
+                                                            @else
+                                                                <td>{{ date('d/m/Y', strtotime($log->selesai_pinjam)) }}</td>
+                                                            @endif
+                                                            <td>{{ $log->kondisi_akhir ?? '' }}</td>
+                                                            @if (Auth::user()->hasRole(['Superadmin', 'Admin']))
                                                                 <td>
                                                                     <a href="{{ route('logbooks.edit', $log->logId) }}" class="btn btn-primary"><i
                                                                             class="fas fa-pen-to-square"></i></a>

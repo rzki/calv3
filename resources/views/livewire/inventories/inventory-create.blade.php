@@ -21,13 +21,7 @@
                                                 <div class="form-group mb-3">
                                                     <label for="nama"
                                                         class="form-label text-capitalize">{{ __('nama alat') }}</label>
-                                                    <select type="text" class="form-control" wire:model='nama'>
-                                                        <option value="">{{ __('Pilih salah satu...') }}</option>
-                                                        @foreach ($namaAlat as $nama)
-                                                            <option value="{{ $nama->id }}">{{ $nama->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="nama" id="nama" class="form-control" wire:model='nama'>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -51,14 +45,14 @@
                                                     <input type="text" class="form-control" wire:model='sn'>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="form-group mb-3">
                                                     <label for="tahun"
                                                         class="form-label text-capitalize">{{ __('tahun pengadaan') }}</label>
                                                     <input type="text" class="form-control" wire:model='tahun'>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="form-group mb-3">
                                                     <label for="no_inv"
                                                         class="form-label text-capitalize">{{ __('no. inventaris') }}</label>
@@ -66,14 +60,14 @@
                                                         value="MJG.INV.">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="form-group mb-3">
                                                     <label for="lokasi"
                                                         class="form-label text-capitalize">{{ __('lokasi') }}</label>
                                                     <input type="text" class="form-control" wire:model='lokasi'>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="form-group mb-3">
                                                     <label for="kalibrasi_terakhir"
                                                         class="form-label text-capitalize">{{ __('kalibrasi terakhir') }}</label>
@@ -81,14 +75,13 @@
                                                     {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            {{-- <div class="col-lg-6">
                                                 <div class="form-group mb-3">
                                                     <label for="pic"
                                                         class="form-label text-capitalize">{{ __('PIC') }}</label>
                                                     <input type="text" class="form-control" wire:model='pic'>
-                                                    {{-- value="{{ Carbon\Carbon::parse(old('calibration_date'))->format('j F Y') }}" --}}
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         {{-- <div class="form-group mb-3">
                                             <label for="status"

@@ -8,8 +8,9 @@
                             <h2 class="mb-1 fs-5 fw-bold mb-3">{{ __('Semua Inventaris') }}</h2>
                             <div class="row mb-4">
                                 <div class="col d-flex justify-content-end">
-                                    @if(Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teknisi'))
-                                        <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i class="fas fa-plus"></i>
+                                    @if (Auth::user()->hasRole('Superadmin') || Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Teknisi'))
+                                        <a href="{{ route('inventories.create') }}" class="btn btn-success text-white"><i
+                                                class="fas fa-plus"></i>
                                             {{ __('Tambah Inventaris') }}</a>
                                     @endif
                                 </div>
@@ -34,8 +35,9 @@
                                                     <th>{{ __('Tahun Pengadaan') }}</th>
                                                     <th>{{ __('No. Inventaris') }}</th>
                                                     <th>{{ __('Kalibrasi Terakhir') }}</th>
-                                                    <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
+                                                    <th>{{ __('Riwayat Alat') }}</th>
+                                                    <th>{{ __('Logbook') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -50,29 +52,36 @@
                                                     @foreach ($inventoryIndex as $inv)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $inv->names->name ?? '' }}</td>
+                                                            <td>{{ $inv->device_name ?? '' }}</td>
                                                             <td>{{ $inv->brand ?? '' }}</td>
                                                             <td>{{ $inv->type ?? '' }}</td>
-                                                            <td>{{ $inv->serial_number ?? '' }}</td>
+                                                            <td>{{ $inv->sn ?? '' }}</td>
                                                             <td>{{ $inv->procurement_year ?? '' }}</td>
                                                             <td>{{ $inv->inv_number ?? '' }}</td>
-                                                            @if ($inv->calibration_date == null)
+                                                            @if ($inv->last_calibrated_date == null)
                                                                 <td></td>
                                                             @else
-                                                                <td>{{ date('j F Y', strtotime($inv->calibration_date)) ?? '' }}</td>
+                                                                <td>{{ date('d/m/Y', strtotime($inv->last_calibrated_date)) ?? '' }}
+                                                                </td>
                                                             @endif
-                                                            <td>{{ $inv->pic ?? '' }}</td>
                                                             <td>{{ $inv->location ?? '' }}</td>
                                                             <td>
-                                                                <a href="{{ route('inventories.detail', $inv->deviceId) }}"
-                                                                    class="btn btn-primary" wire:navigate><i
-                                                                        class="fas fa-eye"></i></a>
-                                                                @if (auth()->user()->hasRole('Admin'))
-                                                                    <a href="{{ route('inventories.edit', $inv->deviceId) }}"
+                                                                <a href="{{ route('inventories.history', $inv->inventoryId) }}">{{ __('Riwayat Alat') }}
+                                                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('inventories.logs', $inv->inventoryId) }}">{{ __('Log Pinjam') }}
+                                                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                @if (auth()->user()->hasRole(['Superadmin', 'Admin']))
+                                                                    <a href="{{ route('inventories.edit', $inv->inventoryId) }}"
                                                                         class="btn btn-info" wire:navigate><i
                                                                             class="fas fa-pen-to-square"></i></a>
                                                                     <button class="btn btn-danger"
-                                                                        wire:click.prevent="deleteConfirm('{{ $inv->deviceId }}')"><i
+                                                                        wire:click.prevent="deleteConfirm('{{ $inv->inventoryId }}')"><i
                                                                             class="fas fa-trash"></i></button>
                                                                 @endif
                                                             </td>
@@ -83,7 +92,8 @@
                                         </table>
                                         <div class="row mt-4">
                                             <div class="col d-flex align-items-center justify-content-start">
-                                                <label class="text-black font-bold form-label me-3 mb-0">Per Page</label>
+                                                <label class="text-black font-bold form-label me-3 mb-0">Per
+                                                    Page</label>
                                                 <select wire:model.live='perPage'
                                                     class="form-control text-black per-page" style="width: 7%">
                                                     <option value="5">5</option>

@@ -5,42 +5,43 @@ namespace App\Livewire\Logbooks;
 use App\Models\User;
 use App\Models\LogBook;
 use Livewire\Component;
+use App\Models\Inventory;
 use App\Models\DeviceName;
 use Livewire\Attributes\Title;
 
 class LogbookEdit extends Component
 {
-    public $logbooks, $logId, $device_name_id, $merk, $tipe, $serial_number, $mulai, $selesai, $lokasi, $pic, $status;
+    public $logbooks, $logId, $inventory_id, $tanggal, $aksesoris, $kondisi_awal, $kondisi_akhir, $mulai_pinjam, $selesai_pinjam, $lokasi_pinjam, $pic_pinjam, $status;
     public function mount($logId)
     {
         $this->logbooks = LogBook::where('logId', $logId)->first();
-        $this->device_name_id = $this->logbooks->device_name_id;
-        $this->merk = $this->logbooks->brand;
-        $this->tipe = $this->logbooks->type;
-        $this->serial_number = $this->logbooks->serial_number;
-        $this->mulai = $this->logbooks->mulai_pinjam;
-        $this->selesai = $this->logbooks->selesai_pinjam;
-        $this->lokasi = $this->logbooks->lokasi_pinjam;
-        $this->pic = $this->logbooks->pic_pinjam;
+        $this->inventory_id = $this->logbooks->inventory_id;
+        $this->tanggal = $this->logbooks->date;
+        $this->aksesoris = $this->logbooks->aksesoris;
+        $this->kondisi_awal = $this->logbooks->kondisi_awal;
+        $this->kondisi_akhir = $this->logbooks->kondisi_akhir;
+        $this->mulai_pinjam = $this->logbooks->mulai_pinjam;
+        $this->selesai_pinjam = $this->logbooks->selesai_pinjam;
+        $this->lokasi_pinjam = $this->logbooks->lokasi_pinjam;
+        $this->pic_pinjam = $this->logbooks->pic_pinjam;
         $this->status = $this->logbooks->status;
     }
     public function update()
     {
         LogBook::where('logId', $this->logId)->update([
-            'device_name_id' => $this->device_name_id,
-            'brand' => $this->merk,
-            'type' => $this->tipe,
-            'serial_number' => $this->serial_number,
-            'mulai_pinjam' => $this->mulai,
-            'selesai_pinjam' => $this->selesai,
-            'lokasi_pinjam' => $this->lokasi,
-            'pic_pinjam' => $this->pic,
-            'status' => $this->status
+            'date' => $this->tanggal,
+            'aksesoris' => $this->aksesoris,
+            'mulai_pinjam' => $this->mulai_pinjam,
+            'kondisi_awal' => $this->kondisi_awal,
+            'selesai_pinjam' => $this->selesai_pinjam,
+            'kondisi_akhir' => $this->kondisi_akhir,
+            'lokasi_pinjam' => $this->lokasi_pinjam,
+            'pic_pinjam' => $this->pic_pinjam,
         ]);
 
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Log baru berhasil ditambahkan!',
+            'title' => 'Log baru berhasil diubah!',
             'toast'=> true,
             'position'=> 'top-end',
             'timer'=> 3000,
@@ -49,12 +50,12 @@ class LogbookEdit extends Component
 
         return $this->redirectRoute('logbooks.index', navigate:true);
     }
-    #[Title('Edit Logbook Item')]
+    #[Title('Ubah Entri Logbook')]
     public function render(User $user)
     {
         if($this->authorize('editLogbooks', $user)){
             return view('livewire.logbooks.logbook-edit', [
-                'deviceName' => DeviceName::all()
+                'inventory' => Inventory::all()
             ]);
         }else{
             abort(403);

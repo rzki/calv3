@@ -24,7 +24,7 @@ class RoleEdit extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Role berhasil diperbarui!',
+            'title' => 'Role berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,

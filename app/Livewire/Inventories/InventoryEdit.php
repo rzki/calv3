@@ -28,37 +28,36 @@ class InventoryEdit extends Component
         $status;
     public function mount($inventoryId)
     {
-        $this->inventories = Device::where('deviceId', $inventoryId)->first();
-        $this->invName = DeviceName::all();
+        $this->inventories = Inventory::where('inventoryId', $inventoryId)->first();
         $this->nama = $this->inventories->device_name;
         $this->merk = $this->inventories->brand;
         $this->tipe = $this->inventories->type;
-        $this->sn = $this->inventories->serial_number;
+        $this->sn = $this->inventories->sn;
         $this->tahun = $this->inventories->procurement_year;
         $this->no_inv = $this->inventories->inv_number;
-        $this->kalibrasi_terakhir = $this->inventories->calibration_date;
+        $this->kalibrasi_terakhir = $this->inventories->last_calibrated_date;
         $this->pic = $this->inventories->pic;
         $this->lokasi = $this->inventories->location;
         $this->status = $this->inventories->status;
     }
     public function update()
     {
-        Device::where('deviceId', $this->inventoryId)->update([
-            'name_id' => $this->nama,
+        Inventory::where('inventoryId', $this->inventoryId)->update([
+            'device_name' => $this->nama,
             'brand' => $this->merk,
             'type' => $this->tipe,
-            'serial_number' => $this->sn,
+            'sn' => $this->sn,
             'procurement_year' => $this->tahun,
             'inv_number' => $this->no_inv,
-            'calibration_date' => $this->kalibrasi_terakhir,
-            'next_calibration_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
+            'last_calibrated_date' => $this->kalibrasi_terakhir,
+            'next_calibrated_date' => Carbon::parse($this->kalibrasi_terakhir)->addYear(),
             'pic' => $this->pic,
             'location' => $this->lokasi,
-            'status' => $this->status,
+            // 'status' => $this->status,
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Inventaris berhasil diperbarui!',
+            'title' => 'Inventaris berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 3000,

@@ -32,7 +32,7 @@ class MyProfile extends Component
         ]);
         session()->flash('alert', [
             'type' => 'success',
-            'title' => 'Profil berhasil diperbarui!',
+            'title' => 'Profil berhasil diubah!',
             'toast' => true,
             'position' => 'top-end',
             'timer' => 2500,

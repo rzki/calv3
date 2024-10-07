@@ -54,8 +54,7 @@ class LogbookIndex extends Component
         if($this->authorize('logbooks', $user)){
             return view('livewire.logbooks.logbook-index', [
                 'logInv' => LogBook::search($this->search)
-                ->with('deviceNames')
-                ->where('submitter_id', Auth::user()->id)
+                ->with('inventories')
                 ->paginate($this->perPage),
             ]);
         }else{

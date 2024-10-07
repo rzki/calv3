@@ -25,6 +25,10 @@ class Inventory extends Model
     {
         return $this->belongsTo(Hospital::class, 'rs_id');
     }
+    public function histories()
+    {
+        return $this->hasMany(InventoryHistory::class);
+    }
     public function scopeSearch($query, $value)
     {
         $query->whereHas('devnames', function ($query) use ($value) {
