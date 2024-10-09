@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\Devices\DeviceEmptyQR;
+use App\Livewire\Devices\DeviceFilledQR;
 use App\Livewire\Hospitals\HospitalUser;
 use App\Livewire\MyProfile;
 use App\Livewire\DeviceList;
@@ -90,8 +92,9 @@ Route::middleware('auth')->group(function () {
     Route::get('inventories/logs/{inventoryId}/add-log', InventoryAddLog::class)->name('inventories.add_logs');
     Route::get('inventories/logs/{inventoryId}/edit-log/{logId}', InventoryEditLog::class)->name('inventories.edit_logs');
     // Devices
-    Route::get('devices/filled-qr', DeviceIndex::class)->name('devices.filled_qr');
-    Route::get('devices/empty-qr', DeviceIndex::class)->name('devices.empty_qr');
+    Route::get('devices', DeviceIndex::class)->name('devices.index');
+    Route::get('devices/filled-qr', DeviceFilledQR::class)->name('devices.filled_qr');
+    Route::get('devices/empty-qr', DeviceEmptyQR::class)->name('devices.empty_qr');
     Route::get('devices/generate', DeviceGenerate::class)->name('devices.generate');
     Route::get('devices/edit/{deviceId}', DeviceEdit::class)->name('devices.edit');
     Route::get('devices/detail/{deviceId}', DeviceDetail::class)->name('devices.detail');

@@ -56,12 +56,18 @@
                     <li
                         class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
                         <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
+                            <span class="sidebar-text">{{ __('Semua QR') }}</span>
+                        </a>
+                    </li>
+                    <li
+                        class="nav-item {{ request()->routeIs('devices.filled_qr') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
+                        <a href="{{ route('devices.filled_qr') }}" class="nav-link" wire:navigate>
                             <span class="sidebar-text">{{ __('QR Isi') }}</span>
                         </a>
                     </li>
                     <li
-                        class="nav-item {{ request()->routeIs('devices.index') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
-                        <a href="{{ route('devices.index') }}" class="nav-link" wire:navigate>
+                        class="nav-item {{ request()->routeIs('devices.empty_qr') || request()->routeIs('devices.generate') || request()->routeIs('devices.edit') ? 'active' : '' }}">
+                        <a href="{{ route('devices.empty_qr') }}" class="nav-link" wire:navigate>
                             <span class="sidebar-text">{{ __('QR Kosong') }}</span>
                         </a>
                     </li>
