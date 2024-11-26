@@ -193,7 +193,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                                                @if (!$alatKosong->isEmpty())
+                                                @if (!$alats->isEmpty())
                                                 <div class="pagination-text me-3 mb-3">
                                                     {{-- @if ($alats->total() > 0)
                                                     Showing {{ $alats->firstItem() }} -
@@ -201,7 +201,7 @@
                                                     {{ $alats->total() }}
                                                     @endif --}}
                                                 </div>
-                                                {{ $alatKosong->links() }}
+                                                {{ $alats->links() }}
                                                 @endif
                                             </div>
                                         </div>

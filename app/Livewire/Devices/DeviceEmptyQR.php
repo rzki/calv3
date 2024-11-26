@@ -127,7 +127,7 @@ class DeviceEmptyQR extends Component
             $this->pageNumber = request()->input('page', 1);
             session()->put('lastPageWithPageNumber', $this->pageNumber);
             return view('livewire.devices.device-empty-qr', [
-                'alatKosong' => $alatKosong,
+                'alats' => $alatKosong,
                 'qr' => $this->device,
             ]);
         }
