@@ -36,7 +36,6 @@ class UserIndex extends Component
         ]);
         return $this->redirectRoute('users.index', navigate: true);
     }
-
     public function resetPassword($userId)
     {
         $this->userId = $userId;
