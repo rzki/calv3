@@ -24,7 +24,6 @@ class LogBook extends Model
         // $query->whereHas('deviceNames', function ($query) use ($value) {
         $query
             ->where('aksesoris', 'like', "%{$value}%")
-            ->orWhere('kondisi_awal', 'like', "%{$value}%")
             ->orWhere('pic_pinjam', 'like', "%{$value}%");
         // });
         // $query->orWhere('inv_number', 'like', "%{$value}%");

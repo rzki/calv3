@@ -31,10 +31,8 @@
                                                     <th>{{ __('Tanggal Pinjam') }}</th>
                                                     <th>{{ __('Lokasi') }}</th>
                                                     <th>{{ __('Aksesoris') }}</th>
-                                                    <th>{{ __('Kondisi Awal') }}</th>
                                                     <th>{{ __('PIC') }}</th>
                                                     <th>{{ __('Tanggal Kembali') }}</th>
-                                                    <th>{{ __('Kondisi Akhir') }}</th>
                                                     <th style="width: 5em;"></th>
                                                 </tr>
                                             </thead>
@@ -61,14 +59,12 @@
                                                             @endif
                                                             <td>{{ $log->lokasi_pinjam ?? '' }}</td>
                                                             <td>{{ $log->aksesoris ?? '' }}</td>
-                                                            <td>{{ $log->kondisi_awal ?? '' }}</td>
                                                             <td>{{ $log->pic_pinjam }}</td>
                                                             @if ($log->selesai_pinjam == null)
                                                                 <td></td>
                                                             @else
                                                                 <td>{{ date('d/m/Y', strtotime($log->selesai_pinjam)) }}</td>
                                                             @endif
-                                                            <td>{{ $log->kondisi_akhir ?? '' }}</td>
                                                             @if (Auth::user()->hasRole(['Superadmin', 'Admin']))
                                                                 <td>
                                                                     <a href="{{ route('logbooks.edit', $log->logId) }}" class="btn btn-primary"><i

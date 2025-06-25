@@ -56,14 +56,14 @@
                                                             wire:model='mulai_pinjam'>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                {{-- <div class="col-lg-6">
                                                     <div class="form-group mb-3">
                                                         <label for="kondisi_awal"
                                                             class="form-label text-capitalize">{{ __('kondisi awal') }}</label>
                                                         <input type="text" name="kondisi_awal" id="kondisi_awal"
                                                             class="form-control" wire:model='kondisi_awal'>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-lg-6">
                                                     <div class="form-group mb-3">
                                                         <label for="tanggal_selesai_pinjam"
@@ -73,14 +73,14 @@
                                                             wire:model='selesai_pinjam'>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                {{-- <div class="col-lg-6">
                                                     <div class="form-group mb-3">
                                                         <label for="kondisi_akhir"
                                                             class="form-label text-capitalize">{{ __('kondisi akhir') }}</label>
                                                         <input type="text" name="kondisi_akhir" id="kondisi_akhir"
                                                             class="form-control" wire:model='kondisi_akhir'>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-lg-6">
                                                     <div class="form-group mb-3">
                                                         <label for="lokasi"

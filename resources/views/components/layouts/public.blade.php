@@ -13,14 +13,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     @livewireStyles()
 </head>
+ 
+<body>
     <main class="content">
         {{ $slot }}
     </main>
-
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     @livewireScripts()
-<body>
-
 </body>
 
 </html>
